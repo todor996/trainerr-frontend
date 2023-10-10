@@ -4,7 +4,6 @@ import { router } from "./routes/router";
 import { useAppSelector } from "./store/hooks.store";
 import "./localization/i18n";
 import { useTranslation } from "react-i18next";
-
 export function App(): JSX.Element {
   const { t } = useTranslation();
   const userName = useAppSelector((state) => state.home.userName);
@@ -17,7 +16,6 @@ export function App(): JSX.Element {
       <h3 className="text-2xl font-bold my-4">
         {t("title", { name: "user" })}
       </h3>
-
       <p className="my-1">Guest: {userName}</p>
       <RouterProvider router={router} />
     </div>
