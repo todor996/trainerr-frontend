@@ -1,27 +1,35 @@
-import "./App.css";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/router";
-import { useAppSelector } from "./store/hooks.store";
-import "./localization/i18n";
-import { useTranslation } from "react-i18next";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
-export function App(): JSX.Element {
-  const { t } = useTranslation();
-  const userName = useAppSelector((state) => state.home.userName);
-  const title = useAppSelector((state) => state.home.title);
+function App() {
+  const [count, setCount] = useState(0)
 
   return (
-    <div className="flex flex-col justify-start p-4 items-center border border-solid border-yellow-600 rounded">
-      <h1 className="text-3xl font-medium">App.tsx</h1>
-      <h2 className="text-2xl font-bold my-4">{title}</h2>
-      <h3 className="text-2xl font-bold my-4">
-        {t("title", { name: "user" })}
-      </h3>
-
-      <p className="my-1">Guest: {userName}</p>
-      <RouterProvider router={router} />
-    </div>
-  );
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
-export default App;
+export default App
