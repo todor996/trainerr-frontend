@@ -1,7 +1,19 @@
+import "Settings.style.css";
+
+import { Link } from "react-router-dom";
+
 export function Settings(): JSX.Element {
   return (
-    <p>
+    <div className="flex flex-col">
       Hello from <b>Settings Page!</b>
-    </p>
+      <div className="join">
+        <Link className="btn join-item" to="/">
+          Home
+        </Link>
+        <Link className="btn join-item" to="/settings">
+          Settings
+        </Link>
+      </div>
+    </div>
   );
 }

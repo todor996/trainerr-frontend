@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { _updateHomeStateAction } from "./homeActions.store.ts";
+import { _updateHomeStateAction } from "./homeActions.store";
 
 export interface HomeState {
     title: string;
