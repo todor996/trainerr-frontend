@@ -5,10 +5,10 @@ import { updateHomeState } from "./store/homeSlice.store";
 import { useTranslation } from "react-i18next";
 
 import { Link } from "react-router-dom";
-import { lazyLoadRecourseHook } from "../../shared/hooks/lazyLoadRecourse.hook";
+import { lazyLoadResourceHook } from "../../shared/hooks/lazyLoadResource.hook";
 
 export function Home(): JSX.Element {
-  lazyLoadRecourseHook({ folderName: "Home", namespace: "home" });
+  lazyLoadResourceHook({ folderName: "Home", namespace: "home" });
   const { t, i18n } = useTranslation();
 
   const dispatch = useAppDispatch();
@@ -52,13 +52,13 @@ export function Home(): JSX.Element {
       <div className="join">
         <button
           className="btn btn-neutral join-item"
-          onClick={() => setEnglish()}
+          onClick={setEnglish}
         >
           {t("home:langButton.en")}
         </button>
         <button
           className="btn btn-neutral join-item"
-          onClick={() => setSerbian()}
+          onClick={setSerbian}
         >
           {t("home:langButton.sr")}
         </button>

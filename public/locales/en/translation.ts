@@ -1,6 +1,6 @@
-import { AppRecourse } from '../../../src/types/locales.type';
+import { AppResource } from '../../../src/types/locales.type';
 
-const enRecourse: AppRecourse = {
+const enResource: AppResource = {
   "title": "Welcome Trainerr",
   "description": {
     "part1": "The best Trainerr app!",
@@ -11,5 +11,5 @@ const enRecourse: AppRecourse = {
   }
 };
 
-export default enRecourse;
+export default enResource;
 

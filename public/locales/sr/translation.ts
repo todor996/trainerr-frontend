@@ -1,6 +1,6 @@
-import { AppRecourse } from '../../../src/types/locales.type';
+import { AppResource } from '../../../src/types/locales.type';
 
-const srRecourse: AppRecourse = {
+const srResource: AppResource = {
   "title": "Dobrodosao Trenerru",
   "description": {
     "part1": "Najdobarata aplikacija za Trenerri",
@@ -11,5 +11,5 @@ const srRecourse: AppRecourse = {
   },
 };
 
-export default srRecourse;
+export default srResource;
 

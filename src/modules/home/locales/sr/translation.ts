@@ -1,6 +1,6 @@
 import { HomeLocal } from '../../types/HomeLocal.type';
 
-const srRecourse: HomeLocal = {
+const srResource: HomeLocal = {
   title: "Pocetna.page.tsx",
   usernameLabel: 'Trenerr',
   langButtonEng: 'Engleski',
@@ -11,5 +11,5 @@ const srRecourse: HomeLocal = {
   },
 };
 
-export default srRecourse;
+export default srResource;
 

@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from "i18next-resources-to-backend";
 
-const lazyLoadRecourse = resourcesToBackend(async (language: string, namespace: string) => {
+const lazyLoadResource = resourcesToBackend(async (language: string, namespace: string) => {
     return await import(`../../public/locales/${language}/${namespace || 'translation'}.ts`);
 });
 
@@ -12,7 +12,7 @@ const lazyLoadRecourse = resourcesToBackend(async (language: string, namespace: 
 i18n
     // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
-    .use(lazyLoadRecourse)
+    .use(lazyLoadResource)
     .use(initReactI18next)
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({

@@ -1,11 +1,11 @@
 import ReactDOM from "react-dom/client";
 
-import App from "./App.tsx";
+import App from "./App";
 import { Provider } from "react-redux";
-import { store } from "./store/index.store.ts";
+import { store } from "./store/index.store";
 
 import "./styles/index.style.css";
-import "./localization/i18next.local.ts";
+import "./localization/i18next.local";
 
 // TODO@pavle: Check why is `npm run lint` not working properly
 // TODO@pavle: Setup aliases for imports

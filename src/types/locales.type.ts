@@ -1,4 +1,4 @@
-export interface AppRecourse {
+export interface AppResource {
     title: string;
     description: {
         part1: string;

@@ -1,6 +1,6 @@
 import { HomeLocal } from '../../types/HomeLocal.type';
 
-const enRecourse: HomeLocal = {
+const enResource: HomeLocal = {
   title: "Home.page.tsx",
   usernameLabel: 'Trainerr',
   langButtonEng: 'English',
@@ -11,5 +11,5 @@ const enRecourse: HomeLocal = {
   }
 };
 
-export default enRecourse;
+export default enResource;
 
