@@ -26,5 +26,5 @@ export default defineConfig({
     tsconfigPaths(),
     VitePWA({ registerType: "autoUpdate" }),
   ],
-  base: "/trainer-frontend/",
+  base: "/trainerr-frontend/",
 });

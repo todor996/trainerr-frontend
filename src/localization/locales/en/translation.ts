@@ -1,4 +1,4 @@
-import { AppResource } from "../../../src/types/locales.type";
+import { AppResource } from "@type/locales.type";
 
 const enResource: AppResource = {
   title: "Welcome Trainerr",
