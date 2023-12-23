@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import checker from "vite-plugin-checker";
 import eslintPlugin from "vite-plugin-eslint";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 // TODO@pavle: Enable PWA
 // TODO@pavle: Add aliases
@@ -21,5 +22,6 @@ export default defineConfig({
       typescript: true,
     }),
     eslintPlugin(),
+    tsconfigPaths(),
   ],
 });
