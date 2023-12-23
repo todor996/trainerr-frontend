@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import checker from "vite-plugin-checker";
 import eslintPlugin from "vite-plugin-eslint";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { VitePWA } from "vite-plugin-pwa";
 
 // TODO@pavle: Enable PWA
 // TODO@pavle: Add aliases
@@ -23,5 +24,7 @@ export default defineConfig({
     }),
     eslintPlugin(),
     tsconfigPaths(),
+    VitePWA({ registerType: "autoUpdate" }),
   ],
+  base: "/trainer-frontend/",
 });
