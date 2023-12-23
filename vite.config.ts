@@ -1,8 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc';
-import checker from 'vite-plugin-checker';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import checker from "vite-plugin-checker";
+import eslintPlugin from "vite-plugin-eslint";
 
-// TODO@pavle: Enable PWA 
+// TODO@pavle: Enable PWA
 // TODO@pavle: Add aliases
 //   plugins: [svgr(), react(), VitePWA({ registerType: "autoUpdate" })],
 //   resolve: {
@@ -19,6 +20,6 @@ export default defineConfig({
     checker({
       typescript: true,
     }),
+    eslintPlugin(),
   ],
-})
-
+});

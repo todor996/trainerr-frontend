@@ -1,8 +1,9 @@
-export const homeRouter = {
-    path: "/",
-    async lazy() {
-        let { Home } = await import("./Home.page.tsx");
-        return { Component: Home };
-    },
-    children: [],
+import * as React from "react";
+
+const homeRouter = {
+  path: "/",
+  component: React.lazy(() => import("./Home.page")),
+  children: [],
 };
+
+export default homeRouter;

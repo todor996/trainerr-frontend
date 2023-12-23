@@ -1,21 +1,20 @@
 import "./Home.style.css";
 
-import { useAppDispatch, useAppSelector } from "../../store/hooks.store";
-import { updateHomeState } from "./store/homeSlice.store";
 import { useTranslation } from "react-i18next";
-
 import { Link } from "react-router-dom";
-import { lazyLoadResourceHook } from "../../shared/hooks/lazyLoadResource.hook";
+import { useAppDispatch, useAppSelector } from "@store/hooks.store";
+import useLazyLoadResourceHook from "@shared/hooks/lazyLoadResource.hook";
+import { updateHomeState } from "./store/homeSlice.store";
 
-export function Home(): JSX.Element {
-  lazyLoadResourceHook({ folderName: "Home", namespace: "home" });
+export default function Home(): JSX.Element {
+  useLazyLoadResourceHook({ folderName: "Home", namespace: "home" });
   const { t, i18n } = useTranslation();
 
   const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.home.username);
 
-  function updateUserName(username: string): void {
-    dispatch(updateHomeState({ username }));
+  function updateUserName(userName: string): void {
+    dispatch(updateHomeState({ username: userName }));
   }
 
   // TODO@pavle: Think about adding enum for languages
@@ -28,7 +27,7 @@ export function Home(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4 border border-solid border-yellow-600 rounded">
+    <div className="flex flex-col items-center gap-4 rounded border border-solid border-yellow-600 p-4">
       <div className="join">
         <Link className="btn join-item" to="/">
           Home
@@ -38,12 +37,13 @@ export function Home(): JSX.Element {
         </Link>
       </div>
 
-      <h2 className="text-2xl my-2 font-medium">{t("home:title")}</h2>
-      <label className="flex flex-col max-w-xs">
+      <h2 className="my-2 text-2xl font-medium">{t("home:title")}</h2>
+      <label className="flex max-w-xs flex-col" htmlFor="usernameInput">
         <span>{t("uncommon.guest")}</span>
         <input
           className="input input-bordered w-full max-w-xs"
           type="text"
+          id="usernameInput"
           placeholder="Username"
           value={username}
           onChange={(event) => updateUserName(event.target.value)}
@@ -51,12 +51,14 @@ export function Home(): JSX.Element {
       </label>
       <div className="join">
         <button
+          type="button"
           className="btn btn-neutral join-item"
           onClick={setEnglish}
         >
           {t("home:langButton.en")}
         </button>
         <button
+          type="button"
           className="btn btn-neutral join-item"
           onClick={setSerbian}
         >

@@ -1,8 +1,9 @@
-export const settingsRouter = {
-    path: "/settings",
-    async lazy() {
-        let { Settings } = await import("./Settings.page.tsx");
-        return { Component: Settings };
-    },
-    children: [],
+import * as React from "react";
+
+const settingsRouter = {
+  path: "/settings",
+  component: React.lazy(() => import("./Settings.page")),
+  children: [],
 };
+
+export default settingsRouter;

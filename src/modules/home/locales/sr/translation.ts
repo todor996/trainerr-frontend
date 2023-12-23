@@ -1,9 +1,9 @@
-import { HomeLocal } from '../../types/HomeLocal.type';
+import { HomeLocal } from "../../types/HomeLocal.type";
 
 const srResource: HomeLocal = {
   title: "Pocetna.page.tsx",
-  usernameLabel: 'Trenerr',
-  langButtonEng: 'Engleski',
+  usernameLabel: "Trenerr",
+  langButtonEng: "Engleski",
   langButtonSrb: "Srpski",
   langButton: {
     en: "Engleski",
@@ -12,4 +12,3 @@ const srResource: HomeLocal = {
 };
 
 export default srResource;
-
