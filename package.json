@@ -9,7 +9,7 @@
     "lint": "eslint --fix . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prepare": "husky install",
-    "predeploy" : "npm run build",
+    "predeploy" : "npm run build && cd dist && cp index.html 404.html",
     "deploy" : "gh-pages -d dist"
   },
   "homepage": "https://futureproofsoft.github.io/trainer-frontend/",
