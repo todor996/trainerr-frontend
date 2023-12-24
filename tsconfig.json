@@ -31,6 +31,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+  "files": ["globals.d.ts"],
   "include": ["src", "public"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
