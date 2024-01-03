@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint --fix . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint --fix . --ext ts,tsx --max-warnings 0",
+    "pre-commit": "lint-staged",
     "preview": "vite preview",
     "prepare": "husky install",
     "predeploy": "npm run build && cd dist && cp index.html 404.html",
@@ -16,7 +17,7 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "prettier --write",
-      "eslint --fix --ext ts,tsx,js,jsx --report-unused-disable-directives --max-warnings 0"
+      "eslint --fix --ext ts,tsx,js,jsx --max-warnings 0"
     ]
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "autoprefixer": "^10.4.16",
     "daisyui": "^3.9.4",
     "eslint": "^8.45.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
@@ -55,8 +57,8 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "postcss": "^8.4.31",
-    "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.10",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
