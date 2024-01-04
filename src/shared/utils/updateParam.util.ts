@@ -15,6 +15,5 @@ export default function updateParam({
   const queryParams = new URLSearchParams(window.location.search);
   queryParams.set(name, value);
 
-  // eslint-disable-next-line no-restricted-globals
-  history.replaceState(null, "", `?${queryParams.toString()}`);
+  history.replaceState(null, '', `?${queryParams.toString()}`);
 }
