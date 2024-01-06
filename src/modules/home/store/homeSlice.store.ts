@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { updateHomeStateAction } from "./homeActions.store";
-import { HomeState } from "./homeType.store";
+import { createSlice } from '@reduxjs/toolkit';
+import { updateHomeStateAction } from './homeActions.store';
+import { HomeState } from './homeType.store';
 
 const initialState: HomeState = {
-  title: "Naslov aplikacije",
-  username: "",
+  title: 'Naslov aplikacije',
+  username: '',
 };
 
 const homeSlice = createSlice({
-  name: "home",
+  name: 'home',
   initialState,
   reducers: {
     updateHomeState: updateHomeStateAction,
