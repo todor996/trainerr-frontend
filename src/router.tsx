@@ -1,24 +1,20 @@
-import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import homeRouter from './modules/home/Home.router';
 import settingsRouter from './modules/settings/Settings.router';
 import authRouter from '@modules/auth/Auth.router';
-import Auth from '@modules/auth/Auth.page';
+import { WrappedOutlet } from '@shared/components/WrappedOutlet/WrappedOutlet.component';
 
-const router = createBrowserRouter(
+const env = import.meta.env;
+
+export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Outlet />,
+      element: <WrappedOutlet />,
       children: [homeRouter, settingsRouter, authRouter],
-    },
-    {
-      path: '/login',
-      element: <Auth />,
     },
   ],
   {
-    basename: import.meta.env.DEV ? '/' : '/trainerr-frontend/',
+    basename: env.DEV ? '/' : '/trainerr-frontend/',
   },
 );
-
-export default router;

@@ -23,7 +23,7 @@ async function lazyLoadResource({
 /**
  * Lazy Loads localization recourses
  *
- * @param folderName - Folder name containing locales folder // eg. `Home`
+ * @param folderName - Folder name containing locales folder // eg. `home`
  * @param namespace - Use this to access translation for this module // eg. `home`
  */
 export default function useLazyLoadResourceHook({
