@@ -1,8 +1,8 @@
-import * as React from "react";
+import { lazy } from 'react';
 
 const homeRouter = {
-  path: "/",
-  component: React.lazy(() => import("./Home.page")),
+  path: '/',
+  component: lazy(() => import('./Home.page')),
   children: [],
 };
 

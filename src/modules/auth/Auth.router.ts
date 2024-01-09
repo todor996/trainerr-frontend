@@ -1,8 +1,9 @@
-import * as React from 'react';
+import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
-const authRouter = {
-  path: '/',
-  component: React.lazy(() => import('./Auth.page')),
+const authRouter: RouteObject = {
+  path: 'auth',
+  Component: lazy(() => import('./Auth.page')),
   children: [],
 };
 
