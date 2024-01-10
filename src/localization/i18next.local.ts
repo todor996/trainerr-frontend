@@ -20,6 +20,7 @@ i18n
     partialBundledLanguages: true,
     fallbackLng: 'sr',
     debug: true,
+    load: 'languageOnly',
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

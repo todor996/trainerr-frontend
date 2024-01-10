@@ -1,13 +1,13 @@
-import { AppResource } from "@type/locales.type";
+import { AppResource } from '@type/locales.type';
 
 const enResource: AppResource = {
-  title: "Welcome Trainerr",
+  title: 'Welcome Trainerr',
   description: {
-    part1: "The best Trainerr app!",
-    part2: "Switch language between english and german using buttons above.",
+    part1: 'The best Trainerr app!',
+    part2: 'Switch language between english and german using buttons above.',
   },
   uncommon: {
-    guest: "Guest",
+    guest: 'Guest',
   },
 };
 

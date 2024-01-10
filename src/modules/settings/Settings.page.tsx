@@ -1,6 +1,6 @@
-import "./Settings.style.css";
+import './Settings.style.css';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function Settings(): JSX.Element {
   return (

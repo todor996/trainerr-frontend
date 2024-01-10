@@ -1,8 +1,9 @@
-import * as React from "react";
+import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
-const settingsRouter = {
-  path: "/settings",
-  component: React.lazy(() => import("./Settings.page")),
+const settingsRouter: RouteObject = {
+  path: 'settings',
+  Component: lazy(() => import('./Settings.page')),
   children: [],
 };
 
