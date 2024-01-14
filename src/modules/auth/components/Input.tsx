@@ -1,23 +1,32 @@
 type InputProps = {
   type: string;
-  placeholder: string;
+  placeholder?: string;
   autoComplete?: string;
   required?: boolean;
+  label?: string;
 };
 
-export const Input = ({
+export function Input({
   type,
   placeholder,
   autoComplete,
   required = false,
-}: InputProps) => {
+  label,
+}: InputProps): JSX.Element {
   return (
-    <input
-      autoComplete={autoComplete}
-      type={type}
-      placeholder={placeholder}
-      className="input input-bordered w-full"
-      required={required}
-    />
+    <label className="form-control w-full">
+      {label && (
+        <div className="label">
+          <span className="label-text">{label}</span>
+        </div>
+      )}
+      <input
+        autoComplete={autoComplete}
+        type={type}
+        placeholder={placeholder}
+        className="input input-bordered w-full"
+        required={required}
+      />
+    </label>
   );
-};
+}

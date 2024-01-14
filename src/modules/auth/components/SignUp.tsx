@@ -1,52 +1,32 @@
-import { Input } from './Input';
 import { Button } from './Button';
+import { AppLogo } from './AppLogo';
+import { Subheading } from './Subheading';
+import { TermsComponent } from './TermsComponent';
+import { FormSignUp } from './FormSignUp';
+import { Title } from './Title';
+import { HaveAccComponent } from './HaveAccComponent';
+import { MobileComponent } from './MobileComponent';
 
 export function SignUp(): JSX.Element {
   return (
-    <section className="m-3">
-      <h4 className="flex justify-center pt-8 text-2xl">trainerr</h4>
-      <h2 className="py-6 text-4xl">Sign Up</h2>
-      <form className="flex flex-col space-y-2">
-        <Input type="text" placeholder="First Name" />
+    <>
+      <Title />
+      <section className="m-3 lg:m-0 lg:grid lg:grid-cols-2">
+        <div className="py-6 md:flex md:justify-center">
+          <div className="flex flex-col justify-between">
+            <FormSignUp />
+            <TermsComponent />
+            <Button className="btn-primary w-full">Sign Up</Button>
+            <HaveAccComponent />
+          </div>
+        </div>
 
-        <Input type="text" placeholder="Last Name" />
-
-        <Input type="date" placeholder="Birthday" />
-
-        <Input
-          type="email"
-          placeholder="Email address"
-          autoComplete="current-email"
-          required={true}
-        />
-
-        <Input
-          type="password"
-          placeholder="Password"
-          autoComplete="current-password"
-          required={true}
-        />
-      </form>
-
-      <label className="label flex justify-start gap-2">
-        <input type="checkbox" className="checkbox" />
-        <span className="label-text">
-          Yes, I accept <span className="cursor-pointer">privice policy</span> &{' '}
-          <span className="cursor-pointer">terms of use</span>.
-        </span>
-      </label>
-
-      <div className="grid grid-cols-2 justify-between gap-3 pt-6">
-        <Button>Cancel</Button>
-        <Button className="btn-primary">Sign Up</Button>
-      </div>
-
-      <p className="pt-8">
-        You already have an account?{' '}
-        <a href="#" className="cursor-pointer text-primary">
-          Log In
-        </a>
-      </p>
-    </section>
+        <div className="hidden gap-4 bg-primary py-6 lg:flex lg:flex-col lg:items-center">
+          <Subheading />
+          <AppLogo />
+          <MobileComponent />
+        </div>
+      </section>
+    </>
   );
 }

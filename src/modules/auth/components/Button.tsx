@@ -3,6 +3,6 @@ type ButtonProps = {
   className?: string;
 };
 
-export const Button = ({ children, className }: ButtonProps) => {
+export function Button({ children, className }: ButtonProps): JSX.Element {
   return <button className={`btn w-full ${className}`}>{children}</button>;
-};
+}
