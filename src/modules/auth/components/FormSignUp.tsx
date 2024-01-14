@@ -6,8 +6,8 @@ export function FormSignUp(): JSX.Element {
 
   return (
     <>
-      <h2 className="text-4xl">Sign Up</h2>
-      <form className="flex flex-col space-y-1">
+      <h2 className="pb-4 text-4xl">{t('auth:signUp')}</h2>
+      <form className="flex flex-col space-y-4">
         <Input
           type="text"
           placeholder={t('auth:placeholderFirstName')}

@@ -12,6 +12,8 @@ const enResource = {
   placeholderLastName: 'Smith',
   placeholderEmail: 'john.smith@trainerr.com',
   placeholderPassword: '**********',
+  signUp: 'Sign Up',
+  signUpButton: 'Sign Up',
   langButton: {
     en: 'English',
     sr: 'Serbian',

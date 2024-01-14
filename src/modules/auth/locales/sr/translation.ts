@@ -12,6 +12,8 @@ const srResource = {
   placeholderLastName: 'Markovic',
   placeholderEmail: 'marko.markovic@trainerr.com',
   placeholderPassword: '**********',
+  signUp: 'Registracija',
+  signUpButton: 'Prijavi se',
   langButton: {
     en: 'Engleski',
     sr: 'Srpski',
