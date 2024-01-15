@@ -1,5 +1,6 @@
-const enResource = {
-  title: 'Signup.page.tsx',
+import { AuthLocal } from '@modules/auth/types/AuthLocal.type';
+
+const enResource: AuthLocal = {
   usernameLabel: 'Trainerr',
   langButtonEng: 'English',
   langButtonSrb: 'Serbian',
@@ -8,10 +9,10 @@ const enResource = {
   birthdayLabel: 'Birthday',
   emailLabel: 'Email Address',
   passwordLabel: 'Password',
-  placeholderFirstName: 'John',
-  placeholderLastName: 'Smith',
-  placeholderEmail: 'john.smith@trainerr.com',
-  placeholderPassword: '**********',
+  firstNamePlaceholder: 'John',
+  lastNamePlaceholder: 'Smith',
+  emailPlaceholder: 'john.smith@trainerr.com',
+  passwordPlaceholder: '**********',
   signUp: 'Sign Up',
   signUpButton: 'Sign Up',
   langButton: {

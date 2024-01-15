@@ -1,5 +1,5 @@
-import { PlatformsList } from './PlatformsList';
-import Mobile from 'src/assets/Mobile.png';
+import { SupportedPlatformsList } from './SupportedPlatformsList.component';
+import { PhoneMockup } from './PhoneMockup.component';
 
 export function PresentationSection(): JSX.Element {
   return (
@@ -11,10 +11,10 @@ export function PresentationSection(): JSX.Element {
       </h2>
       <p>On ALL platforms</p>
 
-      <PlatformsList />
+      <SupportedPlatformsList />
 
       <h5 className="font-medium">Within minutes</h5>
-      <img src={Mobile} alt="Mobile" />
+      <PhoneMockup />
     </div>
   );
 }

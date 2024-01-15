@@ -1,6 +1,6 @@
-import { Title } from './Title';
-import { SignUpFormSection } from './SignUpFormSection';
-import { PresentationSection } from './PresentationSection';
+import { Title } from './Title.component';
+import { SignUpFormSection } from './SignUpFormSection.component';
+import { PresentationSection } from './PresentationSection.component';
 
 export function SignUp(): JSX.Element {
   return (
