@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 const authRouter: RouteObject = {
   path: 'auth',
   children: [
@@ -12,6 +12,14 @@ const authRouter: RouteObject = {
       path: 'login',
       Component: lazy(() => import('./LogIn.page')),
       children: [],
+    },
+    {
+      path: '',
+      element: <Navigate to="login" />,
+    },
+    {
+      path: '*',
+      element: <Navigate to="login" />,
     },
   ],
 };

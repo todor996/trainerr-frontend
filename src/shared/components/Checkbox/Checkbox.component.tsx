@@ -4,9 +4,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 type CheckboxProps = {
   className?: string;
   children?: ReactNode;
-  //eslint-disable-next-line
-  registerProps?: UseFormRegisterReturn<any>;
-  name: string;
+  registerProps?: UseFormRegisterReturn<string>;
 };
 
 export function Checkbox({

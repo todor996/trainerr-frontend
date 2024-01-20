@@ -8,11 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
-    { type, placeholder, autoComplete, label, error, registerProps },
-    // eslint-disable-next-line
-    _ref,
-  ) => {
+  ({ type, placeholder, autoComplete, label, error, registerProps }, ref) => {
     return (
       <label className="form-control w-full">
         {label && (
@@ -25,6 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           placeholder={placeholder}
           className={`input input-bordered w-full ${error && 'border-error'}`}
+          ref={ref}
           {...registerProps}
         />
         {error && (

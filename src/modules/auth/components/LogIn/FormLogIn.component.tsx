@@ -27,12 +27,14 @@ export function FormLogIn(): JSX.Element {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
         <Input
           type="email"
+          label={t('auth:emailLabel')}
           placeholder={t('auth:emailPlaceholder')}
           autoComplete="current-email"
           registerProps={register('email', { required: true })}
         />
         <Input
           type="password"
+          label={t('auth:passwordLabel')}
           placeholder={t('auth:passwordPlaceholder')}
           autoComplete="current-password"
           registerProps={register('password', { required: true })}

@@ -2,7 +2,7 @@ import { Input } from '@shared/components/Input/Input.component';
 import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { Checkbox } from '../shared/Checkbox.component';
+import { Checkbox } from '../../../../shared/components/Checkbox/Checkbox.component';
 
 export interface FormInputs {
   firstName: string;
@@ -31,7 +31,6 @@ export function FormSignUp(): JSX.Element {
       <h2 className="pb-4 text-4xl">{t('auth:signUp')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
         <Input
-          name="firstName"
           type="text"
           placeholder={t('auth:firstNamePlaceholder')}
           label={t('auth:firstNameLabel')}
@@ -39,21 +38,18 @@ export function FormSignUp(): JSX.Element {
         />
         <Input
           type="text"
-          name="lastName"
           placeholder={t('auth:lastNamePlaceholder')}
           label={t('auth:lastNameLabel')}
           registerProps={register('lastName', { required: true })}
         />
         <Input
           type="date"
-          name="date"
           placeholder={t('auth:birthdayLabel')}
           label={t('auth:birthdayLabel')}
           registerProps={register('date', { required: true })}
         />
         <Input
           type="email"
-          name="email"
           placeholder={t('auth:emailPlaceholder')}
           autoComplete="current-email"
           label={t('auth:emailLabel')}
@@ -61,17 +57,12 @@ export function FormSignUp(): JSX.Element {
         />
         <Input
           type="password"
-          name="password"
           placeholder={t('auth:passwordPlaceholder')}
           autoComplete="current-password"
           label={t('auth:passwordLabel')}
           registerProps={register('password', { required: true })}
         />
-        <Checkbox
-          name="terms"
-          registerProps={register('terms', { required: true })}
-          className="gap-2"
-        >
+        <Checkbox registerProps={register('terms', { required: true })} className="gap-2">
           Yes, I accept <a className="cursor-pointer text-primary">privacy policy</a> &{' '}
           <a className="cursor-pointer text-primary">terms of use</a>.
         </Checkbox>

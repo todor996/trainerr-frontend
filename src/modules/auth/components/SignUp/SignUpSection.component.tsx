@@ -1,4 +1,4 @@
-import { FormSignUp } from './FormSignUp.component.component';
+import { FormSignUp } from './FormSignUp.component';
 
 export function SignUpSection(): JSX.Element {
   return (
