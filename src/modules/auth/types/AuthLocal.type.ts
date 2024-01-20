@@ -12,7 +12,9 @@ export interface AuthLocal {
   emailPlaceholder: string;
   passwordPlaceholder: string;
   signUp: string;
+  logIn: string;
   signUpButton: string;
+  logInButton: string;
   langButton: {
     en: string;
     sr: string;

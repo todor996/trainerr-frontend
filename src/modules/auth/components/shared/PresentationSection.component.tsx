@@ -1,5 +1,5 @@
-import { SupportedPlatformsList } from './SupportedPlatformsList.component';
-import { PhoneMockup } from './PhoneMockup.component';
+import { SupportedPlatformsList } from '../SignUp/SupportedPlatformsList.component';
+import { PhoneMockup } from '../SignUp/PhoneMockup.component';
 
 export function PresentationSection(): JSX.Element {
   return (

@@ -14,7 +14,9 @@ const enResource: AuthLocal = {
   emailPlaceholder: 'john.smith@trainerr.com',
   passwordPlaceholder: '**********',
   signUp: 'Sign Up',
+  logIn: 'Log In',
   signUpButton: 'Sign Up',
+  logInButton: 'Log In',
   langButton: {
     en: 'English',
     sr: 'Serbian',

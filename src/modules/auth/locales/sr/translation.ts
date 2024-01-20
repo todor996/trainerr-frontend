@@ -14,7 +14,9 @@ const srResource: AuthLocal = {
   emailPlaceholder: 'marko.markovic@trainerr.com',
   passwordPlaceholder: '**********',
   signUp: 'Registracija',
+  logIn: 'Prijavite se',
   signUpButton: 'Prijavi se',
+  logInButton: 'Prijavite se',
   langButton: {
     en: 'Engleski',
     sr: 'Srpski',

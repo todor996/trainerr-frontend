@@ -1,4 +1,4 @@
-import '../../auth/Auth.style.css';
+import '../../Auth.style.css';
 
 export function PhoneMockup(): JSX.Element {
   return (

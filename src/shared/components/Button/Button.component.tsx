@@ -4,11 +4,17 @@ type ButtonProps = {
   children: React.ReactNode;
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  type?: 'button' | 'submit' | 'reset';
 };
 
-export function Button({ children, className, onClick }: ButtonProps): JSX.Element {
+export function Button({
+  children,
+  className,
+  onClick,
+  type = 'button',
+}: ButtonProps): JSX.Element {
   return (
-    <button onClick={onClick} className={`btn w-full ${className}`}>
+    <button type={type} onClick={onClick} className={`btn flex w-full ${className}`}>
       {children}
     </button>
   );
