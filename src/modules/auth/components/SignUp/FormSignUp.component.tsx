@@ -19,12 +19,13 @@ export function FormSignUp(): JSX.Element {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm<FormInputs>();
 
   const onSubmit = async (data: FormInputs) => {
     console.log('Form Data:', data);
   };
+  console.log(errors);
 
   return (
     <>
@@ -35,18 +36,21 @@ export function FormSignUp(): JSX.Element {
           placeholder={t('auth:firstNamePlaceholder')}
           label={t('auth:firstNameLabel')}
           registerProps={register('firstName', { required: true })}
+          error={errors['firstName'] && t(`auth:error:${errors['firstName'].type}`)}
         />
         <Input
           type="text"
           placeholder={t('auth:lastNamePlaceholder')}
           label={t('auth:lastNameLabel')}
           registerProps={register('lastName', { required: true })}
+          error={errors['lastName'] && t(`auth:error:${errors['lastName'].type}`)}
         />
         <Input
           type="date"
           placeholder={t('auth:birthdayLabel')}
           label={t('auth:birthdayLabel')}
           registerProps={register('date', { required: true })}
+          error={errors['date'] && t(`auth:error:${errors['date'].type}`)}
         />
         <Input
           type="email"
@@ -54,13 +58,15 @@ export function FormSignUp(): JSX.Element {
           autoComplete="current-email"
           label={t('auth:emailLabel')}
           registerProps={register('email', { required: true })}
+          error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
         />
         <Input
           type="password"
           placeholder={t('auth:passwordPlaceholder')}
           autoComplete="current-password"
           label={t('auth:passwordLabel')}
-          registerProps={register('password', { required: true })}
+          registerProps={register('password', { required: true, minLength: 8 })}
+          error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
         />
         <Checkbox registerProps={register('terms', { required: true })} className="gap-2">
           Yes, I accept <a className="cursor-pointer text-primary">privacy policy</a> &{' '}

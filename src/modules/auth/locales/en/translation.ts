@@ -16,6 +16,10 @@ const enResource: AuthLocal = {
   signUp: 'Sign Up',
   logIn: 'Log In',
   signUpButton: 'Sign Up',
+  error: {
+    minLength: 'Minimum length is 8',
+    required: 'This field is required',
+  },
   logInButton: 'Log In',
   langButton: {
     en: 'English',

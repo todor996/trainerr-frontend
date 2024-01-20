@@ -15,6 +15,10 @@ const srResource: AuthLocal = {
   passwordPlaceholder: '**********',
   signUp: 'Registracija',
   logIn: 'Prijavite se',
+  error: {
+    minLength: 'Lozinka mora da sadrži najmanje 8 karaktera',
+    required: 'Ovo polje je obavezno',
+  },
   signUpButton: 'Prijavi se',
   logInButton: 'Prijavite se',
   langButton: {
