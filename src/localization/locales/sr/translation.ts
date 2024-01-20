@@ -1,13 +1,13 @@
-import { AppResource } from "@type/locales.type";
+import { AppResource } from '@type/locales.type';
 
 const srResource: AppResource = {
-  title: "Dobrodosao Trenerru",
+  title: 'Dobrodosao Trenerru',
   description: {
-    part1: "Najdobarata aplikacija za Trenerri",
-    part2: "Switch language between english and german using buttons above.",
+    part1: 'Najdobarata aplikacija za Trenerri',
+    part2: 'Switch language between english and german using buttons above.',
   },
   uncommon: {
-    guest: "Gost",
+    guest: 'Gost',
   },
 };
 
