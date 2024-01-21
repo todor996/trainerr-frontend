@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 
-export const clientRouter: RouteObject = {
+export const clientsRouter: RouteObject = {
   path: 'trainer/clients',
   children: [
     {

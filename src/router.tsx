@@ -5,7 +5,7 @@ import { authRouter } from '@modules/auth/Auth.router';
 import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
 import { trainingTrainerRouter } from '@modules/training/trainer/TrainingTrainer.router';
 import { trainingClientRouter } from '@modules/training/client/TrainingClient.router';
-import { clientRouter } from '@modules/clients/trainer/Client.router';
+import { clientsRouter } from '@modules/clients/trainer/Clients.router';
 
 const env = import.meta.env;
 
@@ -20,7 +20,7 @@ export const router = createBrowserRouter(
         authRouter,
         trainingTrainerRouter,
         trainingClientRouter,
-        clientRouter,
+        clientsRouter,
       ],
     },
   ],

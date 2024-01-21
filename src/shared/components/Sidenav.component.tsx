@@ -12,26 +12,24 @@ export function Sidenav(): JSX.Element {
   }
 
   return (
-    <>
-      <nav className="h-screen h-svh w-48 border-r-2 border-neutral-100 pb-6 pt-3">
-        <div className="flex h-full flex-col justify-between">
-          {/* TOP OPTIONS */}
-          <div>
-            {topNavOptions.map((option, index) => {
-              return <SidenavItem {...option} key={index} />;
-            })}
-          </div>
-
-          {/* BOTTOM OPTIONS */}
-          <div>
-            {bottomNavOptions.map((option, index) => {
-              return <SidenavItem {...option} key={index} />;
-            })}
-
-            <NavItem to="/log-in" icon={faChevronRight} text="Log Out" onClick={logOut} />
-          </div>
+    <nav className="h-screen h-svh w-48 border-r-2 border-neutral-100 pb-6 pt-3">
+      <div className="flex h-full flex-col justify-between">
+        {/* TOP OPTIONS */}
+        <div>
+          {topNavOptions.map((option, index) => {
+            return <SidenavItem {...option} key={index} />;
+          })}
         </div>
-      </nav>
-    </>
+
+        {/* BOTTOM OPTIONS */}
+        <div>
+          {bottomNavOptions.map((option, index) => {
+            return <SidenavItem {...option} key={index} />;
+          })}
+
+          <NavItem to="/log-in" icon={faChevronRight} text="Log Out" onClick={logOut} />
+        </div>
+      </div>
+    </nav>
   );
 }
