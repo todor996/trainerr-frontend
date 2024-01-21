@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { FormSignUp } from './FormSignUp.component';
 import { Link } from 'react-router-dom';
+import { FormSignUp } from './FormSignUp.component';
 
 export function SignUpSection(): JSX.Element {
   const { t } = useTranslation();
+
   return (
     <div className="md:flex md:justify-center">
       <div className="flex flex-col justify-between py-6 lg:w-1/2">

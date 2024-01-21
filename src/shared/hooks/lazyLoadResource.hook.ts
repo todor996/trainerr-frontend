@@ -10,9 +10,9 @@ async function lazyLoadResource({
   folderName: string;
   namespace: string;
 }) {
-  const module = await import(
-    `../../modules/${folderName}/locales/${i18n.language}/translation.ts`
-  );
+  // TODO: Test this with deploy
+  const path = `../../modules/${folderName}/locales/${i18n.language}/translation.ts`;
+  const module = await import(/* @vite-ignore */ path);
   const resource = module.default;
 
   i18n.addResourceBundle(i18n.language, namespace, resource, true);

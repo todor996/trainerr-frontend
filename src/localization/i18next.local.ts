@@ -19,7 +19,7 @@ i18n
   .init({
     partialBundledLanguages: true,
     fallbackLng: 'sr',
-    debug: true,
+    debug: false, // Set to `true` when you want detailed logs in console for localization
     load: 'languageOnly',
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default

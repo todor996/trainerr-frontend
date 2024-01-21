@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 export function LogInSection(): JSX.Element {
   const { t } = useTranslation();
+  
   return (
     <div className="md:flex md:justify-center">
       <div className="flex flex-col py-6 lg:w-1/2">

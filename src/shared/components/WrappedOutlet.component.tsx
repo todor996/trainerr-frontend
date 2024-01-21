@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Loading } from '../Loading/Loading.component';
+import { LoadingPage } from './LoadingPage.component';
 
 export function WrappedOutlet() {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<LoadingPage />}>
       <Outlet />
     </Suspense>
   );

@@ -44,6 +44,7 @@
     "redux-persist": "^6.0.0",
     "sort-by": "^0.0.2",
     "vite-plugin-pwa": "^0.17.5",
+    "tailwind-merge": "^2.2.0",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.1"
   },
