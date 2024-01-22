@@ -27,7 +27,7 @@ export function Sidenav(): JSX.Element {
             return <SidenavItem {...option} key={index} />;
           })}
 
-          <NavItem to="/log-in" icon={faChevronRight} text="Log Out" onClick={logOut} />
+          <NavItem to="/login" icon={faChevronRight} text="Log Out" onClick={logOut} />
         </div>
       </div>
     </nav>

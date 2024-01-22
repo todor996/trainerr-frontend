@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
 export const trainingTrainerRouter: RouteObject = {
-  path: 'trainer/training',
+  path: 'training',
   children: [
     {
       path: 'plans',

@@ -18,9 +18,14 @@ export const router = createBrowserRouter(
         homeRouter,
         settingsRouter,
         authRouter,
-        trainingTrainerRouter,
-        trainingClientRouter,
-        clientsRouter,
+        {
+          path: 'trainer',
+          children: [trainingTrainerRouter, clientsRouter],
+        },
+        {
+          path: 'client',
+          children: [trainingClientRouter],
+        },
       ],
     },
   ],
