@@ -1,4 +1,4 @@
-import { ClientsLocal } from '../../types/ClientsLocal.type';
+import { ClientsLocal } from '../../types/clientsLocal.type.tpov';
 
 const enResource: ClientsLocal = {
   title: 'Clients',

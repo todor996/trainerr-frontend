@@ -37,14 +37,14 @@ export const trainerNavOptions: {
       ],
     },
     {
-      text: 'Nutrition',
+      text: 'Home',
       icon: faApple,
-      to: '/trainer/nutrition',
+      to: '/home',
     },
     {
-      text: 'Clients',
+      text: 'Subhome',
       icon: faUserFriends,
-      to: '/trainer/clients',
+      to: '/home/sub',
     },
     {
       text: 'Notifications',

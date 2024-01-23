@@ -6,7 +6,7 @@ export const clientsRouter: RouteObject = {
   children: [
     {
       path: '',
-      Component: lazy(() => import('./pages/Clients.page')),
+      Component: lazy(() => import('./Clients.page.tpov')),
       children: [],
     },
   ],

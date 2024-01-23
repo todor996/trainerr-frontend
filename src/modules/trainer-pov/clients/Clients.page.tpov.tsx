@@ -1,11 +1,16 @@
 import { Sidenav } from '@shared/components/Sidenav.component';
 import useLazyLoadResourceHook from '@shared/hooks/lazyLoadResource.hook';
 import { useTranslation } from 'react-i18next';
+import { Outlet } from 'react-router-dom';
 
 interface ClientsProps {}
 
 export default function Clients(props: ClientsProps): JSX.Element {
-  useLazyLoadResourceHook({ folderName: 'clients/trainer', namespace: 'clients' });
+  useLazyLoadResourceHook({
+    folderName: 'trainer-pov/clients',
+    namespace: 'clients',
+    pov: 'tpov',
+  });
 
   const { t } = useTranslation();
 
@@ -14,7 +19,11 @@ export default function Clients(props: ClientsProps): JSX.Element {
   return (
     <div className="flex">
       <Sidenav />
-      <div>Hello from ClientsComponent & {t('clients:title')}!</div>
+      <main>
+        {/* TODO: Place Header here */}
+        <div>Hello from ClientsComponent & {t('clients:title')}!</div>
+        <Outlet />
+      </main>
     </div>
   );
 }

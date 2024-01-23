@@ -1,4 +1,4 @@
-import { TrainingTrainerLocal } from '@modules/training/trainer/types/TrainingTrainerLocal.type';
+import { TrainingTrainerLocal } from '../../types/TrainingLocal.type.tpov';
 
 const enResource: TrainingTrainerLocal = {
   rnd: 'Random Tekst na sprskom',
