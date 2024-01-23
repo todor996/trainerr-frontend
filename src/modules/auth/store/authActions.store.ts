@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { signup } from '../api/signup.api';
-import { AuthState } from '../types';
-import { TrainerSignup } from '@modules/auth/types';
+import { signup, login } from '../api/index.api.ts';
+import { AuthState, TrainerSignup, Login } from '../types';
 
 export interface AuthStateOptions extends Partial<AuthState> {}
 
@@ -22,17 +21,28 @@ export function updateAuthStateAction(
 }
 
 // Define an async action creator for signup
-export const trainerSignupAction = createAsyncThunk<
-  TrainerSignup,
-  { authData: TrainerSignup }
->('auth/trainerSignup', async ({ authData }, { rejectWithValue }) => {
-  try {
-    const response = await signup(authData);
-    return response.data;
-    //eslint-disable-next-line
-  } catch (error: any) {
-    console.log(error);
-    console.log(error.response);
-    return rejectWithValue(error.response?.data);
-  }
-});
+export const trainerSignupAction = createAsyncThunk<string, TrainerSignup>(
+  'auth/trainerSignup',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await signup(data);
+      return response.data;
+      //eslint-disable-next-line
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data);
+    }
+  },
+);
+
+export const loginAction = createAsyncThunk<string, Login>(
+  'auth/login',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await login(data);
+      return response.data;
+      //eslint-disable-next-line
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data);
+    }
+  },
+);

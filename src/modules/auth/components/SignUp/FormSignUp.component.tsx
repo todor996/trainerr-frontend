@@ -3,19 +3,21 @@ import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { Checkbox } from '../../../../shared/components/Checkbox/Checkbox.component';
+import { useAppDispatch } from '@store/index.store.ts';
+import { trainerSignupAction } from '@modules/auth/store/authActions.store.ts';
 
 export interface FormInputs {
   firstName: string;
   lastName: string;
   terms: boolean;
-  date: string;
+  birthdate: string;
   email: string;
   password: string;
 }
 
 export function FormSignUp(): JSX.Element {
   const { t } = useTranslation();
-
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -24,6 +26,11 @@ export function FormSignUp(): JSX.Element {
 
   const onSubmit = async (data: FormInputs) => {
     console.log('Form Data:', data);
+    dispatch(trainerSignupAction(data))
+      //eslint-disable-next-line
+      .then((response: any) => {
+        console.log(response);
+      });
   };
   console.log(errors);
 
@@ -49,8 +56,8 @@ export function FormSignUp(): JSX.Element {
           type="date"
           placeholder={t('auth:birthdayLabel')}
           label={t('auth:birthdayLabel')}
-          registerProps={register('date', { required: true })}
-          error={errors['date'] && t(`auth:error:${errors['date'].type}`)}
+          registerProps={register('birthdate', { required: true })}
+          error={errors['birthdate'] && t(`auth:error:${errors['birthdate'].type}`)}
         />
         <Input
           type="email"
