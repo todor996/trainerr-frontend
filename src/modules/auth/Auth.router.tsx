@@ -14,6 +14,11 @@ const authRouter: RouteObject = {
       children: [],
     },
     {
+      path: 'resetPassword',
+      Component: lazy(() => import('./ResetPassword.page')),
+      children: [],
+    },
+    {
       path: '',
       element: <Navigate to="login" />,
     },

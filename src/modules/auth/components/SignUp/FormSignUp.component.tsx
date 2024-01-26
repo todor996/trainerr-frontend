@@ -24,17 +24,17 @@ export function FormSignUp(): JSX.Element {
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit = async (data: FormInputs) => {
+  async function onSubmit(data: FormInputs) {
     dispatch(trainerSignupAction(data));
-  };
+  }
 
   return (
     <>
-      <h2 className="pb-4 text-4xl">{t('auth:signUp')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
         <Input
           type="text"
           placeholder={t('auth:firstNamePlaceholder')}
+          autoComplete="first-name"
           label={t('auth:firstNameLabel')}
           registerProps={register('firstName', { required: true })}
           error={errors['firstName'] && t(`auth:error:${errors['firstName'].type}`)}
@@ -42,6 +42,7 @@ export function FormSignUp(): JSX.Element {
         <Input
           type="text"
           placeholder={t('auth:lastNamePlaceholder')}
+          autoComplete="family-name"
           label={t('auth:lastNameLabel')}
           registerProps={register('lastName', { required: true })}
           error={errors['lastName'] && t(`auth:error:${errors['lastName'].type}`)}
@@ -49,6 +50,7 @@ export function FormSignUp(): JSX.Element {
         <Input
           type="date"
           placeholder={t('auth:birthdayLabel')}
+          autoComplete="bday"
           label={t('auth:birthdayLabel')}
           registerProps={register('birthday', { required: true })}
           error={errors['birthday'] && t(`auth:error:${errors['birthday'].type}`)}
@@ -56,22 +58,30 @@ export function FormSignUp(): JSX.Element {
         <Input
           type="email"
           placeholder={t('auth:emailPlaceholder')}
-          autoComplete="current-email"
+          autoComplete="email"
           label={t('auth:emailLabel')}
-          registerProps={register('email', { required: true })}
+          registerProps={register('email', {
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          })}
           error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
         />
         <Input
           type="password"
           placeholder={t('auth:passwordPlaceholder')}
-          autoComplete="current-password"
+          autoComplete="new-password"
           label={t('auth:passwordLabel')}
           registerProps={register('password', { required: true, minLength: 8 })}
           error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
         />
         <Checkbox registerProps={register('terms', { required: true })} className="gap-2">
-          Yes, I accept <a className="cursor-pointer text-primary">privacy policy</a> &{' '}
-          <a className="cursor-pointer text-primary">terms of use</a>.
+          {t('auth:checkBoxString')}{' '}
+          <a className="cursor-pointer text-primary">{t('auth:checkBoxPrivacy')}</a>{' '}
+          {t('auth:checkBoxAnd')}{' '}
+          <a className="cursor-pointer text-primary">{t('auth:checkBoxTerms')}</a>.
         </Checkbox>
 
         <Button type="submit" className="btn-primary w-full">

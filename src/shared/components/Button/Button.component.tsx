@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react';
-
+import { Button as DaisyButton } from 'react-daisyui';
 type ButtonProps = {
   children: React.ReactNode;
   className?: string;
@@ -14,8 +14,8 @@ export function Button({
   type = 'button',
 }: ButtonProps): JSX.Element {
   return (
-    <button type={type} onClick={onClick} className={`btn flex w-full ${className}`}>
+    <DaisyButton type={type} onClick={onClick} className={`${className}`}>
       {children}
-    </button>
+    </DaisyButton>
   );
 }

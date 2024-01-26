@@ -19,21 +19,26 @@ export function FormLogIn(): JSX.Element {
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit = async (data: FormInputs) => {
+  async function onSubmit(data: FormInputs) {
     dispatch(loginAction(data));
   };
 
   return (
     <>
-      <h2 className="pb-4 text-4xl">{t('auth:logIn')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
         <Input
           type="email"
           label={t('auth:emailLabel')}
           placeholder={t('auth:emailPlaceholder')}
-          autoComplete="current-email"
+          autoComplete="email"
           error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
-          registerProps={register('email', { required: true })}
+          registerProps={register('email', {
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: 'Entered value does not match email format',
+            },
+          })}
         />
         <Input
           type="password"

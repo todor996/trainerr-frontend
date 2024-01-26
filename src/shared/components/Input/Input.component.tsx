@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, forwardRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-
+import { Input as DaisyInput } from 'react-daisyui';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
@@ -16,11 +16,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <span className={`label-text ${error && 'text-error'}`}>{label}</span>
           </div>
         )}
-        <input
+        <DaisyInput
           autoComplete={autoComplete}
           type={type}
           placeholder={placeholder}
-          className={`input input-bordered w-full ${error && 'border-error'}`}
+          className={`${error && 'border-error'}`}
           ref={ref}
           {...registerProps}
         />
