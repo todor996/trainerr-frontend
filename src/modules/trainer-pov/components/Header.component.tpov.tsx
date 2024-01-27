@@ -1,17 +1,44 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from 'react-daisyui';
+import { Button } from 'react-daisyui';
 
-import { Button } from '@shared/components/Button/Button.component';
 import { localKeys } from '@shared/consts/localization.const';
-import { TrrDropdown } from '@shared/components/TrrDropdown.component';
+import { TrrDropdown, TrrDropdownItem } from '@shared/components/TrrDropdown.component';
 import { ThemeItem } from '@shared/components/ThemeItem.component';
 import { DEFAULT_THEMES } from '@shared/consts/daisyui.const';
+import { twMerge } from 'tailwind-merge';
 
+// TODO: Get info from store
+// TODO: Localize everything
+// TODO: Handle mobile version
 export function Header(): JSX.Element {
   const { t, i18n } = useTranslation();
 
   const [currentTheme, setCurrentTheme] = useState(getThemeDom());
+
+  /**
+   * Format items for ThemeDropdown
+   */
+  function getThemeItems(): Array<TrrDropdownItem> {
+    // TODO: Show DEFAULT_THEMES + Trainer's custom themes as options
+
+    return DEFAULT_THEMES.map((theme) => ({
+      isActive: theme === currentTheme,
+      content: theme,
+      value: theme,
+    }));
+  }
+
+  /**
+   * Format items for LocalizationDropdown
+   */
+  function getLocalItems(): Array<TrrDropdownItem> {
+    return localKeys.map((key) => ({
+      isActive: key === i18n.language,
+      content: t(`${key}.full`),
+      value: key,
+    }));
+  }
 
   function setLanguage(key: string): void {
     i18n.changeLanguage(key);
@@ -40,23 +67,23 @@ export function Header(): JSX.Element {
       <div className="flex items-center gap-2">
         <TrrDropdown
           closeOnSelect={false}
-          toggleContent={<ThemeItem className="justify-between" theme={currentTheme} />}
-          toggleClassName="hover:bg-base-100 hover:text-base-content"
-          // TODO: Show DEFAULT_THEMES + Trainer's custom themes as options
-          items={DEFAULT_THEMES.map((theme) => ({
-            isActive: theme === currentTheme,
-            content: theme,
-            value: theme,
-          }))}
+          toggleContent={<ThemeItem className="bg-transparent" theme={currentTheme} />}
+          toggleClassName="hover:bg-base-300 hover:text-base-content"
+          items={getThemeItems()}
           Item={({ isActive, content, value, onClick }) => {
             return (
-              <Theme className="mt-2" dataTheme={value} onClick={onClick}>
-                <Button
-                  className={`btn btn-ghost btn-sm w-40 hover:bg-base-100 hover:text-base-content ${isActive && 'btn-outline'}`}
-                >
-                  <ThemeItem className="justify-between" theme={content} />
-                </Button>
-              </Theme>
+              // TODO: Think about making ThemeButton component
+              <Button
+                className={twMerge(
+                  'mt-2 w-40 bg-base-100 hover:bg-base-300',
+                  isActive && 'border-2 border-solid border-primary',
+                )}
+                size="sm"
+                dataTheme={value}
+                onClick={onClick}
+              >
+                <ThemeItem className="bg-transparent" theme={content} />
+              </Button>
             );
           }}
           onSelect={(theme) => {
@@ -68,11 +95,7 @@ export function Header(): JSX.Element {
         <TrrDropdown
           toggleContent={t(`${i18n.language}.full`)}
           toggleClassName="w-24"
-          items={localKeys.map((key) => ({
-            isActive: key === i18n.language,
-            content: t(`${key}.full`),
-            value: key,
-          }))}
+          items={getLocalItems()}
           onSelect={(key) => setLanguage(key as string)}
         />
       </div>

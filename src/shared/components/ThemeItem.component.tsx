@@ -8,9 +8,13 @@ interface ThemeItemProps {
 
 export function ThemeItem({ theme, className = '' }: ThemeItemProps): JSX.Element {
   return (
-    <Theme className={twMerge('flex w-full gap-2', className)} dataTheme={theme}>
+    <Theme
+      className={twMerge('flex w-full items-center justify-between gap-2', className)}
+      dataTheme={theme}
+    >
+      {/* TODO: Localize themes */}
       <span>{theme}</span>
-      <span className="base-100 flex gap-1">
+      <span className="flex gap-1">
         <span className="min-h-4 min-w-2 rounded bg-primary"></span>
         <span className="min-h-4 min-w-2 rounded bg-secondary"></span>
         <span className="min-h-4 min-w-2 rounded bg-accent"></span>

@@ -4,7 +4,7 @@ import { Button, Dropdown } from 'react-daisyui';
 import { Icon } from './Icon.component';
 import { twMerge } from 'tailwind-merge';
 
-interface TrrDropdownItem {
+export interface TrrDropdownItem {
   isActive: boolean;
   content: JSX.Element | string;
   value: unknown;
@@ -25,7 +25,7 @@ interface TrrDropdownProps {
 }
 
 /**
- * Dropdown wrapped for daisyUI dropdown component
+ * Dropdown wrapper for daisyUI dropdown component
  *
  * Define fully custom Toggle:
  * P.S. Its important to get `onClick` function (trough function props) and
