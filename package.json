@@ -75,5 +75,10 @@
     "vite": "^4.5.2",
     "vite-plugin-checker": "^0.6.3",
     "vite-plugin-eslint": "^1.8.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "lodash.pick@>=3.7.0 <4.17.19": ">=4.17.19"
+    }
   }
 }
