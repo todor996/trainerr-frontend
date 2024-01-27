@@ -9,6 +9,14 @@ const srResource: AppResource = {
   uncommon: {
     guest: 'Gost',
   },
+  sr: {
+    full: 'Srpski',
+    short: 'SR',
+  },
+  en: {
+    full: 'Engleski',
+    short: 'EN',
+  },
 };
 
 export default srResource;

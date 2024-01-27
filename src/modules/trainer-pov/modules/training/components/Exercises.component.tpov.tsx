@@ -1,11 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-interface ExercisesTrainerProps {}
-
-export default function ExercisesTrainer(props: ExercisesTrainerProps): JSX.Element {
+export default function ExercisesTrainer(): JSX.Element {
   const { t } = useTranslation();
-
-  console.log({ props });
 
   return (
     <div className="flex">

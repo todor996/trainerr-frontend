@@ -37,46 +37,46 @@ export const trainerNavOptions: {
       ],
     },
     {
-      text: 'Home',
+      text: 'Nutrition',
       icon: faApple,
-      to: '/home',
+      to: '/trainer/nutrition',
     },
     {
-      text: 'Subhome',
+      text: 'Clients',
       icon: faUserFriends,
-      to: '/home/sub',
+      to: '/trainer/clients',
     },
     {
       text: 'Notifications',
       icon: faBell,
-      to: '/notifications',
+      to: '/trainer/notifications',
     },
     {
       text: 'Profile',
       icon: faUser,
-      to: '/profile',
+      to: '/trainer/profile',
     },
   ],
   bottomNavOptions: [
     {
       text: 'App',
       icon: faCubes,
-      to: '/app',
+      to: '/trainer/app',
     },
     {
       text: 'Monetization',
       icon: faSackDollar,
-      to: '/monetization',
+      to: '/trainer/monetization',
     },
     {
       text: 'Settings',
       icon: faCog,
-      to: '/settings',
+      to: '/trainer/settings',
     },
     {
       text: 'Feedback',
       icon: faCommentMedical,
-      to: '/feedback',
+      to: '/trainer/feedback',
     },
   ],
 };

@@ -9,6 +9,14 @@ const enResource: AppResource = {
   uncommon: {
     guest: 'Guest',
   },
+  sr: {
+    full: 'Serbian',
+    short: 'SR',
+  },
+  en: {
+    full: 'English',
+    short: 'EN',
+  },
 };
 
 export default enResource;

@@ -3,7 +3,7 @@ import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
 import { authRouter } from '@modules/auth/Auth.router';
 import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
-import { clientsRouter } from '@modules/trainer-pov/clients/clients.router.tpov';
+import { clientsRouter } from '@modules/trainer-pov/modules/clients/clients.router.tpov';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router';
 
 const env = import.meta.env;

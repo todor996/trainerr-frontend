@@ -7,4 +7,12 @@ export interface AppResource {
   uncommon: {
     guest: string;
   };
+  sr: {
+    full: string;
+    short: string;
+  };
+  en: {
+    full: string;
+    short: string;
+  };
 }

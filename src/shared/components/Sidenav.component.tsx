@@ -12,7 +12,7 @@ export function Sidenav(): JSX.Element {
   }
 
   return (
-    <nav className="h-screen h-svh w-48 border-r-2 border-neutral-100 pb-6 pt-3">
+    <nav className="h-screen h-svh w-48 min-w-48 border-r-2 border-base-200 pb-6 pt-3">
       <div className="flex h-full flex-col justify-between">
         {/* TOP OPTIONS */}
         <div>
