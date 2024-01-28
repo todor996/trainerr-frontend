@@ -75,7 +75,7 @@ export function Header(): JSX.Element {
               // TODO: Think about making ThemeButton component
               <Button
                 className={twMerge(
-                  'mt-2 w-40 bg-base-100 hover:bg-base-300',
+                  'mt-2 min-w-40 bg-base-100 hover:bg-base-300',
                   isActive && 'border-2 border-solid border-primary',
                 )}
                 size="sm"

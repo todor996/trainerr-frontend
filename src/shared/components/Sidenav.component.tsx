@@ -1,11 +1,19 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { SidenavItem } from './SidenavItem.component';
 import { NavItem } from './NavItem.component';
-import { trainerNavOptions } from '@shared/consts/routerTrainerPOV.const';
+import { navOptionsTpov } from '@shared/consts/nav.tpov.const';
+import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function Sidenav(): JSX.Element {
+  const { t, i18n } = useTranslation();
+
   // TODO: Set POV dynamically
-  const { topNavOptions, bottomNavOptions } = trainerNavOptions;
+  const navOptions = useRef(navOptionsTpov());
+
+  useEffect(() => {
+    navOptions.current = navOptionsTpov();
+  }, [i18n.language]);
 
   function logOut() {
     console.log('Log Out');
@@ -16,18 +24,23 @@ export function Sidenav(): JSX.Element {
       <div className="flex h-full flex-col justify-between">
         {/* TOP OPTIONS */}
         <div className="flex flex-col gap-1">
-          {topNavOptions.map((option, index) => {
+          {navOptions.current.topNavOptions.map((option, index) => {
             return <SidenavItem {...option} key={index} />;
           })}
         </div>
 
         {/* BOTTOM OPTIONS */}
         <div className="flex flex-col gap-1">
-          {bottomNavOptions.map((option, index) => {
+          {navOptions.current.bottomNavOptions.map((option, index) => {
             return <SidenavItem {...option} key={index} />;
           })}
 
-          <NavItem to="/login" icon={faChevronRight} text="Log Out" onClick={logOut} />
+          <NavItem
+            to="/login"
+            icon={faChevronRight}
+            text={t('action.logout')}
+            onClick={logOut}
+          />
         </div>
       </div>
     </nav>
