@@ -24,7 +24,6 @@ export function FormResetPassword(): JSX.Element {
   const onSubmit = async (data: FormInputs) => {
     console.log({ data });
   };
-  console.log(errors);
 
   return (
     <section className="m-3 flex flex-col sm:m-0  sm:items-center">
@@ -37,7 +36,7 @@ export function FormResetPassword(): JSX.Element {
             <span>Username</span>
             <input type="text" autoComplete="username" name="username" />
           </label>
-
+          {/* TODO: Define password rules */}
           <TrrInput
             type="password"
             label={t('auth:newPassword')}
