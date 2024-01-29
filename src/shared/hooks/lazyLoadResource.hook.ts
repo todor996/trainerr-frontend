@@ -54,5 +54,6 @@ export default function useLazyLoadResourceHook({
       i18n.off('languageChanged', wrappedLazyLoadResource);
     };
   }, [folderName, namespace]);
+
   return loaded;
 }

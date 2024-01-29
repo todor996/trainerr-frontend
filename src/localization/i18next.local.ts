@@ -6,7 +6,7 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 
 const lazyLoadResource = resourcesToBackend(
   async (language: string, namespace: string) =>
-    import(`./locales/${language || 'en'}/${namespace || 'translation'}.ts`),
+    import(`./locales/${language}/${namespace || 'translation'}.ts`),
 );
 
 // init i18next

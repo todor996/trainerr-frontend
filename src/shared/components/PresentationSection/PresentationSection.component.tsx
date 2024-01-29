@@ -1,5 +1,6 @@
+import { PhoneMockup } from 'react-daisyui';
 import { SupportedPlatformsList } from './SupportedPlatformsList.component';
-import { PhoneMockup } from './PhoneMockup.component';
+import { Title } from '../Title/Title.component';
 
 export function PresentationSection(): JSX.Element {
   return (
@@ -14,7 +15,10 @@ export function PresentationSection(): JSX.Element {
       <SupportedPlatformsList />
 
       <h5 className="font-medium">Within minutes</h5>
-      <PhoneMockup />
+
+      <PhoneMockup className="-my-16 scale-75">
+        <Title />
+      </PhoneMockup>
     </div>
   );
 }

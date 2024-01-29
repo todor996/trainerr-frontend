@@ -5,7 +5,7 @@ import { Title } from '@shared/components/Title/Title.component';
 import { useAuthNavigate } from '@shared/hooks/useAuthNavigate.hook.ts';
 import { SignUpSection } from './components/SignUp/SignUpSection.component';
 
-export default function SignUp(): JSX.Element {
+export default function SignUpPage(): JSX.Element {
   const loaded = useLazyLoadResourceHook({ folderName: 'auth', namespace: 'auth' });
   useAuthNavigate();
 

@@ -1,13 +1,13 @@
 import { InputHTMLAttributes, forwardRef } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { Input as DaisyInput } from 'react-daisyui';
+import { Input } from 'react-daisyui';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   registerProps?: UseFormRegisterReturn<string>;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const TrrInput = forwardRef<HTMLInputElement, InputProps>(
   ({ type, placeholder, autoComplete, label, error, registerProps }, ref) => {
     return (
       <label className="form-control w-full">
@@ -16,7 +16,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             <span className={`label-text ${error && 'text-error'}`}>{label}</span>
           </div>
         )}
-        <DaisyInput
+        <Input
           autoComplete={autoComplete}
           type={type}
           placeholder={placeholder}

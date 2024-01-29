@@ -24,6 +24,7 @@ const enResource: AuthLocal = {
     minLength: 'Minimum length is 8',
     required: 'This field is required',
     pattern: 'Entered value does not match email format',
+    passwordsDoNotMatch: 'The passwords do not match',
   },
   logInButton: 'Log In',
   langButton: {

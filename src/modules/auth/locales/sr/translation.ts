@@ -23,6 +23,7 @@ const srResource: AuthLocal = {
     minLength: 'Lozinka mora da sadrži najmanje 8 karaktera',
     required: 'Ovo polje je obavezno',
     pattern: 'Neodgovarajući format e-mail adrese',
+    passwordsDoNotMatch: 'Lozinke se ne poklapaju',
   },
   signUpButton: 'Registruj se',
   logInButton: 'Prijavite se',
