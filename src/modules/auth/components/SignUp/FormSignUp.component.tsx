@@ -3,14 +3,14 @@ import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { Checkbox } from '../../../../shared/components/Checkbox/Checkbox.component';
-import { useAppDispatch } from '@store/index.store.ts';
+import { useAppDispatch } from '@store/hooks.store.ts';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store.ts';
 
 export interface FormInputs {
   firstName: string;
   lastName: string;
   terms: boolean;
-  birthdate: string;
+  birthday: string;
   email: string;
   password: string;
 }
@@ -56,8 +56,8 @@ export function FormSignUp(): JSX.Element {
           type="date"
           placeholder={t('auth:birthdayLabel')}
           label={t('auth:birthdayLabel')}
-          registerProps={register('birthdate', { required: true })}
-          error={errors['birthdate'] && t(`auth:error:${errors['birthdate'].type}`)}
+          registerProps={register('birthday', { required: true })}
+          error={errors['birthday'] && t(`auth:error:${errors['birthday'].type}`)}
         />
         <Input
           type="email"

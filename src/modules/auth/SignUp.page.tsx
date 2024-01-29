@@ -9,6 +9,7 @@ export default function SignUp(): JSX.Element {
   useLazyLoadResourceHook({ folderName: 'auth', namespace: 'auth' });
   const navigate = useNavigate();
   const { token, isTrainer } = useSelector((state: RootState) => state.auth);
+
   useEffect(() => {
     if (!token) {
       return;

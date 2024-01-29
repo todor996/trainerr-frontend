@@ -3,10 +3,10 @@ import { TrainerSignup, Login } from '../types';
 
 const BASE_URL = 'auth';
 
-export function signup(data: TrainerSignup) {
+export function signup(data: TrainerSignup): Promise<{ data: string }> {
   return axios.post(`/${BASE_URL}/trainer/signup`, data);
 }
 
-export function login(data: Login) {
+export function login(data: Login): Promise<{ data: string }> {
   return axios.post(`/${BASE_URL}/login`, data);
 }

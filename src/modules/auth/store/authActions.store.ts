@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { signup, login } from '../api/index.api.ts';
+import { signup, login } from '../api/auth.api';
 import { AuthState, TrainerSignup, Login } from '../types';
 
 export interface AuthStateOptions extends Partial<AuthState> {}

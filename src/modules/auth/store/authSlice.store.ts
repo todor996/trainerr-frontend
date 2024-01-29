@@ -15,7 +15,7 @@ const initialState: AuthState = {
   error: null,
 };
 
-const updateAuthStateOnSuccess = (state: AuthState, action: PayloadAction<string>) => {
+function updateAuthStateOnSuccess(state: AuthState, action: PayloadAction<string>) {
   const decoded = jwtDecode<{ isTrainer: boolean; userUid: string }>(action.payload);
   state.token = action.payload;
   state.isTrainer = decoded.isTrainer;
@@ -23,19 +23,19 @@ const updateAuthStateOnSuccess = (state: AuthState, action: PayloadAction<string
   localStorage.setItem('token', action.payload);
   state.loading = false;
   state.error = null;
-};
+}
 
-const updateAuthStateOnLoading = (state: AuthState) => {
+function updateAuthStateOnLoading(state: AuthState) {
   state.loading = true;
   state.error = null;
-};
+}
 
 //eslint-disable-next-line
-const updateAuthStateOnError = (state: AuthState, action: any) => {
+function updateAuthStateOnError(state: AuthState, action: any) {
   state.loading = false;
   state.error = action.payload as string;
   state.token = null;
-};
+}
 
 const authSlice = createSlice({
   name: 'auth',

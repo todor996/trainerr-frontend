@@ -2,7 +2,7 @@ import { Input } from '@shared/components/Input/Input.component';
 import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '@store/index.store';
+import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
 
 export interface FormInputs {

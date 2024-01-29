@@ -8,6 +8,7 @@ import { RootState } from '@store/index.store.ts';
 export default function LogIn(): JSX.Element {
   const navigate = useNavigate();
   const { token, isTrainer } = useSelector((state: RootState) => state.auth);
+
   useEffect(() => {
     if (!token) {
       return;

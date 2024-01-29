@@ -3,5 +3,5 @@ export interface TrainerSignup {
   lastName: string;
   email: string;
   password: string;
-  birthdate: string;
+  birthday: string;
 }
