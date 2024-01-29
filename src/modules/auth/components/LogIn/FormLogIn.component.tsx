@@ -22,7 +22,7 @@ export function FormLogIn(): JSX.Element {
   const onSubmit = async (data: FormInputs) => {
     dispatch(loginAction(data));
   };
-  console.log(errors);
+
   return (
     <>
       <h2 className="pb-4 text-4xl">{t('auth:logIn')}</h2>

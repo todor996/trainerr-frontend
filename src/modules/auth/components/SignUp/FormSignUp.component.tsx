@@ -25,14 +25,8 @@ export function FormSignUp(): JSX.Element {
   } = useForm<FormInputs>();
 
   const onSubmit = async (data: FormInputs) => {
-    console.log('Form Data:', data);
-    dispatch(trainerSignupAction(data))
-      //eslint-disable-next-line
-      .then((response: any) => {
-        console.log(response);
-      });
+    dispatch(trainerSignupAction(data));
   };
-  console.log(errors);
 
   return (
     <>
