@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import useLazyLoadResourceHook from '@shared/hooks/lazyLoadResource.hook';
 import { updateHomeState } from './store/homeSlice.store';
-import { useAuthNavigate } from '@shared/hooks/useAuthNavigate.hook.ts';
 import { Sidenav } from '@shared/components/Sidenav.component';
 
 export default function Home(): JSX.Element {
   useLazyLoadResourceHook({ folderName: 'home', namespace: 'home' });
-  useAuthNavigate();
 
   const { t, i18n } = useTranslation();
 

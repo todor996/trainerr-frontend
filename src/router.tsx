@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
 import { authRouter } from '@modules/auth/Auth.router';
@@ -20,6 +20,10 @@ export const router = createBrowserRouter(
         // TODO: delete this when modules are removed
         homeRouter,
         settingsRouter,
+        {
+          path: '*',
+          element: <Navigate to="login" />,
+        },
       ],
     },
   ],
