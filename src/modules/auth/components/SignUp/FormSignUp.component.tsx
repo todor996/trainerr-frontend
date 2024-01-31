@@ -1,8 +1,9 @@
-import { TrrInput } from '@shared/components/Input/Input.component';
-import { Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { TrrCheckbox } from '../../../../shared/components/Checkbox/Checkbox.component';
+import { Button } from 'react-daisyui';
+import { TrrInput } from '@shared/components/Input/Input.component';
+import { TrrCheckbox } from '@shared/components/Checkbox/Checkbox.component';
 import { emailRegex } from '@shared/consts/regex';
 import { useAppDispatch } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
@@ -80,10 +81,15 @@ export function FormSignUp(): JSX.Element {
           error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
         />
         <TrrCheckbox registerProps={register('terms', { required: true })}>
-          {t('auth:checkBoxString')}{' '}
-          <a className="cursor-pointer text-primary">{t('auth:checkBoxPrivacy')}</a>{' '}
-          {t('auth:checkBoxAnd')}{' '}
-          <a className="cursor-pointer text-primary">{t('auth:checkBoxTerms')}</a>.
+          {t('auth:checkbox.checkboxLabel')}{' '}
+          <Link to="#" className="cursor-pointer text-primary">
+            {t('auth:checkbox.checkboxPrivacy')}
+          </Link>{' '}
+          {t('auth:checkbox.checkboxAnd')}{' '}
+          <Link to="#" className="cursor-pointer text-primary">
+            {t('auth:checkbox.checkboxTerms')}
+          </Link>
+          .
         </TrrCheckbox>
 
         <Button type="submit" className="btn-primary w-full">

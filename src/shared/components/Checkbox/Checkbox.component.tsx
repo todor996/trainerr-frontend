@@ -16,7 +16,7 @@ export function TrrCheckbox({
   return (
     <label className="form-control">
       <div className="label justify-normal gap-2 ">
-        <Checkbox {...registerProps} className={`checkbox ${className}`} />
+        <Checkbox {...registerProps} className={`checkbox-primary ${className}`} />
         <span className="label-text">{children}</span>
       </div>
     </label>

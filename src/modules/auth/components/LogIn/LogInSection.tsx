@@ -12,10 +12,10 @@ export function LogInSection(): JSX.Element {
 
         <div className="label">
           <span className="label-text">
-            {t('auth:accountString')}
+            {t('auth:account.accountLabel')}
             <Link to="/auth/signup" className="cursor-pointer text-primary">
               {' '}
-              {t('auth:accountLink')}
+              {t('auth:account.accountLink')}
             </Link>
             .
           </span>

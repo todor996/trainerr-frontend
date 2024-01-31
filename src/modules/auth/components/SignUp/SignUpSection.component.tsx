@@ -12,9 +12,9 @@ export function SignUpSection(): JSX.Element {
 
         <div className="label">
           <span className="label-text">
-            {t('auth:haveAccString')}{' '}
+            {t('auth:signup.loginLabel')}{' '}
             <Link to="/auth/login" className="cursor-pointer text-primary">
-              {t('auth:haveAccLink')}
+              {t('auth:signup.loginLink')}
             </Link>
             .
           </span>

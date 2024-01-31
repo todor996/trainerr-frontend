@@ -31,16 +31,23 @@ const srResource: AuthLocal = {
     en: 'Engleski',
     sr: 'Srpski',
   },
-  checkBoxString: 'Da, prihvatam',
-  checkBoxPrivacy: 'politiku privatnosti',
-  checkBoxTerms: 'uslove korišćenja',
-  checkBoxAnd: 'i',
 
-  accountString: 'Nemate nalog?',
-  accountLink: 'Registrujte se ovde',
+  checkbox: {
+    checkboxLabel: 'Da, prihvatam',
+    checkboxPrivacy: 'politiku privatnosti',
+    checkboxTerms: 'uslove korišćenja',
+    checkboxAnd: 'i',
+  },
 
-  haveAccString: 'Već imate nalog?',
-  haveAccLink: 'Prijavite se',
+  account: {
+    accountLabel: 'Nemate nalog?',
+    accountLink: 'Registrujte se ovde',
+  },
+
+  signup: {
+    loginLabel: 'Već imate nalog?',
+    loginLink: 'Prijavite se',
+  },
 };
 
 export default srResource;

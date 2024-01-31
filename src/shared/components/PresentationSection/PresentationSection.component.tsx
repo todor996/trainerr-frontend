@@ -16,6 +16,7 @@ export function PresentationSection(): JSX.Element {
 
       <h5 className="font-medium">Within minutes</h5>
 
+      {/* TODO: https://trello.com/c/3euK3Rry/11-presentation-section-component */}
       <PhoneMockup className="-my-16 scale-75">
         <Title />
       </PhoneMockup>

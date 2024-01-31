@@ -11,7 +11,7 @@ async function lazyLoadResource({
   namespace: string;
 }) {
   const module = await import(
-    `../../modules/${folderName}/locales/${i18n.language || 'en'}/translation.ts`
+    `../../modules/${folderName}/locales/${i18n.language}/translation.ts`
   );
   const resource = module.default;
 

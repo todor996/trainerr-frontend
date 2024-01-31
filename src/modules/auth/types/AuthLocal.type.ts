@@ -26,14 +26,21 @@ export interface AuthLocal {
     en: string;
     sr: string;
   };
-  checkBoxString: string;
-  checkBoxPrivacy: string;
-  checkBoxTerms: string;
-  checkBoxAnd: string;
 
-  accountString: string;
-  accountLink: string;
+  checkbox: {
+    checkboxLabel: string;
+    checkboxPrivacy: string;
+    checkboxTerms: string;
+    checkboxAnd: string;
+  };
 
-  haveAccString: string;
-  haveAccLink: string;
+  account: {
+    accountLabel: string;
+    accountLink: string;
+  };
+
+  signup: {
+    loginLabel: string;
+    loginLink: string;
+  };
 }

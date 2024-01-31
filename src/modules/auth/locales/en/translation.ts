@@ -31,16 +31,23 @@ const enResource: AuthLocal = {
     en: 'English',
     sr: 'Serbian',
   },
-  checkBoxString: 'Yes, I accept',
-  checkBoxPrivacy: 'privacy policy',
-  checkBoxTerms: 'terms of use',
-  checkBoxAnd: '&',
 
-  accountString: `You don't have an account?`,
-  accountLink: 'Sign Up here',
+  checkbox: {
+    checkboxLabel: 'Yes, I accept',
+    checkboxPrivacy: 'privacy policy',
+    checkboxTerms: 'terms of use',
+    checkboxAnd: '&',
+  },
 
-  haveAccString: 'You already have an account?',
-  haveAccLink: 'Log In',
+  account: {
+    accountLabel: `You don't have an account?`,
+    accountLink: 'Sign Up here',
+  },
+
+  signup: {
+    loginLabel: 'You already have an account?',
+    loginLink: 'Log In',
+  },
 };
 
 export default enResource;
