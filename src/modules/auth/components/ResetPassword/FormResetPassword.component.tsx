@@ -1,4 +1,4 @@
-import { TrrInput } from '@shared/components/Input/Input.component';
+import { TrrInput } from '@shared/components/TrrInput.component';
 import { Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';

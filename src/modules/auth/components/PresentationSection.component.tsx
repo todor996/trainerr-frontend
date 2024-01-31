@@ -1,5 +1,5 @@
 import { SupportedPlatformsList } from './SupportedPlatformsList.component';
-import { Title } from '../Title/Title.component';
+import { Title } from '../../../shared/components/Title.component';
 import { PhoneMockup } from 'react-daisyui';
 
 export function PresentationSection(): JSX.Element {

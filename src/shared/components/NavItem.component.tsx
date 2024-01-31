@@ -1,6 +1,6 @@
 import { NavOption } from '@type/NavOption.type';
 import { Link, useMatch } from 'react-router-dom';
-import { Icon } from './Icon.component';
+import { TrrIcon } from './TrrIcon.component';
 import { twMerge } from 'tailwind-merge';
 
 interface NavItemProps extends Partial<NavOption> {
@@ -25,7 +25,7 @@ export function NavItem(props: NavItemProps): JSX.Element {
       to={to!}
       onClick={onClick}
     >
-      {icon && <Icon size={16} icon={icon} />}
+      {icon && <TrrIcon size={16} icon={icon} />}
       {text} {props.children}
     </Link>
   );

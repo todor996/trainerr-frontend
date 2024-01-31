@@ -1,6 +1,6 @@
 import { Header } from '@modules/trainer-pov/components/Header.component.tpov';
 import { Sidenav } from '@shared/components/Sidenav.component';
-import useLazyLoadResourceHook from '@shared/hooks/lazyLoadResource.hook';
+import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
 import { Outlet } from 'react-router-dom';
 
 export default function TrainingPage(): JSX.Element {

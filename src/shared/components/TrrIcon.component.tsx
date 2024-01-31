@@ -2,7 +2,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { twJoin } from 'tailwind-merge';
 
-export function Icon({
+export function TrrIcon({
   icon,
   className = '',
   size = 24,

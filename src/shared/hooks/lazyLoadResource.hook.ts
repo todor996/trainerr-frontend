@@ -29,7 +29,7 @@ async function lazyLoadResource({
  * @param folderName - Folder name containing locales folder // eg. `home`
  * @param namespace - Use this to access translation for this module // eg. `home`
  */
-export default function useLazyLoadResourceHook({
+export function useLazyLoadResourceHook({
   folderName,
   namespace,
   pov = '',
@@ -39,7 +39,7 @@ export default function useLazyLoadResourceHook({
   pov?: 'tpov' | 'cpov' | '';
 }) {
   const [loaded, setLoaded] = useState(false);
-  
+
   useEffect(() => {
     // Load Resources first time component is loaded
     (async () => {

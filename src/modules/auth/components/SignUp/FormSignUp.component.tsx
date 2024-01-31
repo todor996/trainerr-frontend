@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Button } from 'react-daisyui';
-import { TrrInput } from '@shared/components/Input/Input.component';
-import { TrrCheckbox } from '@shared/components/Checkbox/Checkbox.component';
+import { TrrInput } from '@shared/components/TrrInput.component';
+import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { emailRegex } from '@shared/consts/regex';
 import { useAppDispatch } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
@@ -20,7 +20,7 @@ export interface FormInputs {
 export function FormSignUp(): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  
+
   const {
     register,
     handleSubmit,

@@ -1,8 +1,8 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
-import { authRouter } from '@modules/auth/Auth.router';
 import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
+import { authRouter } from '@modules/auth/auth.router';
 import { clientsRouter } from '@modules/trainer-pov/modules/clients/clients.router.tpov';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router';
 

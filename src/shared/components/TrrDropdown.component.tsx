@@ -1,7 +1,7 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Dropdown } from 'react-daisyui';
-import { Icon } from './Icon.component';
+import { TrrIcon } from './TrrIcon.component';
 import { twMerge } from 'tailwind-merge';
 
 export interface TrrDropdownItem {
@@ -102,7 +102,7 @@ export function TrrDropdown({
             onClick={() => setIsOpened(!isOpened)}
           >
             {toggleContent}
-            <Icon
+            <TrrIcon
               className={isOpened ? 'rotate-180' : 'rotate-0'}
               size={8}
               icon={faChevronDown}

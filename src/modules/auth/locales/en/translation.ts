@@ -11,7 +11,7 @@ const enResource: AuthLocal = {
   passwordLabel: 'Password',
   firstNamePlaceholder: 'John',
   lastNamePlaceholder: 'Smith',
-  emailPlaceholder: 'john.smith@trainerr.com',
+  emailPlaceholder: 'john@trainerr.com',
   passwordPlaceholder: '**********',
   signUp: 'Sign Up',
   logIn: 'Log In',
