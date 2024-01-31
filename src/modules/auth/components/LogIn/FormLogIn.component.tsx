@@ -1,7 +1,7 @@
-import { Input } from '@shared/components/Input/Input.component';
-import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { Button } from 'react-daisyui';
+import { TrrInput } from '@shared/components/Input/Input.component';
 import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
 
@@ -19,23 +19,29 @@ export function FormLogIn(): JSX.Element {
     formState: { errors },
   } = useForm<FormInputs>();
 
-  const onSubmit = async (data: FormInputs) => {
+  async function onSubmit(data: FormInputs) {
     dispatch(loginAction(data));
   };
 
   return (
     <>
-      <h2 className="pb-4 text-4xl">{t('auth:logIn')}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-        <Input
+        <TrrInput
           type="email"
           label={t('auth:emailLabel')}
           placeholder={t('auth:emailPlaceholder')}
-          autoComplete="current-email"
+          autoComplete="email"
           error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
-          registerProps={register('email', { required: true })}
+          registerProps={register('email', {
+            required: true,
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              // The function does not work without 'message' property
+              message: 'Entered value does not match email format',
+            },
+          })}
         />
-        <Input
+        <TrrInput
           type="password"
           label={t('auth:passwordLabel')}
           placeholder={t('auth:passwordPlaceholder')}

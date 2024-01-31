@@ -12,6 +12,10 @@ export interface AuthLocal {
   emailPlaceholder: string;
   passwordPlaceholder: string;
   signUp: string;
+  newPassword: string;
+  confirmPassword: string;
+  resetButton: string;
+  resetPassword: string;
   error: {
     [key: string]: string;
   };
@@ -21,5 +25,22 @@ export interface AuthLocal {
   langButton: {
     en: string;
     sr: string;
+  };
+
+  checkbox: {
+    checkboxLabel: string;
+    checkboxPrivacy: string;
+    checkboxTerms: string;
+    checkboxAnd: string;
+  };
+
+  account: {
+    accountLabel: string;
+    accountLink: string;
+  };
+
+  signup: {
+    loginLabel: string;
+    loginLink: string;
   };
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import i18n from '@localization/i18next.local';
 import updateParam from '../utils/updateParam.util';
@@ -33,10 +33,12 @@ export default function useLazyLoadResourceHook({
   folderName: string;
   namespace: string;
 }) {
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     // Load Resources first time component is loaded
     (async () => {
       await lazyLoadResource({ folderName, namespace });
+      setLoaded(true);
     })();
 
     // Wrap the function so it can be passed by reference with existing params
@@ -52,4 +54,6 @@ export default function useLazyLoadResourceHook({
       i18n.off('languageChanged', wrappedLazyLoadResource);
     };
   }, [folderName, namespace]);
+
+  return loaded;
 }

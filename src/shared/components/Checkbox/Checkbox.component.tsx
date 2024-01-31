@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { Checkbox } from 'react-daisyui';
 
 type CheckboxProps = {
   className?: string;
@@ -7,17 +8,17 @@ type CheckboxProps = {
   registerProps?: UseFormRegisterReturn<string>;
 };
 
-export function Checkbox({
+export function TrrCheckbox({
   className,
   children,
   registerProps,
 }: CheckboxProps): JSX.Element {
   return (
-    <div className="form-control">
-      <label className="label cursor-pointer justify-normal gap-2">
-        <input {...registerProps} type="checkbox" className={`checkbox ${className}`} />
+    <label className="form-control">
+      <div className="label justify-normal gap-2 ">
+        <Checkbox {...registerProps} className={`checkbox-primary ${className}`} />
         <span className="label-text">{children}</span>
-      </label>
-    </div>
+      </div>
+    </label>
   );
 }
