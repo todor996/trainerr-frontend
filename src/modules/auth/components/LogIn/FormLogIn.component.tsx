@@ -2,6 +2,8 @@ import { Input } from '@shared/components/Input/Input.component';
 import { Button } from '@shared/components/Button/Button.component';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '@store/hooks.store';
+import { loginAction } from '@modules/auth/store/authActions.store.ts';
 
 export interface FormInputs {
   email: string;
@@ -10,7 +12,7 @@ export interface FormInputs {
 
 export function FormLogIn(): JSX.Element {
   const { t } = useTranslation();
-
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -18,9 +20,9 @@ export function FormLogIn(): JSX.Element {
   } = useForm<FormInputs>();
 
   const onSubmit = async (data: FormInputs) => {
-    console.log('Form Data:', data);
+    dispatch(loginAction(data));
   };
-  console.log(errors);
+
   return (
     <>
       <h2 className="pb-4 text-4xl">{t('auth:logIn')}</h2>
