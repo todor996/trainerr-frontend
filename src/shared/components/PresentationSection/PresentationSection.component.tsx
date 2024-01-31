@@ -1,6 +1,6 @@
-import { PhoneMockup } from 'react-daisyui';
 import { SupportedPlatformsList } from './SupportedPlatformsList.component';
 import { Title } from '../Title/Title.component';
+import { PhoneMockup } from 'react-daisyui';
 
 export function PresentationSection(): JSX.Element {
   return (
@@ -20,6 +20,16 @@ export function PresentationSection(): JSX.Element {
       <PhoneMockup className="-my-16 scale-75">
         <Title />
       </PhoneMockup>
+
+      {/* TODO: think about using daisyui without a component, since it seems that it fixes the problem, maybe */}
+      {/* <div className="mockup-phone -my-16 scale-75">
+        <div className="camera"></div>
+        <div className="display">
+          <div className="artboard artboard-demo phone-1">
+            <Title />
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 }
