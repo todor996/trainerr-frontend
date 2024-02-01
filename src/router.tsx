@@ -2,7 +2,7 @@ import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
 import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
-import { authRouter } from '@modules/auth/auth.router';
+import { authRouter } from '@modules/auth/Auth.router';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router';
 import { clientRouter } from '@modules/client-pov/client.router';
 
