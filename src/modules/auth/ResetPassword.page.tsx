@@ -1,7 +1,7 @@
-import useLazyLoadResourceHook from '@shared/hooks/lazyLoadResource.hook';
-import { Title } from '../../shared/components/Title/Title.component';
+import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
+import { Title } from '../../shared/components/Title.component';
 import { FormResetPassword } from './components/ResetPassword/FormResetPassword.component';
-import { Loading } from '@shared/components/Loading/Loading.component';
+import { LoadingPage } from '@shared/components/LoadingPage.component';
 
 export default function ResetPasswordPage(): JSX.Element {
   const loaded = useLazyLoadResourceHook({ folderName: 'auth', namespace: 'auth' });
@@ -12,6 +12,6 @@ export default function ResetPasswordPage(): JSX.Element {
       <FormResetPassword />
     </>
   ) : (
-    <Loading />
+    <LoadingPage />
   );
 }

@@ -11,7 +11,7 @@ const srResource: AuthLocal = {
   passwordLabel: 'Lozinka',
   firstNamePlaceholder: 'Marko',
   lastNamePlaceholder: 'Markovic',
-  emailPlaceholder: 'marko.markovic@trainerr.com',
+  emailPlaceholder: 'marko@trainerr.com',
   passwordPlaceholder: '**********',
   signUp: 'Registracija',
   logIn: 'Prijavite se',

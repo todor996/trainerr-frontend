@@ -1,13 +1,11 @@
-import { Loading } from 'react-daisyui';
-import useLazyLoadResourceHook from '@shared/hooks/lazyLoadResource.hook';
-import { PresentationSection } from '@shared/components/PresentationSection/PresentationSection.component';
-import { Title } from '@shared/components/Title/Title.component';
-import { useAuthNavigate } from '@shared/hooks/useAuthNavigate.hook.ts';
+import { PresentationSection } from '@modules/auth/components/PresentationSection.component';
+import { Title } from '@shared/components/Title.component';
 import { SignUpSection } from './components/SignUp/SignUpSection.component';
+import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
+import { LoadingPage } from '@shared/components/LoadingPage.component';
 
 export default function SignUpPage(): JSX.Element {
   const loaded = useLazyLoadResourceHook({ folderName: 'auth', namespace: 'auth' });
-  useAuthNavigate();
 
   return loaded ? (
     <>
@@ -18,6 +16,6 @@ export default function SignUpPage(): JSX.Element {
       </section>
     </>
   ) : (
-    <Loading />
+    <LoadingPage />
   );
 }

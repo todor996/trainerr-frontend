@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { Button } from 'react-daisyui';
-import { TrrInput } from '@shared/components/Input/Input.component';
+import { TrrInput } from '@shared/components/TrrInput.component';
 import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
 
@@ -21,7 +21,7 @@ export function FormLogIn(): JSX.Element {
 
   async function onSubmit(data: FormInputs) {
     dispatch(loginAction(data));
-  };
+  }
 
   return (
     <>

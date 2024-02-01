@@ -1,8 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom';
-import homeRouter from './modules/home/Home.router';
-import settingsRouter from './modules/settings/Settings.router';
-import authRouter from '@modules/auth/Auth.router';
-import { WrappedOutlet } from '@shared/components/WrappedOutlet/WrappedOutlet.component';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { homeRouter } from './modules/home/Home.router';
+import { settingsRouter } from './modules/settings/Settings.router';
+import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
+import { authRouter } from '@modules/auth/auth.router';
+import { trainerRouter } from '@modules/trainer-pov/trainer.router';
+import { clientRouter } from '@modules/client-pov/client.router';
 
 const env = import.meta.env;
 
@@ -11,7 +13,18 @@ export const router = createBrowserRouter(
     {
       path: '/',
       element: <WrappedOutlet />,
-      children: [homeRouter, settingsRouter, authRouter],
+      children: [
+        authRouter,
+        trainerRouter,
+        clientRouter,
+        // TODO: delete this when modules are removed
+        homeRouter,
+        settingsRouter,
+        {
+          path: '*',
+          element: <Navigate to="login" />,
+        },
+      ],
     },
   ],
   {
