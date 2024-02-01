@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-export default function PlansTrainer(): JSX.Element {
+export default function TrainingPlansPage(): JSX.Element {
   const { t } = useTranslation();
 
   return (

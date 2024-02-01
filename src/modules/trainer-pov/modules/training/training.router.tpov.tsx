@@ -11,11 +11,11 @@ export const trainingRouter: RouteObject = {
     },
     {
       path: 'plans',
-      Component: lazy(() => import('./components/Plans.components.tpov')),
+      Component: lazy(() => import('./pages/TrainingPlans.page.tpov')),
     },
     {
       path: 'exercises',
-      Component: lazy(() => import('./components/Exercises.component.tpov')),
+      Component: lazy(() => import('./pages/TrainingExercises.page.tpov')),
     },
     {
       path: '*',

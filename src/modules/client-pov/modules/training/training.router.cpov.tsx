@@ -5,18 +5,18 @@ export const trainingRouter: RouteObject = {
   path: 'training',
   children: [
     {
+      path: '',
+      element: <Navigate to="plans" />,
+    },
+    {
       path: 'plans',
-      Component: lazy(() => import('./pages/Plans.cpov.page')),
+      Component: lazy(() => import('./pages/TrainingPlans.page.cpov')),
       children: [],
     },
     {
       path: 'exercises',
-      Component: lazy(() => import('./pages/Exercises.cpov.page')),
+      Component: lazy(() => import('./pages/TrainingExercises.page.cpov')),
       children: [],
-    },
-    {
-      path: '',
-      element: <Navigate to="plans" />,
     },
     {
       path: '*',

@@ -3,8 +3,8 @@ import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
 import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
 import { authRouter } from '@modules/auth/auth.router';
-import { clientsRouter } from '@modules/trainer-pov/modules/clients/clients.router.tpov';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router';
+import { clientRouter } from '@modules/client-pov/client.router';
 
 const env = import.meta.env;
 
@@ -16,7 +16,7 @@ export const router = createBrowserRouter(
       children: [
         authRouter,
         trainerRouter,
-        clientsRouter,
+        clientRouter,
         // TODO: delete this when modules are removed
         homeRouter,
         settingsRouter,
