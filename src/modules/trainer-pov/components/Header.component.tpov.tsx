@@ -67,12 +67,14 @@ export function Header(): JSX.Element {
       <div className="flex items-center gap-2">
         <TrrDropdown
           closeOnSelect={false}
-          toggleContent={<ThemeItem className="bg-transparent" theme={currentTheme} />}
+          toggleContent={
+            <ThemeItem className="bg-transparent" dataTheme={currentTheme} />
+          }
           toggleClassName="hover:bg-base-300 hover:text-base-content"
           items={getThemeItems()}
           Item={({ isActive, content, value, onClick }) => {
             return (
-              // TODO: Think about making ThemeButton component
+              // TODO: Replace this with ThemeButton
               <Button
                 className={twMerge(
                   'mt-2 min-w-40 bg-base-100 hover:bg-base-300',
@@ -82,7 +84,7 @@ export function Header(): JSX.Element {
                 dataTheme={value}
                 onClick={onClick}
               >
-                <ThemeItem className="bg-transparent" theme={content} />
+                <ThemeItem className="bg-transparent" dataTheme={content} />
               </Button>
             );
           }}

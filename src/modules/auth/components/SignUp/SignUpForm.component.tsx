@@ -9,15 +9,14 @@ import { useAppDispatch } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
 
 export interface FormInputs {
-  firstName: string;
-  lastName: string;
+  username: string;
   terms: boolean;
-  birthday: string;
   email: string;
   password: string;
+  passwordConfirm: string;
 }
 
-export function FormSignUp(): JSX.Element {
+export function SignUpForm(): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -31,32 +30,18 @@ export function FormSignUp(): JSX.Element {
     dispatch(trainerSignupAction(data));
   }
 
+  // TODO: Add password confirmation logic
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+      <form className="flex grow flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <TrrInput
           type="text"
-          placeholder={t('auth:firstNamePlaceholder')}
-          autoComplete="first-name"
-          label={t('auth:firstNameLabel')}
-          registerProps={register('firstName', { required: true })}
-          error={errors['firstName'] && t(`auth:error:${errors['firstName'].type}`)}
-        />
-        <TrrInput
-          type="text"
-          placeholder={t('auth:lastNamePlaceholder')}
-          autoComplete="family-name"
-          label={t('auth:lastNameLabel')}
-          registerProps={register('lastName', { required: true })}
-          error={errors['lastName'] && t(`auth:error:${errors['lastName'].type}`)}
-        />
-        <TrrInput
-          type="date"
-          placeholder={t('auth:birthdayLabel')}
-          autoComplete="bday"
-          label={t('auth:birthdayLabel')}
-          registerProps={register('birthday', { required: true })}
-          error={errors['birthday'] && t(`auth:error:${errors['birthday'].type}`)}
+          placeholder={t('auth:usernamePlaceholder')}
+          autoComplete="username"
+          label={t('auth:usernameLabel')}
+          registerProps={register('username', { required: true })}
+          error={errors['username'] && t(`auth:error:${errors['username'].type}`)}
         />
         <TrrInput
           type="email"
@@ -80,6 +65,17 @@ export function FormSignUp(): JSX.Element {
           registerProps={register('password', { required: true, minLength: 8 })}
           error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
         />
+        <TrrInput
+          type="password"
+          placeholder={t('auth:passwordConfirmPlaceholder')}
+          autoComplete="new-password"
+          label={t('auth:passwordConfirmLabel')}
+          registerProps={register('passwordConfirm', { required: true, minLength: 8 })}
+          error={
+            errors['passwordConfirm'] && t(`auth:error:${errors['passwordConfirm'].type}`)
+          }
+        />
+
         <TrrCheckbox registerProps={register('terms', { required: true })}>
           {t('auth:checkbox.checkboxLabel')}{' '}
           <Link to="#" className="cursor-pointer text-primary">
@@ -92,9 +88,18 @@ export function FormSignUp(): JSX.Element {
           .
         </TrrCheckbox>
 
-        <Button type="submit" className="btn-primary w-full">
-          {t('auth:signUpButton')}
-        </Button>
+        <div className="mt-2 flex flex-col gap-2">
+          <Button type="submit" className="btn-primary w-full">
+            {t('auth:signUpButton')}
+          </Button>
+
+          <span className="label-text">
+            {t('auth:signup.loginLabel')}{' '}
+            <Link to="/auth/login" className="cursor-pointer text-primary">
+              {t('auth:signup.loginLink')}
+            </Link>
+          </span>
+        </div>
       </form>
     </>
   );

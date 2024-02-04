@@ -1,39 +1,49 @@
 import { AuthLocal } from '@modules/auth/types/AuthLocal.type';
 
 const enResource: AuthLocal = {
-  usernameLabel: 'Trainerr',
   langButtonEng: 'English',
   langButtonSrb: 'Serbian',
+
+  usernameLabel: 'Username',
   firstNameLabel: 'First Name',
   lastNameLabel: 'Last Name',
   birthdayLabel: 'Birthday',
   emailLabel: 'Email Address',
   passwordLabel: 'Password',
-  firstNamePlaceholder: 'John',
-  lastNamePlaceholder: 'Smith',
-  emailPlaceholder: 'john@trainerr.com',
+  passwordConfirmLabel: 'Confirm Password',
+
+  usernamePlaceholder: 'james_bond007',
+  firstNamePlaceholder: 'James',
+  lastNamePlaceholder: 'Bond',
+  emailPlaceholder: 'bond@trainerr.com',
   passwordPlaceholder: '**********',
+  passwordConfirmPlaceholder: '**********',
+
   signUp: 'Sign Up',
   logIn: 'Log In',
-  signUpButton: 'Sign Up',
+
   newPassword: 'New Password',
   confirmPassword: 'Confirm Password',
-  resetButton: 'Reset',
   resetPassword: 'Reset Password',
+
+  signUpButton: 'Sign Up',
+  logInButton: 'Log In',
+  resetButton: 'Reset',
+
+  langButton: {
+    en: 'English',
+    sr: 'Serbian',
+  },
+
   error: {
     minLength: 'Minimum length is 8',
     required: 'This field is required',
     pattern: 'Entered value does not match email format',
     passwordsDoNotMatch: 'The passwords do not match',
   },
-  logInButton: 'Log In',
-  langButton: {
-    en: 'English',
-    sr: 'Serbian',
-  },
 
   checkbox: {
-    checkboxLabel: 'Yes, I accept',
+    checkboxLabel: 'I accept',
     checkboxPrivacy: 'privacy policy',
     checkboxTerms: 'terms of use',
     checkboxAnd: '&',

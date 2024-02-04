@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 import daisyui from 'daisyui';
 import { DEFAULT_THEMES } from './src/shared/consts/daisyui.const';
 

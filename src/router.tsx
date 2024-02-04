@@ -21,8 +21,12 @@ export const router = createBrowserRouter(
         homeRouter,
         settingsRouter,
         {
+          path: '',
+          element: <Navigate to="auth/login" />,
+        },
+        {
           path: '*',
-          element: <Navigate to="login" />,
+          element: <Navigate to="auth/login" />,
         },
       ],
     },

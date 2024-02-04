@@ -4,8 +4,8 @@ import { PhoneMockup } from 'react-daisyui';
 
 export function PresentationSection(): JSX.Element {
   return (
-    <div className="hidden gap-4 bg-primary py-6 lg:flex lg:flex-col lg:items-center">
-      <h2 className="text-3xl font-semibold lg:flex lg:flex-col lg:items-center lg:justify-center">
+    <div className="hidden gap-4 bg-base-200 py-6 text-base-content md:flex md:flex-col md:items-center">
+      <h2 className="text-3xl sm:font-semibold md:flex md:flex-col md:items-center md:justify-center md:font-medium lg:font-semibold">
         <span>Your App</span>
         <span>Your Logo</span>
         <span>Your Colors</span>

@@ -1,3 +1,4 @@
+// TODO: Think of deleting this unused constants
 export const componentPositions = ['top', 'bottom', 'left', 'right'] as const;
 export const componentShapes = ['circle', 'square'] as const;
 export const componentSizes = ['lg', 'md', 'sm', 'xs'] as const;

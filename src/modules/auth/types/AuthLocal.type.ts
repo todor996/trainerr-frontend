@@ -1,30 +1,41 @@
 export interface AuthLocal {
-  usernameLabel: string;
   langButtonEng: string;
   langButtonSrb: string;
+
+  usernameLabel: string;
   firstNameLabel: string;
   lastNameLabel: string;
   birthdayLabel: string;
   emailLabel: string;
   passwordLabel: string;
+  passwordConfirmLabel: string;
+
+  usernamePlaceholder: string;
   firstNamePlaceholder: string;
   lastNamePlaceholder: string;
   emailPlaceholder: string;
   passwordPlaceholder: string;
+  passwordConfirmPlaceholder: string;
+
   signUp: string;
+  logIn: string;
+
   newPassword: string;
   confirmPassword: string;
-  resetButton: string;
   resetPassword: string;
-  error: {
-    [key: string]: string;
-  };
-  logIn: string;
+
   signUpButton: string;
   logInButton: string;
+  resetButton: string;
+
+  // TODO: MOve this to global translation
   langButton: {
     en: string;
     sr: string;
+  };
+
+  error: {
+    [key: string]: string;
   };
 
   checkbox: {

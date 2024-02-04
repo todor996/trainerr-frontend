@@ -4,13 +4,14 @@ import { Button } from 'react-daisyui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
+import { Link } from 'react-router-dom';
 
 export interface FormInputs {
   email: string;
   password: string;
 }
 
-export function FormLogIn(): JSX.Element {
+export function LogInForm(): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const {
@@ -25,7 +26,7 @@ export function FormLogIn(): JSX.Element {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+      <form className="flex grow flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <TrrInput
           type="email"
           label={t('auth:emailLabel')}
@@ -49,10 +50,18 @@ export function FormLogIn(): JSX.Element {
           autoComplete="current-password"
           registerProps={register('password', { required: true, minLength: 8 })}
         />
-        <div>
-          <Button type="submit" className="btn-primary mt-6 w-full">
+
+        <div className="mt-2 flex flex-col gap-2">
+          <Button type="submit" className="btn-primary w-full">
             {t('auth:logInButton')}
           </Button>
+          <span className="label-text">
+            {t('auth:account.accountLabel')}
+            <Link to="/auth/signup" className="cursor-pointer text-primary">
+              {' '}
+              {t('auth:account.accountLink')}
+            </Link>
+          </span>
         </div>
       </form>
     </>
