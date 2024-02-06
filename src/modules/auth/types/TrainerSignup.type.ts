@@ -1,7 +1,5 @@
 export interface TrainerSignup {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
-  birthday: string;
 }

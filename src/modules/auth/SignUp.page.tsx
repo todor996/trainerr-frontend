@@ -10,7 +10,7 @@ export default function SignUpPage(): JSX.Element {
   return loaded ? (
     <>
       <Title />
-      <section className="m-3 lg:m-0 lg:grid lg:grid-cols-2">
+      <section className="m-3 md:m-0 md:grid md:grid-cols-2">
         <SignUpSection />
         <PresentationSection />
       </section>
