@@ -8,5 +8,13 @@ export const profileRouter: RouteObject = {
       path: '',
       Component: lazy(() => import('./Profile.page.cpov')),
     },
+    {
+      path: 'edit-profile',
+      Component: lazy(() => import('./EditProfil.page.cpov')),
+    },
+    {
+      path: 'edit-measure',
+      Component: lazy(() => import('./EditMeasures.page.cpov')),
+    },
   ],
 };
