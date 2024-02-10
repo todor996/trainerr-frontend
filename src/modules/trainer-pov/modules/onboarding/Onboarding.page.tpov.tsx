@@ -17,9 +17,9 @@ export default function OnboardingPage(): JSX.Element {
         <Title />
         <div className="flex w-full flex-col items-center">
           <Routes>
-            <Route path="/*" element={<Navigate to="profile" />} />
             <Route path="profile/*" element={<OnboardingProfilePage />} />
             <Route path="app/*" element={<OnboardingAppPage />} />
+            <Route path="/*" element={<Navigate to="profile" />} />
           </Routes>
         </div>
       </main>

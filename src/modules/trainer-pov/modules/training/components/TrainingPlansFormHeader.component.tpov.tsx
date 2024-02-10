@@ -1,0 +1,49 @@
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { TrrIcon } from '@shared/components/TrrIcon.component';
+import { Button } from 'react-daisyui';
+import { useNavigate } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
+
+interface TrainingPlansFormHeaderProps {
+  className?: string;
+  text?: string;
+}
+
+export function TrainingPlansFormHeader({
+  className,
+  text,
+}: TrainingPlansFormHeaderProps): JSX.Element {
+  const navigate = useNavigate();
+
+  function goBack() {
+    navigate(-1);
+  }
+
+  return (
+    <div
+      className={twMerge(
+        'flex flex-row items-center justify-between bg-base-100',
+        className,
+      )}
+    >
+      {/* LEFT */}
+      <div className="-ml-2 flex w-full flex-row items-center">
+        <Button className="size-8 p-0" color="ghost" size="sm" onClick={goBack}>
+          <TrrIcon icon={faChevronLeft} size={16} />
+        </Button>
+        <span className="text-xl font-medium">{text}</span>
+      </div>
+
+      {/* TODO: Think of connecting PlanForm - <form> and this <form>  */}
+      {/* RIGHT */}
+      <div className="items-center-justify-end flex flex-row space-x-2">
+        <Button className="min-w-[120px] shadow" size="sm">
+          Cancel
+        </Button>
+        <Button className="min-w-[120px] shadow" size="sm" color="primary">
+          Save
+        </Button>
+      </div>
+    </div>
+  );
+}

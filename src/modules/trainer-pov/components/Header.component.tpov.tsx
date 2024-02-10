@@ -53,7 +53,7 @@ export function Header(): JSX.Element {
   }
 
   return (
-    <div className="flex items-center justify-between px-3 py-6">
+    <div className="flex items-center justify-between bg-base-100 px-6 pb-3 pt-6">
       <div className="flex gap-2">
         <img
           className="size-8 rounded-full"

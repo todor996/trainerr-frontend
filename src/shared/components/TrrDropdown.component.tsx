@@ -111,8 +111,8 @@ export function TrrDropdown({
         )}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className="mt-1">
-        <div className="flex max-h-64 flex-col gap-1.5 overflow-y-scroll p-1">
+      <Dropdown.Menu className="z-10 mt-1 bg-base-100">
+        <div className="z-10 flex max-h-64 flex-col gap-1.5 overflow-y-scroll bg-base-100 p-1">
           {items.map((item, index) =>
             Item ? (
               <Item {...item} key={index} onClick={() => handleOnSelect(item, index)} />
