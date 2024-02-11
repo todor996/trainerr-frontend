@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import { useForm } from 'react-hook-form';
 import { Button } from 'react-daisyui';
 import { TrrInput } from '@shared/components/TrrInput.component';
@@ -7,6 +8,7 @@ import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { emailRegex } from '@shared/consts/regex';
 import { useAppDispatch } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export interface FormInputs {
   username: string;
@@ -17,6 +19,7 @@ export interface FormInputs {
 }
 
 export function SignUpForm(): JSX.Element {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
@@ -27,7 +30,16 @@ export function SignUpForm(): JSX.Element {
   } = useForm<FormInputs>();
 
   async function onSubmit(data: FormInputs) {
-    dispatch(trainerSignupAction(data));
+    dispatch(trainerSignupAction(data))
+      .then(unwrapResult)
+      .then((data) => {
+        const { isTrainer } = jwtDecode<{ isTrainer: boolean }>(data);
+        if (isTrainer) {
+          navigate('/trainer/onboarding');
+          return;
+        }
+        navigate('/client');
+      });
   }
 
   // TODO: Add password confirmation logic
