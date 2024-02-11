@@ -5,8 +5,7 @@ import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
 import { authRouter } from '@modules/auth/Auth.router';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router';
 import { clientRouter } from '@modules/client-pov/client.router';
-
-const env = import.meta.env;
+import { env } from '@shared/consts/env.consts';
 
 export const router = createBrowserRouter(
   [

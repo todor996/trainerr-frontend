@@ -6,8 +6,66 @@ import { TrainingPlansHeader } from '../components/TrainingPlansHeader.component
 import { useCallback, useState } from 'react';
 import { HeaderSmall } from '@modules/trainer-pov/components/HeaderSmall.component.tpov';
 import { TrainingExerciseCard } from '../components/TrainingExerciseCard.component.tpov';
+import { api } from '@api/index.api';
+
+const trainingPlan = {
+  name: 'Snaga - Powerlifting',
+  description: 'Uz ovaj plan ce te doci do fit tela koje je spremno na sve!',
+  exercises: [
+    {
+      name: 'Bench',
+      description: 'The quick brown fox jumps over the lazy dog.',
+      imgSrc:
+        'https://cdn.muscleandstrength.com/sites/default/files/images/articles/articles/bench-press-5.jpg',
+    },
+    {
+      name: 'Squat',
+      description: 'The quick brown fox jumps over the lazy dog.',
+      imgSrc:
+        'https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2021/10/How-to-Squat.jpg',
+    },
+    {
+      name: 'Pull up',
+      description: 'The quick brown fox jumps over the lazy dog.',
+      imgSrc: 'https://image.boxrox.com/2021/06/Pull-Up.jpg',
+    },
+  ],
+};
 
 export default function TrainingPlansPage(): JSX.Element {
+  // TODO: Remove this after finish testing the MOCKED API
+
+  (async () => {
+    const { data } = await api.post('training/plans', trainingPlan);
+    console.log({ data });
+  })();
+
+  (async () => {
+    const { data } = await api.delete('training/plans/3');
+    console.log('put', { data });
+  })();
+
+  (async () => {
+    const { data } = await api.put('training/plans/2', { name: 'Good Boy' });
+    console.log('put', { data });
+  })();
+
+  (async () => {
+    const { data } = await getPlansId(2);
+    console.log({ data });
+  })();
+
+  (async () => {
+    const { data } = await getPlans();
+    console.log({ data });
+  })();
+
+  async function getPlans() {
+    return await api.get('training/plans');
+  }
+  async function getPlansId(id: number) {
+    return await api.get(`training/plans/${id}`);
+  }
   function handleOnClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.stopPropagation();
 
