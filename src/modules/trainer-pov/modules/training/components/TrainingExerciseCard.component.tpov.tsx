@@ -1,12 +1,14 @@
 import { MouseEventHandler } from 'react';
 import { Badge, Card } from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
+import { Unit } from '../store/trainingSlice.store';
 
 interface TrainingExerciseCardProps {
   className?: string;
   title: string;
   imgSrc: string;
   description?: string;
+  units: Unit[];
   TitleIcon?: JSX.ElementType;
   Action?: JSX.ElementType;
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
@@ -16,6 +18,7 @@ export function TrainingExerciseCard({
   className,
   title,
   description,
+  units,
   imgSrc,
   Action,
   onClick,
@@ -30,7 +33,11 @@ export function TrainingExerciseCard({
     >
       {/* IMAGE */}
       <div className="flex h-full max-h-24 w-full max-w-24">
-        <img className="card h-24 w-24 object-cover" src={imgSrc} alt="exercise" />
+        <img
+          className="card h-24 min-h-24 w-24 min-w-24 object-cover"
+          src={imgSrc}
+          alt="exercise"
+        />
       </div>
 
       {/* CONTENT */}
@@ -47,15 +54,11 @@ export function TrainingExerciseCard({
         {/* TAGS */}
         {/* TODO: Think of makeing TrrBadge with proper maps for size and text size */}
         <div className=" flex w-full flex-row items-center gap-1 overflow-x-scroll">
-          <Badge className="shrink-0 text-xs font-medium" size="md">
-            km
-          </Badge>
-          <Badge className="shrink-0 text-xs font-medium" size="md">
-            time
-          </Badge>
-          <Badge className="shrink-0 text-xs font-medium" size="md">
-            reps
-          </Badge>
+          {units.map((unit, index) => (
+            <Badge className="shrink-0 text-xs font-medium" key={index} size="md">
+              {unit.type}
+            </Badge>
+          ))}
         </div>
 
         {/* BODY */}

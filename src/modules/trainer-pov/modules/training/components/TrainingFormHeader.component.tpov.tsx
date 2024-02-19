@@ -4,15 +4,17 @@ import { Button } from 'react-daisyui';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
-interface TrainingPlansFormHeaderProps {
+interface TrainingFormHeaderProps {
   className?: string;
   text?: string;
+  children?: React.ReactNode;
 }
 
-export function TrainingPlansFormHeader({
+export function TrainingFormHeader({
   className,
   text,
-}: TrainingPlansFormHeaderProps): JSX.Element {
+  children,
+}: TrainingFormHeaderProps): JSX.Element {
   const navigate = useNavigate();
 
   function goBack() {
@@ -36,14 +38,7 @@ export function TrainingPlansFormHeader({
 
       {/* TODO: Think of connecting PlanForm - <form> and this <form>  */}
       {/* RIGHT */}
-      <div className="items-center-justify-end flex flex-row space-x-2">
-        <Button className="min-w-[120px] shadow" size="sm">
-          Cancel
-        </Button>
-        <Button className="min-w-[120px] shadow" size="sm" color="primary">
-          Save
-        </Button>
-      </div>
+      <div className="items-center-justify-end flex flex-row space-x-2">{children}</div>
     </div>
   );
 }

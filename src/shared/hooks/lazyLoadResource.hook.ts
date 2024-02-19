@@ -3,6 +3,23 @@ import { useEffect, useState } from 'react';
 import i18n from '@localization/i18next.local';
 import updateParam from '../utils/updateParam.util';
 
+function formatPath({
+  folderName,
+  pov,
+  noDialect = false,
+}: {
+  folderName: string;
+  namespace: string;
+  pov: string;
+  noDialect?: boolean;
+}) {
+  const lng = noDialect ? i18n.language.split('-').shift() : i18n.language;
+  const povStr = pov ? `.${pov}` : '';
+  const path = `../../modules/${folderName}/locales/${lng}/translation${povStr}.ts`;
+
+  return path;
+}
+
 async function lazyLoadResource({
   folderName,
   namespace,
@@ -13,9 +30,14 @@ async function lazyLoadResource({
   pov?: 'tpov' | 'cpov' | '';
 }) {
   // TODO: Test this with deploy
-  const povStr = pov ? `.${pov}` : '';
-  const path = `../../modules/${folderName}/locales/${i18n.language}/translation${povStr}.ts`;
-  const module = await import(/* @vite-ignore */ path);
+  let module, path;
+  try {
+    path = formatPath({ folderName, namespace, pov });
+    module = await import(/* @vite-ignore */ path);
+  } catch (error) {
+    path = formatPath({ folderName, namespace, pov, noDialect: true });
+    module = await import(/* @vite-ignore */ path);
+  }
   const resource = module.default;
 
   i18n.addResourceBundle(i18n.language, namespace, resource, true);

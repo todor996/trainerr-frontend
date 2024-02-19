@@ -17,6 +17,7 @@ export const createMockServer = () => {
 
     routes() {
       this.urlPrefix = baseUrl;
+      this.timing = 500;
 
       //#region Training Plans
 
