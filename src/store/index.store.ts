@@ -12,6 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { trainingReducer } from '@modules/trainer-pov/modules/training/store/trainingSlice.store';
 
 // Persist Config
 const persistConfig = {
@@ -22,12 +23,15 @@ const persistConfig = {
 // Persisted Reducers
 const persistedHomeReducer = persistReducer(persistConfig, homeReducer);
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+// TODO: Create TrainerPOV store
+const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
 
 // Configure Store
 export const store = configureStore({
   reducer: {
     home: persistedHomeReducer,
     auth: persistedAuthReducer,
+    training: persistedTrainingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

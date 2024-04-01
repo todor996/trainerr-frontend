@@ -20,7 +20,7 @@ export function Sidenav(): JSX.Element {
   }
 
   return (
-    <nav className="h-screen h-svh w-48 min-w-52 border-r-2 border-base-200 px-2 pb-6 pt-3">
+    <nav className="h-screen h-svh w-48 min-w-52 border-r-2 border-base-200 bg-base-100 px-2 pb-6 pt-3">
       <div className="flex h-full flex-col justify-between">
         {/* TOP OPTIONS */}
         <div className="flex flex-col gap-1">
