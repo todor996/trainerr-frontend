@@ -1,12 +1,13 @@
 import {
   faBars,
-  faPencil,
-  faScaleBalanced,
+  // faPencil,
+  // faScaleBalanced,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
 import { Avatar, Button } from 'react-daisyui';
 import ButtonNav from './components/ButtonNavigation.component';
+import { Link } from 'react-router-dom';
 
 export default function ProfilePage(): JSX.Element {
   return (
@@ -15,7 +16,7 @@ export default function ProfilePage(): JSX.Element {
         <div className="navbar justify-between">
           {/* This should ba a logo instead */}
           <TrrIcon icon={faStar}></TrrIcon>
-          <h4>username</h4>
+          <h4 className="text-xl font-semibold">username</h4>
           <TrrIcon icon={faBars}></TrrIcon>
         </div>
       </header>
@@ -50,10 +51,10 @@ export default function ProfilePage(): JSX.Element {
 
       <div className="my-4 grid grid-cols-2 gap-4">
         <Button size="sm">
-          <TrrIcon icon={faScaleBalanced} size={20} /> Measure
+          <Link to="/client/profile/edit-measure">Measure</Link>
         </Button>
         <Button size="sm">
-          <TrrIcon icon={faPencil} size={20} /> Edit Profile
+          <Link to="/client/profile/edit-profile">Edit Profile</Link>
         </Button>
       </div>
 
