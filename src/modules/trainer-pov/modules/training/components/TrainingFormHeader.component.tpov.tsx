@@ -1,6 +1,6 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 

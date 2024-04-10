@@ -1,6 +1,6 @@
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 import { Link } from 'react-router-dom';
 
 export function OnboardingAppInfo(): JSX.Element {

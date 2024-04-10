@@ -6,6 +6,15 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
+import { tamaguiExtractPlugin, tamaguiPlugin } from '@tamagui/vite-plugin';
+
+const shouldExtract = process.env.EXTRACT === '1';
+
+const tamaguiConfig = {
+  components: ['tamagui'],
+  config: 'src/tamagui.config.ts',
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -17,6 +26,8 @@ export default defineConfig({
     tsconfigPaths(),
     VitePWA({ registerType: 'autoUpdate' }),
     svgr(),
+    tamaguiPlugin(tamaguiConfig),
+    shouldExtract ? tamaguiExtractPlugin(tamaguiConfig) : null,
   ],
   base: process.env.NODE_ENV === 'production' ? '/trainerr-frontend/' : '/',
 });

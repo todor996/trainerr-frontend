@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { emailRegex } from '@shared/consts/regex';
@@ -58,7 +58,8 @@ export function SignUpForm(): JSX.Element {
           error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
         />
         <TrrInput
-          type="password"
+          // type="password"
+          secureTextEntry={true}
           placeholder={t('auth:passwordPlaceholder')}
           autoComplete="new-password"
           label={t('auth:passwordLabel')}
@@ -66,7 +67,8 @@ export function SignUpForm(): JSX.Element {
           error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
         />
         <TrrInput
-          type="password"
+          // type="password"
+          secureTextEntry={true}
           placeholder={t('auth:passwordConfirmPlaceholder')}
           autoComplete="new-password"
           label={t('auth:passwordConfirmLabel')}

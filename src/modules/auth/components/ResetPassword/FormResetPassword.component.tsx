@@ -1,8 +1,8 @@
 import { TrrInput } from '@shared/components/TrrInput.component';
-import { Button } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useRef } from 'react';
+import { Button } from 'tamagui';
 
 export interface FormInputs {
   password: string;
@@ -38,7 +38,8 @@ export function FormResetPassword(): JSX.Element {
           </label>
           {/* TODO: Define password rules */}
           <TrrInput
-            type="password"
+            // type="password"
+            secureTextEntry={true}
             label={t('auth:newPassword')}
             placeholder={t('auth:passwordPlaceholder')}
             error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
@@ -46,7 +47,8 @@ export function FormResetPassword(): JSX.Element {
             registerProps={register('password', { required: true, minLength: 8 })}
           />
           <TrrInput
-            type="password"
+            // type="password"
+            secureTextEntry={true}
             label={t('auth:confirmPassword')}
             placeholder={t('auth:passwordPlaceholder')}
             autoComplete="new-password"

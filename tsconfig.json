@@ -29,9 +29,28 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    // From tamagui setup
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "preserveSymlinks": true,
+    "noEmitOnError": false,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "preserveConstEnums": true,
+    "removeComments": false,
+    "sourceMap": false,
+    "strictNullChecks": true,
+    "types": ["node", "react"],
+    // "lib": ["dom", "esnext"],
   },
   "files": ["globals.d.ts"],
-  "include": ["src", "public"],
+  "include": ["src", "public", "tamagui.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

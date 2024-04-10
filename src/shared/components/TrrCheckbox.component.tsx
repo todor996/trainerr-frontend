@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { Checkbox, CheckboxProps } from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
+import { Checkbox, CheckboxProps } from 'tamagui';
+import { Check } from '@tamagui/lucide-icons';
 
 interface TrrCheckboxProps extends CheckboxProps {
   className?: string;
@@ -15,7 +16,7 @@ interface TrrCheckboxProps extends CheckboxProps {
 // TODO: Handle errors
 export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
   const {
-    className,
+    // className,
     label = '',
     message = '',
     children,
@@ -31,11 +32,16 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
           otherProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
         )}
       >
-        <Checkbox
+        {/* <Checkbox
           className={twMerge('checkbox-primary', className)}
           {...otherProps}
           {...registerProps}
-        />
+        /> */}
+        <Checkbox size="$4" {...otherProps} {...registerProps}>
+          <Checkbox.Indicator>
+            <Check />
+          </Checkbox.Indicator>
+        </Checkbox>
         <span>
           {label} {children}
         </span>

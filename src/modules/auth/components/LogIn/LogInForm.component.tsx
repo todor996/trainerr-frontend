@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { Button } from 'react-daisyui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
 import { Link } from 'react-router-dom';
+import { Button } from 'tamagui';
 
 export interface FormInputs {
   email: string;
@@ -23,6 +23,8 @@ export function LogInForm(): JSX.Element {
   async function onSubmit(data: FormInputs) {
     dispatch(loginAction(data));
   }
+
+  const theme = 'Light';
 
   return (
     <>
@@ -44,6 +46,7 @@ export function LogInForm(): JSX.Element {
         />
         <TrrInput
           type="password"
+          secureTextEntry={true}
           label={t('auth:passwordLabel')}
           placeholder={t('auth:passwordPlaceholder')}
           error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
@@ -52,7 +55,7 @@ export function LogInForm(): JSX.Element {
         />
 
         <div className="mt-2 flex flex-col gap-2">
-          <Button type="submit" className="btn-primary w-full">
+          <Button type="submit" className="btn-primary w-full" bc={`$blue1${theme}`}>
             {t('auth:logInButton')}
           </Button>
           <span className="label-text">

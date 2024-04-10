@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 
 import { localKeys } from '@shared/consts/localization.const';
 import { TrrDropdown, TrrDropdownItem } from '@shared/components/TrrDropdown.component';

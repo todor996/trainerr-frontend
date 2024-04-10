@@ -1,4 +1,4 @@
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 import { ThemeItem } from './ThemeItem.component';
 import { twMerge } from 'tailwind-merge';
 

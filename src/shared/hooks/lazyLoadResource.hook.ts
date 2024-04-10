@@ -3,6 +3,20 @@ import { useEffect, useState } from 'react';
 import i18n from '@localization/i18next.local';
 import updateParam from '../utils/updateParam.util';
 
+/**
+ * Returns language without dialect if `noDialect` is `true`
+ *
+ * eg.
+ * 'en-US' -> 'en'
+ * 'sr-Latn' -> 'sr'
+ *
+ * @param noDialect
+ * @returns
+ */
+function getLanguage({ noDialect }: { noDialect: boolean }): string | undefined {
+  return noDialect ? i18n.language.split('-').shift() : i18n.language;
+}
+
 function formatPath({
   folderName,
   pov,
@@ -13,7 +27,7 @@ function formatPath({
   pov: string;
   noDialect?: boolean;
 }) {
-  const lng = noDialect ? i18n.language.split('-').shift() : i18n.language;
+  const lng = getLanguage({ noDialect });
   const povStr = pov ? `.${pov}` : '';
   const path = `../../modules/${folderName}/locales/${lng}/translation${povStr}.ts`;
 
@@ -32,11 +46,19 @@ async function lazyLoadResource({
   // TODO: Test this with deploy
   let module, path;
   try {
+    // Try to load the resource with dialect
     path = formatPath({ folderName, namespace, pov });
     module = await import(/* @vite-ignore */ path);
   } catch (error) {
-    path = formatPath({ folderName, namespace, pov, noDialect: true });
+    // If resource with dialect is not found, try to load the resource without dialect
+    const noDialect = true;
+
+    // Import the resource without dialect
+    path = formatPath({ folderName, namespace, pov, noDialect });
     module = await import(/* @vite-ignore */ path);
+
+    // Change language to no dialect
+    i18n.changeLanguage(getLanguage({ noDialect }));
   }
   const resource = module.default;
 
