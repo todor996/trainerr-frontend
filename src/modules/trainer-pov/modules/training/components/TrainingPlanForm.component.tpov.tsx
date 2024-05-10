@@ -28,7 +28,6 @@ export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Elem
   );
 
   const {
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>();
@@ -58,13 +57,11 @@ export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Elem
         label="Name"
         placeholder="Training Plan Name"
         error={errors['name'] && 'Name is required'}
-        registerProps={register('name', { required: true })}
       />
       <TrrTextarea
         label="Description"
         placeholder="Training Plan Description"
         error={errors['description'] && 'Description is required'}
-        registerProps={register('description')}
       />
 
       {/* TRAINING SECTION */}

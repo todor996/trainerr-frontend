@@ -9,6 +9,12 @@ const enResource: AppResource = {
   uncommon: {
     guest: 'Guest',
   },
+  error: {
+    required: 'Field is required',
+    email: 'Email is not valid',
+    max: 'Field has too many characters',
+    min: 'Field has too few characters',
+  },
   sr: {
     full: 'Serbian',
     short: 'SR',

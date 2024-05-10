@@ -1,39 +1,65 @@
-import { forwardRef } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { Input, InputProps } from 'react-daisyui';
+import React from 'react';
+import { Input, InputProps, Label, SizableText, YStack, styled } from 'tamagui';
 
 interface TrrInputProps extends InputProps {
+  type?: string;
+  name?: string;
   label?: string;
   error?: string;
-  registerProps?: UseFormRegisterReturn<string>;
+  // onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const TrrInput = forwardRef<HTMLInputElement, TrrInputProps>((props, ref) => {
+export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
   const {
     label,
     error,
-    type = 'text',
+    size,
     placeholder,
-    autoComplete,
-    registerProps,
+    // autoComplete,
     ...otherProps
   } = props;
 
+  const customSize = size || '$4';
+
   return (
-    <label className="form-control w-full">
-      {label && (
-        <span className={`label-text mb-1 ${error && 'text-error'}`}>{label}</span>
-      )}
-      <Input
-        className={`${error && 'border-error'}`}
-        autoComplete={autoComplete}
-        type={type}
-        placeholder={placeholder}
-        ref={ref}
-        {...otherProps}
-        {...registerProps}
-      />
-      {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
-    </label>
+    <Label>
+      <YStack flex={1}>
+        {label && (
+          <span className="mb-1 text-sm">
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <SizableText size={customSize as any}>{label}</SizableText>
+          </span>
+        )}
+        {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
+        <>
+          <Input
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ref={ref as any}
+            size={customSize}
+            // bordered={true}
+            placeholder={placeholder}
+            {...otherProps}
+          />
+          {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
+        </>
+      </YStack>
+    </Label>
   );
+});
+
+// TODO: Test if this works properly
+export const TrrInput = styled(TrrInputPrivate, {
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   // Set the width to 100%
+  //   width: '100%',
+  // },
+  // innerElement: {
+  //   // Set the width to 100%
+  //   width: '100%',
+  //   height: 50, // Set your desired height
+  //   backgroundColor: 'blue',
+  // },
 });

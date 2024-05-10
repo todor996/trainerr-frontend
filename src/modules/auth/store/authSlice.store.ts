@@ -8,11 +8,16 @@ import {
 import { AuthState } from '../types';
 
 const initialState: AuthState = {
+  username: null,
+  email: null,
+
   token: null,
   isTrainer: false,
   userUid: null,
+
   loading: false,
   error: null,
+  success: false,
 };
 
 function updateAuthStateOnSuccess(state: AuthState, action: PayloadAction<string>) {
@@ -23,11 +28,13 @@ function updateAuthStateOnSuccess(state: AuthState, action: PayloadAction<string
   localStorage.setItem('token', action.payload);
   state.loading = false;
   state.error = null;
+  state.success = true;
 }
 
 function updateAuthStateOnLoading(state: AuthState) {
   state.loading = true;
   state.error = null;
+  state.success = false;
 }
 
 //eslint-disable-next-line
@@ -35,6 +42,7 @@ function updateAuthStateOnError(state: AuthState, action: any) {
   state.loading = false;
   state.error = action.payload as string;
   state.token = null;
+  state.isTrainer = false;
 }
 
 const authSlice = createSlice({
@@ -53,5 +61,7 @@ const authSlice = createSlice({
       .addCase(loginAction.rejected, updateAuthStateOnError);
   },
 });
+
+export const { updateAuthState } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

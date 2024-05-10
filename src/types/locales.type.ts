@@ -49,6 +49,12 @@ export interface AppResource {
       feedback: string;
     };
   };
+  error: {
+    required: string;
+    email: string;
+    max: string;
+    min: string;
+  };
   theme: {
     custom_light: string;
     custom_dark: string;

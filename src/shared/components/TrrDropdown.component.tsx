@@ -41,7 +41,6 @@ interface TrrDropdownProps {
  *    onSelect={(key) => setLanguage(key as string)}
  * />
  *
- * @param param0
  * @returns
  */
 export function TrrDropdown({

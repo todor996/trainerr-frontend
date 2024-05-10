@@ -1,14 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { Button } from 'react-daisyui';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, Form } from 'tamagui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
-import { emailRegex } from '@shared/consts/regex';
-import { useAppDispatch } from '@store/hooks.store';
+import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
+import { useFormik } from 'formik';
+import { Validator } from '@shared/utils/validator.util';
+import { useEffect } from 'react';
+import { updateAuthState } from '@modules/auth/store/authSlice.store';
 
-export interface FormInputs {
+interface FormInputs {
   username: string;
   terms: boolean;
   email: string;
@@ -16,67 +18,146 @@ export interface FormInputs {
   passwordConfirm: string;
 }
 
+const initFromValues: FormInputs = {
+  username: '',
+  terms: false,
+  email: '',
+  password: '',
+  passwordConfirm: '',
+};
+
 export function SignUpForm(): JSX.Element {
   const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
+  const { loading, error, success } = useAppSelector((state) => state.auth);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormInputs>();
+  const navigate = useNavigate();
 
-  async function onSubmit(data: FormInputs) {
-    dispatch(trainerSignupAction(data));
+  const formik = useFormik({
+    initialValues: initFromValues,
+    validate: handleValidationFormik,
+    onSubmit: handleSubmitFormik,
+  });
+
+  useEffect(() => {
+    Validator.setErrorMessages({
+      required: t('auth:error.required'),
+      email: t('auth:error.email'),
+      url: t('auth:error.url'),
+      min: t('auth:error.min'),
+      max: t('auth:error.max'),
+      equals: t('auth:error.equals'),
+    });
+  });
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+
+    if (success) {
+      dispatch(updateAuthState({ success: false }));
+      formik.isSubmitting = false;
+
+      // TODO: Add tamagui toaster
+
+      alert('Signup successful');
+      navigate('/trainer/onboarding');
+    }
+
+    console.log({ loading, error, success });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, error, success, dispatch]);
+
+  function handleSubmitFormik(values: FormInputs) {
+    dispatch(trainerSignupAction(values));
   }
 
-  // TODO: Add password confirmation logic
+  function handleValidationFormik(values: FormInputs) {
+    const errors = Validator.formatErrors({
+      username: new Validator(values.username).required(),
+      terms: new Validator(values.terms).required(),
+      email: new Validator(values.email).required().email(),
+      password: new Validator(values.password).required().min(8),
+      passwordConfirm: new Validator(values.passwordConfirm)
+        .required()
+        .min(8)
+        .equals(values.password),
+    });
+    return errors;
+  }
+
+  function onCheckboxChange(value: string | boolean) {
+    formik.setFieldValue('terms', value);
+    formik.setFieldError('terms', new Validator(value).required().error);
+
+    return formik.handleChange;
+  }
 
   return (
     <>
-      <form className="flex grow flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      {/* TODO: Show proper loader... */}
+      {/* {loading && <div className="text-center">Loading...</div>} */}
+      <Form className="flex grow flex-col gap-4" onSubmit={formik.handleSubmit}>
         <TrrInput
-          type="text"
-          placeholder={t('auth:usernamePlaceholder')}
-          autoComplete="username"
-          label={t('auth:usernameLabel')}
-          registerProps={register('username', { required: true })}
-          error={errors['username'] && t(`auth:error:${errors['username'].type}`)}
-        />
-        <TrrInput
+          id="email"
+          name="email"
           type="email"
+          value={formik.values.email}
           placeholder={t('auth:emailPlaceholder')}
           autoComplete="email"
           label={t('auth:emailLabel')}
-          registerProps={register('email', {
-            required: true,
-            pattern: {
-              value: emailRegex,
-              message: 'Entered value does not match email format',
-            },
-          })}
-          error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
+          error={formik.touched.email ? formik.errors.email : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         <TrrInput
+          id="username"
+          name="username"
+          type="text"
+          value={formik.values.username}
+          placeholder={t('auth:usernamePlaceholder')}
+          // autoComplete="username"
+          label={t('auth:usernameLabel')}
+          error={formik.touched.username ? formik.errors.username : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        <TrrInput
+          id="password"
+          name="password"
           type="password"
+          value={formik.values.password}
+          secureTextEntry={true}
           placeholder={t('auth:passwordPlaceholder')}
           autoComplete="new-password"
           label={t('auth:passwordLabel')}
-          registerProps={register('password', { required: true, minLength: 8 })}
-          error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
+          error={formik.touched.password ? formik.errors.password : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         <TrrInput
+          id="passwordConfirm"
+          name="passwordConfirm"
           type="password"
+          value={formik.values.passwordConfirm}
+          secureTextEntry={true}
           placeholder={t('auth:passwordConfirmPlaceholder')}
           autoComplete="new-password"
           label={t('auth:passwordConfirmLabel')}
-          registerProps={register('passwordConfirm', { required: true, minLength: 8 })}
-          error={
-            errors['passwordConfirm'] && t(`auth:error:${errors['passwordConfirm'].type}`)
-          }
+          error={formik.touched.passwordConfirm ? formik.errors.passwordConfirm : ''}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
-
-        <TrrCheckbox registerProps={register('terms', { required: true })}>
+        <TrrCheckbox
+          id="terms"
+          name="terms"
+          value="terms"
+          error={formik.touched.terms ? formik.errors.terms : ''}
+          onCheckedChange={(event) => onCheckboxChange(event)}
+          onBlur={formik.handleBlur}
+        >
           {t('auth:checkbox.checkboxLabel')}{' '}
           <Link to="#" className="cursor-pointer text-primary">
             {t('auth:checkbox.checkboxPrivacy')}
@@ -89,9 +170,15 @@ export function SignUpForm(): JSX.Element {
         </TrrCheckbox>
 
         <div className="mt-2 flex flex-col gap-2">
-          <Button type="submit" className="btn-primary w-full">
-            {t('auth:signUpButton')}
-          </Button>
+          <Form.Trigger disabled={formik.isSubmitting}>
+            <Button
+              className="btn-primary w-full"
+              tag="span"
+              disabled={formik.isSubmitting}
+            >
+              {t('auth:signUpButton')}
+            </Button>
+          </Form.Trigger>
 
           <span className="label-text">
             {t('auth:signup.loginLabel')}{' '}
@@ -100,7 +187,7 @@ export function SignUpForm(): JSX.Element {
             </Link>
           </span>
         </div>
-      </form>
+      </Form>
     </>
   );
 }

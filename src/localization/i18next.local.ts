@@ -5,8 +5,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
 
 const lazyLoadResource = resourcesToBackend(
-  async (language: string, namespace: string) =>
-    import(`./locales/${language}/${namespace || 'translation'}.ts`),
+  async (language: string, namespace: string) => {
+    return import(`./locales/${language}/${namespace || 'translation'}.ts`);
+  },
 );
 
 // init i18next

@@ -1,12 +1,13 @@
-// import { useAuthNavigate } from '@shared/hooks/useAuthNavigate.hook';
+import { useAuthGuard } from '@core/guards/useAuthGuard.hook';
+import { useTrainerGuard } from './useTrainerGuard.hook';
 
 interface RouterGuardProps {
   children: JSX.Element | JSX.Element[];
 }
 
 export function RouterGuard({ children }: RouterGuardProps): JSX.Element {
-  // TODO: Uncomment this when we connect to backend properly
-  // useAuthNavigate();
+  useAuthGuard();
+  useTrainerGuard();
 
   return <>{children}</>;
 }

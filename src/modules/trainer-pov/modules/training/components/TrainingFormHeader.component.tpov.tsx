@@ -1,6 +1,6 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
-import { Button } from 'react-daisyui';
+import { Button } from 'tamagui';
 import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
@@ -30,7 +30,7 @@ export function TrainingFormHeader({
     >
       {/* LEFT */}
       <div className="-ml-2 flex w-full flex-row items-center">
-        <Button className="size-8 p-0" color="ghost" size="sm" onClick={goBack}>
+        <Button className="size-8 p-0" color="ghost" size="sm" onPress={goBack}>
           <TrrIcon icon={faChevronLeft} size={16} />
         </Button>
         <span className="text-xl font-medium">{text}</span>

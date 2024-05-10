@@ -3,13 +3,75 @@ import { Title } from '@shared/components/Title.component';
 import { TrrColorPicker } from '@shared/components/TrrColorPicker.component';
 import { TrrDropdown, TrrDropdownItem } from '@shared/components/TrrDropdown.component';
 import { DEFAULT_THEMES } from '@shared/consts/daisyui.const';
+import { Validator } from '@shared/utils/validator.util';
 import { Theme } from 'daisyui';
+import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { Avatar, Button, PhoneMockup } from 'react-daisyui';
-import { Link } from 'react-router-dom';
+import { Avatar, PhoneMockup } from 'react-daisyui';
+import { Link, useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
+import { Button, Form } from 'tamagui';
+
+interface FormInputs {
+  logoUrl?: string;
+  base: string;
+  primary: string;
+  secondary: string;
+  accent: string;
+  neutral: string;
+  info: string;
+  success: string;
+  warning: string;
+  error: string;
+}
+
+const initFromValues: FormInputs = {
+  logoUrl: 'https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe',
+  base: 'base-100',
+  primary: 'primary',
+  secondary: 'secondary',
+  accent: 'accent',
+  neutral: 'neutral',
+  info: 'info',
+  success: 'success',
+  warning: 'warning',
+  error: 'error',
+};
 
 export function OnboardingAppStyle(): JSX.Element {
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: initFromValues,
+    validate: handleValidationFormik,
+    onSubmit: handleSubmitFormik,
+  });
+
+  function handleSubmitFormik(values: FormInputs) {
+    console.log('handleSubmitFormik', { values });
+
+    // TODO: Change this
+    navigate('/trainer/onboarding/profile');
+  }
+
+  function handleValidationFormik(values: FormInputs) {
+    const errors: Partial<FormInputs> = Validator.formatErrors({
+      base: new Validator(values.base).required(),
+      primary: new Validator(values.primary).required(),
+      secondary: new Validator(values.secondary).required(),
+      accent: new Validator(values.accent).required(),
+      neutral: new Validator(values.neutral).required(),
+      info: new Validator(values.info).required(),
+      success: new Validator(values.success).required(),
+      warning: new Validator(values.warning).required(),
+      error: new Validator(values.error).required(),
+    });
+
+    console.log('handleValidationFormik', { values, errors });
+
+    return errors;
+  }
+
   const [currentTheme, setCurrentTheme] = useState<Theme>(getThemeDom());
 
   // Set porperly theme on load
@@ -54,7 +116,11 @@ export function OnboardingAppStyle(): JSX.Element {
           </div>
 
           {/* FORM */}
-          <form className="flex w-full max-w-[390px] flex-col items-start gap-4">
+          {/* max-w-[390px]  */}
+          <Form
+            className="flex w-full flex-col items-start gap-4"
+            onSubmit={formik.handleSubmit}
+          >
             <div className="flex w-full flex-row items-center justify-between">
               {/* TODO: Make file upload component */}
               <div className="flex  flex-row items-center gap-6">
@@ -74,7 +140,7 @@ export function OnboardingAppStyle(): JSX.Element {
                 }
                 toggleClassName="hover:bg-base-300 hover:text-base-content"
                 items={getThemeItems()}
-                Item={({ isActive, content, value, onClick }) => {
+                Item={({ isActive, content, onClick }) => {
                   return (
                     // TODO: Replace this with ThemeButton
                     <Button
@@ -83,8 +149,8 @@ export function OnboardingAppStyle(): JSX.Element {
                         isActive && 'border-2 border-solid border-primary',
                       )}
                       size="sm"
-                      dataTheme={value}
-                      onClick={onClick}
+                      // dataTheme={value}
+                      onPress={onClick}
                     >
                       <ThemeItem className="bg-transparent" dataTheme={content} />
                     </Button>
@@ -99,11 +165,15 @@ export function OnboardingAppStyle(): JSX.Element {
 
             <div className="flex w-full flex-row gap-2">
               <TrrColorPicker
+                id="base"
+                name="base"
                 className="w-full"
                 key={currentTheme + 'base'}
                 label="Base"
-                value="base-100"
+                value={formik.values.base}
                 theme={currentTheme}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
               <div className="w-full bg-transparent"></div>
             </div>
@@ -155,10 +225,15 @@ export function OnboardingAppStyle(): JSX.Element {
 
             <div className="flex flex-row gap-2">
               <TrrColorPicker
+                id="warning"
+                name="warning"
+                type="color"
                 key={currentTheme + 'warning'}
                 label="Warning"
-                value="warning"
+                value={formik.values.warning}
                 theme={currentTheme}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
               <TrrColorPicker
                 key={currentTheme + 'error'}
@@ -167,29 +242,36 @@ export function OnboardingAppStyle(): JSX.Element {
                 theme={currentTheme}
               />
             </div>
-          </form>
+          </Form>
         </div>
 
         {/* RIGHT SIDE - PREVIEW */}
-        <div className="flex w-full flex-col items-start justify-center bg-base-200 py-6 text-base-content">
-          <PhoneMockup className="-my-16 scale-75">
-            <Title />
-          </PhoneMockup>
-        </div>
+        {false && (
+          <div className="flex w-full flex-col items-start justify-center bg-base-200 py-6 text-base-content">
+            <PhoneMockup className="-my-16 scale-75">
+              <Title />
+            </PhoneMockup>
+          </div>
+        )}
       </div>
 
       <div className="my-12 flex w-full max-w-[390px] flex-row gap-2">
         <Link className="grow" to={'/trainer/onboarding/app/features'}>
-          <Button className="w-full" type="button">
+          <Button className="w-full" {...{ type: 'button' }}>
             Back
           </Button>
         </Link>
 
-        <Link className="grow" to={'/trainer/onboarding/profile'}>
-          <Button className="w-full" type="submit" color="primary">
-            Next
-          </Button>
-        </Link>
+        {/* <Form.Trigger className="grow"> */}
+        <Button
+          className="grow"
+          tag="span"
+          color="primary"
+          onPress={() => formik.handleSubmit()}
+        >
+          Next
+        </Button>
+        {/* </Form.Trigger> */}
       </div>
     </div>
   );

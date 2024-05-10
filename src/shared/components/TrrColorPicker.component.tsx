@@ -1,28 +1,58 @@
 import { getHexColor } from '@shared/utils/getColor.util';
 import { formatHex } from 'culori';
 import { Theme } from 'daisyui';
-import { useRef, useState } from 'react';
-import { Input } from 'react-daisyui';
+import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { generateColors } from './generateColors.util';
+import { Input, InputProps } from 'tamagui';
 
-interface TrrColorPickerProps {
+interface TrrColorPickerProps extends InputProps {
+  type?: string;
+  name?: string;
   value: string;
   className?: string;
-  theme?: Theme;
+  // TODO: Fix this
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  theme?: Theme | any;
   label?: string;
   placeholder?: string;
 }
 
-export function TrrColorPicker({
-  value,
-  className = '',
-  label = '',
-  theme,
-  placeholder = '#hexvalue',
-}: TrrColorPickerProps): JSX.Element {
+export function TrrColorPicker(props: TrrColorPickerProps): JSX.Element {
+  const {
+    value,
+    className = '',
+    label = '',
+    theme,
+    placeholder = '#hexvalue',
+    ...otherProps
+  } = props;
   const inputColorRef = useRef<HTMLInputElement>(null);
 
   const [color, setColor] = useState(getHexColor({ color: value, theme }));
+  const [bgColor, setBgColor] = useState<string>();
+
+  const sideCount = useRef(5);
+
+  // const [colorListHsl, setColorHslList] = useState<string[]>([]);
+  const [colorListRgb, setColorRgbList] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!color) {
+      return;
+    }
+
+    // const hslColors = generateColorsHsl(color);
+    const rgbColors = generateColors({
+      color: color,
+      lightCount: sideCount.current,
+      darkCount: sideCount.current,
+    });
+
+    // setColorHslList(hslColors);
+    setColorRgbList(rgbColors);
+    setBgColor(rgbColors[0]);
+  }, [color]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setColor(event.target.value);
@@ -33,17 +63,30 @@ export function TrrColorPicker({
   }
 
   // TODO: Think of more elegant solution for color picker
-  function ColorBox({ color, theme }: { color: string; theme?: Theme }): JSX.Element {
+  function ColorBox({
+    color,
+    bgColor,
+    theme,
+    isPrimary,
+  }: {
+    color: string;
+    bgColor?: string;
+    theme?: Theme;
+    isPrimary?: boolean;
+  }): JSX.Element {
     const btnRef = useRef<HTMLButtonElement>(null);
+
+    // E0E7FF
+    // e2e0fb
     const formattedColor = getHexColor({ color, theme });
 
     const isHex = formattedColor?.charAt(0) === '#';
 
-    const hexColor = isHex ? formattedColor : '';
-    const bgColor = !isHex ? `bg-${formattedColor}` : '';
+    const calcHexColor = isHex ? formattedColor : '';
+    const calcBgColor = !isHex ? `bg-${formattedColor}` : '';
 
     setTimeout(() => {
-      if (!bgColor) {
+      if (!calcBgColor) {
         return;
       }
 
@@ -59,15 +102,37 @@ export function TrrColorPicker({
     });
 
     return (
-      <button
-        className={`btn h-8 min-h-0 w-8 shadow ${bgColor}`}
-        ref={btnRef}
-        type="button"
-        style={{
-          backgroundColor: isHex ? hexColor : '',
-        }}
-        onClick={handleButtonClick}
-      ></button>
+      <div
+        className={
+          'flex flex-col content-start items-center' + (isPrimary ? ' -mt-9' : '')
+        }
+      >
+        {isPrimary && (
+          <span
+            className="mb-1 flex items-center justify-center text-center"
+            style={{
+              backgroundColor: bgColor,
+              color: color,
+              border: `1px solid ${color}`,
+              borderRadius: '50px',
+              width: '100%',
+              height: '100%',
+              fontWeight: '500',
+            }}
+          >
+            P
+          </span>
+        )}
+        <button
+          className={`btn h-8 min-h-0 w-8 shadow ${calcBgColor}`}
+          ref={btnRef}
+          type="button"
+          style={{
+            backgroundColor: isHex ? calcHexColor : '',
+          }}
+          onClick={handleButtonClick}
+        ></button>
+      </div>
     );
   }
 
@@ -85,8 +150,29 @@ export function TrrColorPicker({
           value={color}
           size="sm"
           placeholder={placeholder}
-          onChange={handleChange}
+          {...otherProps}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onChange={handleChange as any}
         />
+      </div>
+
+      <div>
+        RGB
+        <div className="flex flex-row flex-wrap justify-start gap-1">
+          {colorListRgb.length &&
+            colorListRgb.map(
+              (col, i) =>
+                col && (
+                  <ColorBox
+                    key={i}
+                    color={col}
+                    bgColor={bgColor}
+                    theme={theme}
+                    isPrimary={i === sideCount.current}
+                  />
+                ),
+            )}
+        </div>
       </div>
 
       {/* HIDDEN INPUT - But exists because of functionality */}
