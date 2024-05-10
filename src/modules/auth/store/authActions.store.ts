@@ -14,6 +14,9 @@ export function updateAuthStateAction(
   };
 }
 
+// #######################################################
+// #region Async Actions
+
 // Define an async action creator for signup
 export const trainerSignupAction = createAsyncThunk<string, TrainerSignup>(
   'auth/trainerSignup',
@@ -40,3 +43,6 @@ export const loginAction = createAsyncThunk<string, Login>(
     }
   },
 );
+
+// #endregion Async Actions
+// #######################################################

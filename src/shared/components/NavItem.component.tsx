@@ -1,4 +1,4 @@
-import { NavOption } from '@type/NavOption.type';
+import { NavOption } from '@shared/types/NavOption.type';
 import { Link, useMatch } from 'react-router-dom';
 import { TrrIcon } from './TrrIcon.component';
 import { twMerge } from 'tailwind-merge';

@@ -1,4 +1,4 @@
-import { ComponentColor } from '@type/daisyui.type';
+import { ComponentColor } from '@shared/types/daisyui.type';
 import { twMerge } from 'tailwind-merge';
 
 type TrrStepState = 'active' | 'completed' | 'disabled' | '';

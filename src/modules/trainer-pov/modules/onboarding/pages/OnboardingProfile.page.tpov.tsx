@@ -3,6 +3,7 @@ import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrStep } from '@shared/components/TrrStep.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
+import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { Validator } from '@shared/utils/validator.util';
 import { useFormik } from 'formik';
 import { ChangeEvent, useState } from 'react';
@@ -15,22 +16,14 @@ import { Avatar, Button, Form, Spinner } from 'tamagui';
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1548142813-c348350df52b?&w=100&h=100&dpr=2&q=80';
 
-interface FormInputs {
-  profileUrl?: string;
-  firstName: string;
-  lastName: string;
-  birthday: Date | null;
-  gender: string;
-  description?: string;
-  tagname?: string;
-}
+interface FormInputs extends Partial<ProfileInfo> {}
 
 const initFromValues: FormInputs = {
   profileUrl: '',
   firstName: '',
   lastName: '',
   birthday: null,
-  gender: '',
+  gender: null,
   description: '',
   tagname: '',
 };

@@ -20,7 +20,9 @@ const initialState: AuthState = {
   success: false,
 };
 
-function updateAuthStateOnSuccess(state: AuthState, action: PayloadAction<string>) {
+// #region API State Actions
+
+function updateStateOnSuccess(state: AuthState, action: PayloadAction<string>) {
   const decoded = jwtDecode<{ isTrainer: boolean; userUid: string }>(action.payload);
   state.token = action.payload;
   state.isTrainer = decoded.isTrainer;
@@ -31,19 +33,21 @@ function updateAuthStateOnSuccess(state: AuthState, action: PayloadAction<string
   state.success = true;
 }
 
-function updateAuthStateOnLoading(state: AuthState) {
+function updateStateOnLoading(state: AuthState) {
   state.loading = true;
   state.error = null;
   state.success = false;
 }
 
 //eslint-disable-next-line
-function updateAuthStateOnError(state: AuthState, action: any) {
+function updateStateOnError(state: AuthState, action: any) {
   state.loading = false;
   state.error = action.payload as string;
   state.token = null;
   state.isTrainer = false;
 }
+
+// #endregion API State Actions
 
 const authSlice = createSlice({
   name: 'auth',
@@ -53,12 +57,15 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(trainerSignupAction.pending, updateAuthStateOnLoading)
-      .addCase(trainerSignupAction.fulfilled, updateAuthStateOnSuccess)
-      .addCase(trainerSignupAction.rejected, updateAuthStateOnError)
-      .addCase(loginAction.pending, updateAuthStateOnLoading)
-      .addCase(loginAction.fulfilled, updateAuthStateOnSuccess)
-      .addCase(loginAction.rejected, updateAuthStateOnError);
+      // trainerSignupAction
+      .addCase(trainerSignupAction.pending, updateStateOnLoading)
+      .addCase(trainerSignupAction.fulfilled, updateStateOnSuccess)
+      .addCase(trainerSignupAction.rejected, updateStateOnError)
+
+      // loginAction
+      .addCase(loginAction.pending, updateStateOnLoading)
+      .addCase(loginAction.fulfilled, updateStateOnSuccess)
+      .addCase(loginAction.rejected, updateStateOnError);
   },
 });
 
