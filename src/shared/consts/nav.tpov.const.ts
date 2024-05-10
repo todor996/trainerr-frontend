@@ -9,7 +9,7 @@ import {
   faUser,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons';
-import { NavOption } from '@type/NavOption.type';
+import { NavOption } from '@shared/types/NavOption.type';
 import { t } from 'i18next';
 
 export function navOptionsTpov(): {

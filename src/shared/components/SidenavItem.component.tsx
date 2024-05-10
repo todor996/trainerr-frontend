@@ -1,4 +1,4 @@
-import { NavOption } from '@type/NavOption.type';
+import { NavOption } from '@shared/types/NavOption.type';
 import { NavItem } from './NavItem.component';
 
 interface SidenavItemProps extends Partial<NavOption> {}

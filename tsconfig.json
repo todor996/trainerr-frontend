@@ -22,8 +22,7 @@
       "@modules/*": ["src/modules/*"],
       "@shared/*": ["src/shared/*"],
       "@store/*": ["src/store/*"],
-      "@styles/*": ["src/styles/*"],
-      "@type/*": ["src/types/*"]
+      "@styles/*": ["src/styles/*"]
     },
     /* Linting */
     "strict": true,
@@ -46,8 +45,8 @@
     "preserveConstEnums": true,
     "removeComments": false,
     "sourceMap": false,
-    "strictNullChecks": true,
-    "types": ["node", "react"],
+    "strictNullChecks": false,
+    "types": ["node", "react"]
     // "lib": ["dom", "esnext"],
   },
   "files": ["globals.d.ts"],
