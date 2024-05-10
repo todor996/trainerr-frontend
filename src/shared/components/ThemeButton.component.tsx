@@ -10,11 +10,12 @@ interface ThemeButtonProps {
   onClick?: () => void;
 }
 
+// TODO: Update this properly
 export function ThemeButton({
   dataTheme,
   className,
   active,
-  onClick = () => {},
+  // onClick = () => {},
 }: ThemeButtonProps): JSX.Element {
   return (
     <Button
@@ -24,8 +25,8 @@ export function ThemeButton({
         className,
       )}
       size="sm"
-      dataTheme={dataTheme}
-      onClick={onClick}
+      // dataTheme={dataTheme}
+      // onClick={onClick}
     >
       <ThemeItem className="bg-transparent" dataTheme={dataTheme} />
     </Button>

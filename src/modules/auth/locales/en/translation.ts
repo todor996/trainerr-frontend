@@ -36,10 +36,10 @@ const enResource: AuthLocal = {
   },
 
   error: {
-    minLength: 'Minimum length is 8',
+    min: 'Minimum length is 8',
     required: 'This field is required',
-    pattern: 'Entered value does not match email format',
-    passwordsDoNotMatch: 'The passwords do not match',
+    email: 'Entered value does not match email format',
+    equals: 'The passwords do not match',
   },
 
   checkbox: {

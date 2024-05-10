@@ -30,7 +30,7 @@ export function TrainingFormHeader({
     >
       {/* LEFT */}
       <div className="-ml-2 flex w-full flex-row items-center">
-        <Button className="size-8 p-0" color="ghost" size="sm" onClick={goBack}>
+        <Button className="size-8 p-0" color="ghost" size="sm" onPress={goBack}>
           <TrrIcon icon={faChevronLeft} size={16} />
         </Button>
         <span className="text-xl font-medium">{text}</span>

@@ -3,33 +3,16 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { RootState } from '@store/index.store.ts';
 
-export function useAuthNavigate() {
+export function useTrainerGuard() {
   const navigate = useNavigate();
   const location = useLocation();
 
   const { token, isTrainer } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    const currentPath = location.pathname;
+    // TODO: Implement this properly
+    // const currentPath = location.pathname;
 
-    if (!token) {
-      if (!currentPath.startsWith('/auth')) {
-        navigate('/auth');
-      }
-
-      return;
-    }
-
-    if (isTrainer) {
-      if (!currentPath.startsWith('/trainer')) {
-        navigate('/trainer');
-      }
-
-      return;
-    }
-
-    if (!currentPath.startsWith('/client')) {
-      navigate('/client');
-    }
+    console.log('useTrainerGuard');
   }, [token, isTrainer, navigate, location.pathname]);
 }

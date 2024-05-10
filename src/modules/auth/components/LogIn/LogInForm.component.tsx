@@ -1,72 +1,127 @@
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { useAppDispatch } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
-import { Link } from 'react-router-dom';
 import { Button } from 'tamagui';
+import { Formik, FormikHelpers } from 'formik';
+import { Link } from 'react-router-dom';
+import { Validator } from '@shared/utils/validator.util';
+import { useEffect } from 'react';
 
 export interface FormInputs {
   email: string;
   password: string;
 }
 
+const initFromValues: FormInputs = {
+  email: '',
+  password: '',
+};
+
 export function LogInForm(): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormInputs>();
 
-  async function onSubmit(data: FormInputs) {
-    dispatch(loginAction(data));
+  useEffect(() => {
+    Validator.setErrorMessages({
+      required: t('auth:error:required'),
+      email: t('auth:error:email'),
+    });
+  });
+
+  function handleValidationFormik(values: FormInputs) {
+    const errors = Validator.formatErrors({
+      email: new Validator(values.email).required().email(),
+      password: new Validator(values.password).required(),
+    });
+
+    return errors;
   }
 
-  const theme = 'Light';
+  function handleSubmitFormik(
+    values: FormInputs,
+    { setSubmitting }: FormikHelpers<FormInputs>,
+  ) {
+    console.log('handleSubmit', { values });
+
+    dispatch(loginAction(values));
+
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 400);
+  }
 
   return (
     <>
-      <form className="flex grow flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-        <TrrInput
-          type="email"
-          label={t('auth:emailLabel')}
-          placeholder={t('auth:emailPlaceholder')}
-          autoComplete="email"
-          error={errors['email'] && t(`auth:error:${errors['email'].type}`)}
-          registerProps={register('email', {
-            required: true,
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              // The function does not work without 'message' property
-              message: 'Entered value does not match email format',
-            },
-          })}
-        />
-        <TrrInput
-          type="password"
-          secureTextEntry={true}
-          label={t('auth:passwordLabel')}
-          placeholder={t('auth:passwordPlaceholder')}
-          error={errors['password'] && t(`auth:error:${errors['password'].type}`)}
-          autoComplete="current-password"
-          registerProps={register('password', { required: true, minLength: 8 })}
-        />
+      {/* TODO: Refactor this to use formik hook */}
+      <Formik
+        initialValues={initFromValues}
+        validate={handleValidationFormik}
+        onSubmit={handleSubmitFormik}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form className="flex grow flex-col gap-4" onSubmit={handleSubmit}>
+            <TrrInput
+              id="email"
+              type="email"
+              name="email"
+              label={t('auth:emailLabel')}
+              placeholder={t('auth:emailPlaceholder')}
+              value={values.email}
+              error={
+                (touched.email && errors.email && t(`auth:error:${errors.email}`)) || ''
+              }
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TrrInput
+              id="password"
+              type="password"
+              name="password"
+              label={t('auth:passwordLabel')}
+              placeholder={t('auth:passwordPlaceholder')}
+              secureTextEntry={true}
+              value={values.password}
+              error={
+                (touched.password &&
+                  errors.password &&
+                  t(`auth:error:${errors.password}`)) ||
+                ''
+              }
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
 
-        <div className="mt-2 flex flex-col gap-2">
-          <Button type="submit" className="btn-primary w-full" bc={`$blue1${theme}`}>
-            {t('auth:logInButton')}
-          </Button>
-          <span className="label-text">
-            {t('auth:account.accountLabel')}
-            <Link to="/auth/signup" className="cursor-pointer text-primary">
-              {' '}
-              {t('auth:account.accountLink')}
-            </Link>
-          </span>
-        </div>
-      </form>
+            <div className="mt-2 flex flex-col gap-2">
+              <Button
+                {...{ type: 'submit' }}
+                className="btn-primary w-full"
+                disabled={isSubmitting}
+                // bc={`$blue1${theme}`}
+              >
+                {t('auth:logInButton')}
+              </Button>
+              <span className="label-text">
+                {t('auth:account.accountLabel')}
+                <Link to="/auth/signup" className="cursor-pointer text-primary">
+                  {' '}
+                  {t('auth:account.accountLink')}
+                </Link>
+              </span>
+            </div>
+          </form>
+        )}
+      </Formik>
     </>
   );
 }

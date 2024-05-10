@@ -1,30 +1,26 @@
 import { forwardRef } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-import { Textarea, TextareaProps } from 'react-daisyui';
+import { TextArea, TextAreaProps } from 'tamagui';
 
-interface TrrTextareaProps extends TextareaProps {
+interface TrrTextareaProps extends TextAreaProps {
+  name?: string;
   label?: string;
   error?: string;
-  registerProps?: UseFormRegisterReturn<string>;
 }
 
 export const TrrTextarea = forwardRef<HTMLTextAreaElement, TrrTextareaProps>(
   (props, ref) => {
-    const { placeholder, autoComplete, label, error, registerProps, ...otherProps } =
-      props;
+    const { placeholder, autoComplete, label, error, ...otherProps } = props;
 
     return (
       <label className="form-control w-full">
-        {label && (
-          <span className={`label-text mb-1 ${error && 'text-error'}`}>{label}</span>
-        )}
-        <Textarea
+        {label && <span className={`label-text mb-1`}>{label}</span>}
+        <TextArea
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ref={ref as any}
+          className={`${error && 'border-error'}`}
           autoComplete={autoComplete}
           placeholder={placeholder}
-          className={`${error && 'border-error'}`}
-          ref={ref}
           {...otherProps}
-          {...registerProps}
         />
         {/* TODO: handle messages that are not errors */}
         {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}

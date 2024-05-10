@@ -51,6 +51,12 @@ const srResource: AppResource = {
       feedback: 'Feedback',
     },
   },
+  error: {
+    required: 'Polje je obavezno',
+    email: 'Email adresa nije validna',
+    max: 'Polje ima previše karaktera',
+    min: 'Polje ima premalo karaktera',
+  },
   theme: {
     custom_light: 'moja svetla',
     custom_dark: 'moja tamna',

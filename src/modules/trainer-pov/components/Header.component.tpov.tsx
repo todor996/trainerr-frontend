@@ -72,7 +72,12 @@ export function Header(): JSX.Element {
           }
           toggleClassName="hover:bg-base-300 hover:text-base-content"
           items={getThemeItems()}
-          Item={({ isActive, content, value, onClick }) => {
+          Item={({
+            isActive,
+            content,
+            // value,
+            onClick,
+          }) => {
             return (
               // TODO: Replace this with ThemeButton
               <Button
@@ -81,8 +86,8 @@ export function Header(): JSX.Element {
                   isActive && 'border-2 border-solid border-primary',
                 )}
                 size="sm"
-                dataTheme={value}
-                onClick={onClick}
+                // dataTheme={value}
+                onPress={onClick}
               >
                 <ThemeItem className="bg-transparent" dataTheme={content} />
               </Button>

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LoadingPage } from './LoadingPage.component';
-import { RouterGuard } from './RouterGuard.component';
+import { RouterGuard } from '../../core/guards/RouterGuard.component';
 
 export function WrappedOutlet() {
   return (

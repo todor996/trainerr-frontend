@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { Checkbox, CheckboxProps } from 'tamagui';
 import { Check } from '@tamagui/lucide-icons';
@@ -9,8 +8,9 @@ interface TrrCheckboxProps extends CheckboxProps {
   label?: string;
   disabled?: boolean;
   message?: string;
+  error?: string;
   children?: ReactNode;
-  registerProps?: UseFormRegisterReturn<string>;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 // TODO: Handle errors
@@ -19,8 +19,8 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
     // className,
     label = '',
     message = '',
+    error = '',
     children,
-    registerProps,
     ...otherProps
   } = props;
 
@@ -32,21 +32,18 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
           otherProps.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
         )}
       >
-        {/* <Checkbox
-          className={twMerge('checkbox-primary', className)}
-          {...otherProps}
-          {...registerProps}
-        /> */}
-        <Checkbox size="$4" {...otherProps} {...registerProps}>
+        <Checkbox size="$4" {...{ type: 'checkbox' }} {...otherProps}>
           <Checkbox.Indicator>
-            <Check />
+            {/* TODO: Add better color when you are setting up a theme */}
+            <Check color={'$blue11Dark'} />
           </Checkbox.Indicator>
         </Checkbox>
         <span>
           {label} {children}
         </span>
       </label>
-      {message && <p className="ml-8 text-xs">{message}</p>}
+      {message && <p className="mt-1 text-xs">{message}</p>}
+      {error && <p className="mt-1 text-xs text-error">{error}</p>}
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 import { Input, InputProps, Label, SizableText, YStack, styled } from 'tamagui';
 
 interface TrrInputProps extends InputProps {
+  type?: string;
+  name?: string;
   label?: string;
   error?: string;
-  registerProps?: UseFormRegisterReturn<string>;
+  // onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
@@ -13,18 +14,14 @@ export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
     label,
     error,
     size,
-    // type = 'text',
     placeholder,
     // autoComplete,
-    registerProps,
     ...otherProps
   } = props;
 
   const customSize = size || '$4';
 
   return (
-    // autoComplete={autoComplete}
-    // type={type}o
     <Label>
       <YStack flex={1}>
         {label && (
@@ -33,15 +30,18 @@ export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
             <SizableText size={customSize as any}>{label}</SizableText>
           </span>
         )}
-        <Input
-          ref={ref}
-          size={customSize}
-          bordered={true}
-          placeholder={placeholder}
-          {...otherProps}
-          {...registerProps}
-        />
-        {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
+        {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
+        <>
+          <Input
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ref={ref as any}
+            size={customSize}
+            // bordered={true}
+            placeholder={placeholder}
+            {...otherProps}
+          />
+          {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
+        </>
       </YStack>
     </Label>
   );

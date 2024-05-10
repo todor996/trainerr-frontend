@@ -35,7 +35,10 @@ export interface AuthLocal {
   };
 
   error: {
-    [key: string]: string;
+    min: string;
+    required: string;
+    email: string;
+    equals: string;
   };
 
   checkbox: {
