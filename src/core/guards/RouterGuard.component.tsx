@@ -1,4 +1,4 @@
-import { useAuthGuard } from '@core/guards/useAuthGuard.hook';
+import { useAuthGuard } from './useAuthGuard.hook';
 import { useTrainerGuard } from './useTrainerGuard.hook';
 
 interface RouterGuardProps {

@@ -7,5 +7,5 @@ export interface ProfileInfo {
   birthday: Date;
   gender: Gender;
   description?: string;
-  tagname?: string;
+  tagline?: string;
 }

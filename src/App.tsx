@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from '@store/index.store';
 import { router } from './router';
-import { LoadingPage } from '@shared/components/LoadingPage.component';
+import { LoadingPage } from '@core/components/LoadingPage.component';
 
 import '@tamagui/core/reset.css';
 import config from 'tamagui.config';

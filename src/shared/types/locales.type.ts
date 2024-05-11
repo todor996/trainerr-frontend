@@ -55,6 +55,12 @@ export interface AppResource {
     max: string;
     min: string;
   };
+  gender: {
+    male: string;
+    female: string;
+    other: string;
+    not_specified: string;
+  };
   theme: {
     custom_light: string;
     custom_dark: string;

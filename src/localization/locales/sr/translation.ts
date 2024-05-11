@@ -51,6 +51,13 @@ const srResource: AppResource = {
       feedback: 'Feedback',
     },
   },
+  gender: {
+    male: 'Muško',
+    female: 'Žensko',
+    other: 'Drugo',
+    not_specified: 'Ne bih da kažem',
+  },
+  // TODO@daisyui: remove this when daisyui is removed
   error: {
     required: 'Polje je obavezno',
     email: 'Email adresa nije validna',

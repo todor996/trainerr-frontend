@@ -1,34 +1,39 @@
-import { Steps, Progress } from 'react-daisyui';
+import { Steps } from 'react-daisyui';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { OnboardingAppInfo } from '../components/OnboardingAppInfo.component.tpov';
 import { OnboardingAppFeatures } from '../components/OnboardingAppFeatures.component.tpov';
 import { OnboardingAppStyle } from '../components/OnboardingAppStyle.component.tpov';
 import { TrrStep } from '@shared/components/TrrStep.component';
+import { useTranslation } from 'react-i18next';
+import { Progress, View } from 'tamagui';
 
 export default function OnboardingAppPage(): JSX.Element {
+  const { t } = useTranslation();
   return (
     <>
       <div className="mx-6 my-6 flex w-full max-w-[560px] justify-center">
         <Steps className="w-full max-w-[560px]">
           <TrrStep color="primary" state="completed">
-            Sign Up
+            {t('onboarding:stepper.singUp')}
           </TrrStep>
           <TrrStep color="primary" state="completed">
-            Profile Info
+            {t('onboarding:stepper.profile')}
           </TrrStep>
           <TrrStep color="primary" state="active">
-            App Setup
+            {t('onboarding:stepper.app')}
           </TrrStep>
         </Steps>
       </div>
 
       <div className="flex w-full flex-col items-center">
-        <div className="my-6 flex w-full max-w-[390px] flex-col px-6">
-          <h1 className="text-3xl font-semibold">Your App Setup</h1>
-          <div className="flex flex-row items-center">
-            <Progress max={100} value={10} color="primary" />
+        <div className="my-6 flex w-full max-w-[390px] flex-col items-center px-6">
+          <h1 className="text-3xl font-semibold">{t('onboarding:app.title')}</h1>
+          <View className="mt-2 flex flex-row items-center">
+            <Progress max={100} value={10} backgroundColor="$blue5Light">
+              <Progress.Indicator backgroundColor="$blue8Light" />
+            </Progress>
             <span className="ml-2">10%</span>
-          </div>
+          </View>
         </div>
 
         <Routes>

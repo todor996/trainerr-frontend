@@ -2,7 +2,7 @@ import { PresentationSection } from '@modules/auth/components/PresentationSectio
 import { Title } from '@shared/components/Title.component';
 import { SignUpSection } from './components/SignUp/SignUpSection.component';
 import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
-import { LoadingPage } from '@shared/components/LoadingPage.component';
+import { LoadingPage } from '@core/components/LoadingPage.component';
 
 export default function SignUpPage(): JSX.Element {
   const loaded = useLazyLoadResourceHook({ folderName: 'auth', namespace: 'auth' });

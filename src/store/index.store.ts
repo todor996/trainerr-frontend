@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { trainingReducer } from '@modules/trainer-pov/modules/training/store/trainingSlice.store';
+import { onboardingReducer } from '@modules/trainer-pov/modules/store/onboardingSlice.store';
 
 // Persist Config
 const persistConfig = {
@@ -25,13 +26,16 @@ const persistedHomeReducer = persistReducer(persistConfig, homeReducer);
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 // TODO: Create TrainerPOV store
 const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
+const persistedOnboardingReducer = persistReducer(persistConfig, onboardingReducer);
 
 // Configure Store
 export const store = configureStore({
   reducer: {
     home: persistedHomeReducer,
     auth: persistedAuthReducer,
+    // TODO: Create TrainerPOV store
     training: persistedTrainingReducer,
+    onboarding: persistedOnboardingReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

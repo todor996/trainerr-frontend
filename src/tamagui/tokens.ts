@@ -188,8 +188,6 @@ export const radius = {
   12: 50,
 };
 
-console.log({ color });
-
 export const tokens = createTokens({
   color,
   radius,

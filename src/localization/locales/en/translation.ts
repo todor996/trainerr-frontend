@@ -57,6 +57,13 @@ const enResource: AppResource = {
       feedback: 'Feedback',
     },
   },
+  gender: {
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
+    not_specified: 'Rather not say',
+  },
+  // TODO@daisyui: remove this when daisyui is removed
   theme: {
     custom_light: 'custom light',
     custom_dark: 'custom dark',

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import { Feature } from '@shared/types/Feature.type';
-import { onboardingActions } from './onboardingActions.store';
+import { createProfileAction, onboardingActions } from './onboardingActions.store';
 
 export interface OnboardingState {
   // Profile Page
@@ -97,22 +97,22 @@ const initState: OnboardingState = {
 
 // #region API State Actions
 
-// function updateStateOnSuccess(state: OnboardingState) {
-//   state.loading = false;
-//   state.error = null;
-//   state.success = true;
-// }
+function updateStateOnSuccess(state: OnboardingState) {
+  state.loading = false;
+  state.error = null;
+  state.success = true;
+}
 
-// function updateStateOnLoading(state: OnboardingState) {
-//   state.loading = true;
-//   state.error = null;
-//   state.success = false;
-// }
+function updateStateOnLoading(state: OnboardingState) {
+  state.loading = true;
+  state.error = null;
+  state.success = false;
+}
 
-// function updateStateOnError(state: OnboardingState, action: unknown) {
-//   state.loading = false;
-//   state.error = action as string;
-// }
+function updateStateOnError(state: OnboardingState, action: unknown) {
+  state.loading = false;
+  state.error = action as string;
+}
 
 // #endregion API State Actions
 
@@ -123,12 +123,12 @@ const onboardingSlice = createSlice({
     updateAppState: onboardingActions.updateAppState,
     updateProfileState: onboardingActions.updateProfileState,
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(updateOnboardingAppState, updateStateOnSuccess)
-  //     .addCase(updateOnboardingAppState, updateStateOnLoading)
-  //     .addCase(updateOnboardingAppState, updateStateOnError);
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createProfileAction.pending, updateStateOnLoading)
+      .addCase(createProfileAction.fulfilled, updateStateOnSuccess)
+      .addCase(createProfileAction.rejected, updateStateOnError);
+  },
 });
 
 export const { updateAppState, updateProfileState } = onboardingSlice.actions;

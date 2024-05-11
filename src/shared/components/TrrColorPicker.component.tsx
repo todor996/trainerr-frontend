@@ -3,8 +3,8 @@ import { formatHex } from 'culori';
 import { Theme } from 'daisyui';
 import { useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { generateColors } from './generateColors.util';
 import { Input, InputProps } from 'tamagui';
+import { ColorService } from '@shared/services/Color.service';
 
 interface TrrColorPickerProps extends InputProps {
   type?: string;
@@ -42,17 +42,16 @@ export function TrrColorPicker(props: TrrColorPickerProps): JSX.Element {
       return;
     }
 
-    // const hslColors = generateColorsHsl(color);
-    const rgbColors = generateColors({
-      color: color,
-      lightCount: sideCount.current,
-      darkCount: sideCount.current,
-    });
+    const rgbColors = ColorService.generateVariants(color);
 
-    // setColorHslList(hslColors);
+    const colorPalette = ColorService.generatePalette(color, otherProps.name || 'color');
+    const colorTokens = ColorService.generateTokens(colorPalette);
+
+    console.log({ colorPalette, colorTokens });
+
     setColorRgbList(rgbColors);
     setBgColor(rgbColors[0]);
-  }, [color]);
+  }, [color, otherProps.name]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setColor(event.target.value);
