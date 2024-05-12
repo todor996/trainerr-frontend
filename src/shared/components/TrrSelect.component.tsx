@@ -6,6 +6,7 @@ import { LinearGradient } from 'tamagui/linear-gradient';
 
 interface TrrSelectProps extends SelectProps {
   label?: string;
+  placeholder?: string;
   error?: string;
   items: { value: string; content: ReactNode }[];
   width?: string;
@@ -17,9 +18,8 @@ interface TrrSelectProps extends SelectProps {
 // const TrrSelectUnstyled = forwardRef(
 export const TrrSelect = forwardRef(
   (props: TrrSelectProps, ref: LegacyRef<TamaguiElement>): JSX.Element => {
-    const { error, label, items } = props;
+    const { error, label, placeholder, items } = props;
 
-    console.log({ props });
     const [val, setVal] = useState('apple');
 
     function handleOnValueChange(value: string) {
@@ -45,7 +45,7 @@ export const TrrSelect = forwardRef(
           {...props}
         >
           <Select.Trigger ref={ref} flex={1} maxHeight="42px" iconAfter={ChevronDown}>
-            <Select.Value placeholder="Something" />
+            <Select.Value placeholder={placeholder} />
           </Select.Trigger>
 
           <Adapt when="sm" platform="touch">

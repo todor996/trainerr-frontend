@@ -5,36 +5,6 @@ import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { User } from '@shared/types/User.type';
 import { AxiosError } from 'axios';
 
-export interface OnboardingAppStateOptions extends Partial<OnboardingState['app']> {}
-
-// #######################################################
-// #region Actions
-
-export const onboardingActions = {
-  updateAppState(
-    state: OnboardingState,
-    action: PayloadAction<OnboardingAppStateOptions>,
-  ) {
-    state.app = {
-      ...state.app,
-      ...action.payload,
-    };
-  },
-
-  updateProfileState(
-    state: OnboardingState,
-    action: PayloadAction<OnboardingAppStateOptions>,
-  ) {
-    state.profile = {
-      ...state.profile,
-      ...action.payload,
-    };
-  },
-};
-
-// #endregion Actions
-// #######################################################
-
 // #######################################################
 // #region Async Actions
 
@@ -51,4 +21,37 @@ export const createProfileAction = createAsyncThunk<User, ProfileInfo>(
 );
 
 // #endregion Async Actions
+// #######################################################
+
+// #######################################################
+// #region Actions
+
+export const onboardingActions = {
+  updateAppState(
+    state: OnboardingState,
+    action: PayloadAction<Partial<OnboardingState['app']>>,
+  ) {
+    state.app = {
+      ...state.app,
+      ...action.payload,
+    };
+  },
+
+  updateProfileState(
+    state: OnboardingState,
+    action: PayloadAction<Partial<OnboardingState['profile']>>,
+  ) {
+    state.profile = {
+      ...state.profile,
+      ...action.payload,
+    };
+  },
+
+  // createProfileActionSuccess(state: OnboardingState, action: PayloadAction<User>) {
+  //   updateStateOnSuccess(state);
+  //   state.user = action.payload;
+  // },
+};
+
+// #endregion Actions
 // #######################################################

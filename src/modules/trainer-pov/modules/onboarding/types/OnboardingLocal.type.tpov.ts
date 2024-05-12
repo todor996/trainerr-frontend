@@ -20,6 +20,7 @@ export interface OnboardingLocal {
     birthdayLabel: string;
 
     genderLabel: string;
+    genderPlaceholder: string;
 
     descriptionLabel: string;
     descriptionPlaceholder: string;

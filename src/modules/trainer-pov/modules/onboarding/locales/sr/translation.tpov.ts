@@ -23,6 +23,7 @@ export const srResource: OnboardingLocal = {
     birthdayLabel: 'Datum rođenja',
 
     genderLabel: 'Pol',
+    genderPlaceholder: 'Pol',
 
     descriptionLabel: 'Opis',
     descriptionPlaceholder: 'Nesto o sebi',

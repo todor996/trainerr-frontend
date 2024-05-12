@@ -1,4 +1,3 @@
-import { useAuthGuard } from './useAuthGuard.hook';
 import { useTrainerGuard } from './useTrainerGuard.hook';
 
 interface RouterGuardProps {
@@ -6,7 +5,7 @@ interface RouterGuardProps {
 }
 
 export function RouterGuard({ children }: RouterGuardProps): JSX.Element {
-  useAuthGuard();
+  // useAuthGuard();
   useTrainerGuard();
 
   return <>{children}</>;

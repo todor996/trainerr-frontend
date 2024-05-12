@@ -2,10 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Feature } from '@shared/types/Feature.type';
 import { createProfileAction, onboardingActions } from './onboardingActions.store';
+import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 
 export interface OnboardingState {
   // Profile Page
-  profile: Record<string, unknown>;
+  profile: ProfileInfo;
 
   // App Page
   app: {
@@ -50,46 +51,39 @@ export interface OnboardingState {
   error: string | null;
 }
 
-export const initProfile = {
-  // Profile Page
-  profile: {
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    zip: '',
-    country: '',
-    avatar: '',
-  },
+export const initProfile: OnboardingState['profile'] = {
+  profileUrl: '',
+  firstName: '',
+  lastName: '',
+  birthday: null,
+  gender: null,
+  description: '',
+  tagline: '',
 };
 
-export const initApp = {
-  // App Page
-  app: {
-    name: '',
-    description: '',
-    features: [],
-    logoUrl: '',
-    themeName: '',
-    colors: {
-      base100: '',
-      primary: [],
-      secondary: [],
-      accent: [],
-      neutral: [],
-      info: [],
-      success: [],
-      warning: [],
-      error: [],
-    },
-    meta: {},
+export const initApp: OnboardingState['app'] = {
+  name: '',
+  description: '',
+  features: [],
+  logoUrl: '',
+  themeName: '',
+  colors: {
+    base100: '',
+    primary: [],
+    secondary: [],
+    accent: [],
+    neutral: [],
+    info: [],
+    success: [],
+    warning: [],
+    error: [],
   },
+  meta: {},
 };
 
 const initState: OnboardingState = {
-  ...initProfile,
-  ...initApp,
+  app: initApp,
+  profile: initProfile,
   loading: false,
   success: false,
   error: null,

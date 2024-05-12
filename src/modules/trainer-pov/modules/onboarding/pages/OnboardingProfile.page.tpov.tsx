@@ -15,14 +15,13 @@ import { TrrDatePicker } from '@shared/components/TrrDatePicker.component';
 import { useNavigate } from 'react-router-dom';
 import { Gender } from '@shared/enums/Gender.enum';
 import { TrrSelect } from '@shared/components/TrrSelect.component';
+import { updateProfileState } from '../../store/onboardingSlice.store';
 
 // TODO: Move to shared and set proper default image
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1548142813-c348350df52b?&w=100&h=100&dpr=2&q=80';
 
-interface FormInputs extends Partial<ProfileInfo> {}
-
-const initFromValues: FormInputs = {
+const initFromValues: ProfileInfo = {
   profileUrl: '',
   firstName: '',
   lastName: '',
@@ -62,22 +61,24 @@ export default function OnboardingProfilePage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, error, success]);
 
-  function handleSubmit(values: FormInputs) {
-    dispatch(createProfileAction(values as ProfileInfo));
+  function handleSubmit(values: ProfileInfo) {
+    dispatch(updateProfileState(values));
+    dispatch(createProfileAction(values));
 
     navigate('/trainer/onboarding/app');
   }
 
-  function handleValidation(values: FormInputs) {
+  function handleValidation(values: ProfileInfo) {
     // TODO: Sync with BE for min and max values
     const errors = Validator.formatErrors({
       firstName: new Validator(values.firstName).required().max(50),
       lastName: new Validator(values.lastName).required().max(50),
       birthday: new Validator(values.birthday).required().date(),
-      gender: new Validator(values.gender).required(),
-      description: new Validator(values.description).required().max(500),
-      tagname: new Validator(values.tagline).max(50),
+      // gender: new Validator(values.gender),
+      description: new Validator(values.description).max(320),
+      tagline: new Validator(values.tagline).max(120),
     });
+
     return errors;
   }
 
@@ -97,22 +98,17 @@ export default function OnboardingProfilePage(): JSX.Element {
   }
 
   function handleFile(event: ChangeEvent<HTMLInputElement>) {
+    // TODO: Handle this properly
+
     if (!event.target.files?.length) {
       console.log('No files selected');
       return;
     }
 
     const file = event.target.files[0];
-
-    console.log('handleFile', { file });
-
     const imageUrl = URL.createObjectURL(file);
-
     setFileUrl(imageUrl);
-
     setFile(file);
-
-    console.log({ file, name: file.name, imageUrl });
   }
 
   return (
@@ -179,12 +175,12 @@ export default function OnboardingProfilePage(): JSX.Element {
               onChange={(date) => formik.setFieldValue('birthday', date)}
             />
 
-            {/* TODO: Add error prop */}
             <TrrSelect
               id="gender"
               value={formik.values.gender}
-              label={t('onboarding:profile.genderLabel')}
               items={getGenderItems()}
+              label={t('onboarding:profile.genderLabel')}
+              placeholder={t('onboarding:profile.genderPlaceholder')}
               error={formik.touched.gender ? formik.errors.gender : ''}
               onChange={(gender) => setGender(gender)}
             />

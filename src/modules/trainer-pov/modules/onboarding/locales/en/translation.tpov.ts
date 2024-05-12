@@ -13,14 +13,21 @@ export const enResource: OnboardingLocal = {
 
   profile: {
     title: 'Profile',
+
     firstNameLabel: 'First Name',
     firsNamePlaceholder: 'James',
+
     lastNameLabel: 'Last Name',
     lastNamePlaceholder: 'Bond',
+
     birthdayLabel: 'Birthday',
+
     genderLabel: 'Gender',
+    genderPlaceholder: 'Gender',
+
     descriptionLabel: 'Description',
     descriptionPlaceholder: 'Something about yourself',
+
     taglineLabel: 'Tagname',
     taglinePlaceholder: 'Go Hard or Go Home!',
   },
