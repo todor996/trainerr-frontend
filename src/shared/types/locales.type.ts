@@ -61,6 +61,7 @@ export interface AppResource {
     other: string;
     not_specified: string;
   };
+  comingSoon: string;
   theme: {
     custom_light: string;
     custom_dark: string;

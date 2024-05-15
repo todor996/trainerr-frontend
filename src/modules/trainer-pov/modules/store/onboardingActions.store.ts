@@ -26,8 +26,8 @@ export const createProfileAction = createAsyncThunk<User, ProfileInfo>(
 // #######################################################
 // #region Actions
 
-export const onboardingActions = {
-  updateAppState(
+export const unregisteredOnboardingActions = {
+  updateApp(
     state: OnboardingState,
     action: PayloadAction<Partial<OnboardingState['app']>>,
   ) {
@@ -37,7 +37,7 @@ export const onboardingActions = {
     };
   },
 
-  updateProfileState(
+  updateProfile(
     state: OnboardingState,
     action: PayloadAction<Partial<OnboardingState['profile']>>,
   ) {
@@ -47,10 +47,29 @@ export const onboardingActions = {
     };
   },
 
-  // createProfileActionSuccess(state: OnboardingState, action: PayloadAction<User>) {
-  //   updateStateOnSuccess(state);
-  //   state.user = action.payload;
-  // },
+  updateOnboarding(
+    state: OnboardingState,
+    action: PayloadAction<Partial<OnboardingState>>,
+  ) {
+    state = {
+      ...state,
+      ...action.payload,
+    };
+  },
+
+  updateProgress(
+    state: OnboardingState,
+    action: PayloadAction<Partial<OnboardingState['progressState']>>,
+  ) {
+    Object.entries(action.payload).forEach(([step, progress]) => {
+      state.progressState[step] = progress;
+    });
+
+    state.progress = 0;
+    Object.values(state.progressState).forEach((progress) => {
+      state.progress += progress;
+    });
+  },
 };
 
 // #endregion Actions

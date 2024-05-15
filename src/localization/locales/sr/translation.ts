@@ -64,6 +64,7 @@ const srResource: AppResource = {
     max: 'Polje ima previše karaktera',
     min: 'Polje ima premalo karaktera',
   },
+  comingSoon: 'Uskoro',
   theme: {
     custom_light: 'moja svetla',
     custom_dark: 'moja tamna',

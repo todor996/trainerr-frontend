@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { TrrInput } from '@shared/components/TrrInput.component';
-import { useAppDispatch } from '@store/hooks.store';
+import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
 import { Button } from 'tamagui';
 import { Formik, FormikHelpers } from 'formik';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Validator } from '@shared/utils/validator.util';
 import { useEffect } from 'react';
+import { useToastController } from '@tamagui/toast';
+import { updateAuthState } from '@modules/auth/store/authSlice.store';
 
 export interface FormInputs {
   email: string;
@@ -20,14 +22,38 @@ const initFromValues: FormInputs = {
 
 export function LogInForm(): JSX.Element {
   const { t } = useTranslation();
+  const toast = useToastController();
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
+  const { success, error, loading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     Validator.setErrorMessages({
       required: t('auth:error:required'),
       email: t('auth:error:email'),
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      // TODO: Standardize error handling
+      toast.show('Error', { status: 'error', message: JSON.stringify(error) });
+
+      dispatch(updateAuthState({ error: null }));
+    }
+
+    if (success) {
+      toast.show('Success', { status: 'success', message: 'Logged in successfully' });
+      dispatch(updateAuthState({ error: null, success: false, loading: false }));
+
+      setTimeout(() => {
+        navigate('/trainer/training');
+      }, 1500);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, success, loading]);
 
   function handleValidationFormik(values: FormInputs) {
     const errors = Validator.formatErrors({
@@ -42,14 +68,8 @@ export function LogInForm(): JSX.Element {
     values: FormInputs,
     { setSubmitting }: FormikHelpers<FormInputs>,
   ) {
-    console.log('handleSubmit', { values });
-
     dispatch(loginAction(values));
-
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 400);
+    setSubmitting(false);
   }
 
   return (
@@ -78,9 +98,7 @@ export function LogInForm(): JSX.Element {
               label={t('auth:emailLabel')}
               placeholder={t('auth:emailPlaceholder')}
               value={values.email}
-              error={
-                (touched.email && errors.email && t(`auth:error:${errors.email}`)) || ''
-              }
+              error={touched.email ? errors.email : ''}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -92,12 +110,7 @@ export function LogInForm(): JSX.Element {
               placeholder={t('auth:passwordPlaceholder')}
               secureTextEntry={true}
               value={values.password}
-              error={
-                (touched.password &&
-                  errors.password &&
-                  t(`auth:error:${errors.password}`)) ||
-                ''
-              }
+              error={touched.password ? errors.password : ''}
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -107,7 +120,6 @@ export function LogInForm(): JSX.Element {
                 {...{ type: 'submit' }}
                 className="btn-primary w-full"
                 disabled={isSubmitting}
-                // bc={`$blue1${theme}`}
               >
                 {t('auth:logInButton')}
               </Button>

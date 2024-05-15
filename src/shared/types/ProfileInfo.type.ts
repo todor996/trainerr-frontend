@@ -4,7 +4,7 @@ export interface ProfileInfo {
   profileUrl: string;
   firstName: string;
   lastName: string;
-  birthday: Date;
+  birthday: Date | string;
   gender: Gender;
   description?: string;
   tagline?: string;

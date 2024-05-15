@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 import { Feature } from '@shared/types/Feature.type';
-import { createProfileAction, onboardingActions } from './onboardingActions.store';
+import {
+  createProfileAction,
+  unregisteredOnboardingActions,
+} from './onboardingActions.store';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
+import { AxiosError, AxiosResponse } from 'axios';
 
 export interface OnboardingState {
   // Profile Page
@@ -40,15 +44,19 @@ export interface OnboardingState {
     meta: Record<string, unknown>;
   };
 
+  progress: number;
+
+  progressState: {
+    info: number;
+    features: number;
+    style: number;
+  };
+
+  // TODO: Think about this and standardize it!
   // API Status
   loading: boolean;
-  // TODO: Think about this and standardize it!
-
-  // TODO: Should we have success and successMessage?
   success: boolean;
-
-  // TODO: Should we have error and errorMessage?
-  error: string | null;
+  error: AxiosResponse['data'];
 }
 
 export const initProfile: OnboardingState['profile'] = {
@@ -84,6 +92,15 @@ export const initApp: OnboardingState['app'] = {
 const initState: OnboardingState = {
   app: initApp,
   profile: initProfile,
+
+  progress: 0,
+
+  progressState: {
+    info: 0,
+    features: 0,
+    style: 0,
+  },
+
   loading: false,
   success: false,
   error: null,
@@ -105,7 +122,8 @@ function updateStateOnLoading(state: OnboardingState) {
 
 function updateStateOnError(state: OnboardingState, action: unknown) {
   state.loading = false;
-  state.error = action as string;
+  state.error = action as AxiosError;
+  state.success = false;
 }
 
 // #endregion API State Actions
@@ -114,8 +132,10 @@ const onboardingSlice = createSlice({
   name: 'onboarding',
   initialState: initState,
   reducers: {
-    updateAppState: onboardingActions.updateAppState,
-    updateProfileState: onboardingActions.updateProfileState,
+    updateApp: unregisteredOnboardingActions.updateApp,
+    updateProfile: unregisteredOnboardingActions.updateProfile,
+    updateOnboarding: unregisteredOnboardingActions.updateOnboarding,
+    updateProgress: unregisteredOnboardingActions.updateProgress,
   },
   extraReducers: (builder) => {
     builder
@@ -125,6 +145,5 @@ const onboardingSlice = createSlice({
   },
 });
 
-export const { updateAppState, updateProfileState } = onboardingSlice.actions;
-
+export const onboardingActions = onboardingSlice.actions;
 export const onboardingReducer = onboardingSlice.reducer;

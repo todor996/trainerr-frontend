@@ -43,18 +43,18 @@ export function OnboardingAppStyle(): JSX.Element {
 
   const formik = useFormik({
     initialValues: initFromValues,
-    validate: handleValidationFormik,
-    onSubmit: handleSubmitFormik,
+    validate: handleValidation,
+    onSubmit: handleSubmit,
   });
 
-  function handleSubmitFormik(values: FormInputs) {
+  function handleSubmit(values: FormInputs) {
     console.log('handleSubmitFormik', { values });
 
     // TODO: Change this
     navigate('/trainer/onboarding/profile');
   }
 
-  function handleValidationFormik(values: FormInputs) {
+  function handleValidation(values: FormInputs) {
     const errors: Partial<FormInputs> = Validator.formatErrors({
       base: new Validator(values.base).required(),
       primary: new Validator(values.primary).required(),
@@ -66,8 +66,6 @@ export function OnboardingAppStyle(): JSX.Element {
       warning: new Validator(values.warning).required(),
       error: new Validator(values.error).required(),
     });
-
-    console.log('handleValidationFormik', { values, errors });
 
     return errors;
   }

@@ -9,6 +9,7 @@ import { useFormik } from 'formik';
 import { Validator } from '@shared/utils/validator.util';
 import { useEffect } from 'react';
 import { updateAuthState } from '@modules/auth/store/authSlice.store';
+import { useToastController } from '@tamagui/toast';
 
 interface FormInputs {
   username: string;
@@ -28,11 +29,11 @@ const initFromValues: FormInputs = {
 
 export function SignUpForm(): JSX.Element {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const toast = useToastController();
 
   const dispatch = useAppDispatch();
   const { loading, error, success } = useAppSelector((state) => state.auth);
-
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: initFromValues,
@@ -49,24 +50,25 @@ export function SignUpForm(): JSX.Element {
       max: t('auth:error.max'),
       equals: t('auth:error.equals'),
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      toast.show('Error', { status: 'error', message: JSON.stringify(error) });
+
+      dispatch(updateAuthState({ error: null }));
     }
 
     if (success) {
       dispatch(updateAuthState({ success: false }));
-      formik.isSubmitting = false;
-
-      // TODO: Add tamagui toaster
-
-      alert('Signup successful');
       navigate('/trainer/onboarding');
     }
 
-    console.log({ loading, error, success });
+    if (!loading) {
+      formik.setSubmitting(false);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, error, success, dispatch]);
 

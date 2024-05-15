@@ -1,58 +1,72 @@
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { Validator } from '@shared/utils/validator.util';
+import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Badge } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form } from 'tamagui';
+import { onboardingActions } from '../../store/onboardingSlice.store';
+import { Feature } from '@shared/types/Feature.type';
 
-interface FormInputs {
-  training: boolean;
-  nutrition: boolean;
-  chat: boolean;
+interface FormInputs extends Record<Feature, boolean> {
+  [Feature.TRAINING]: boolean;
+  [Feature.NUTRITION]: boolean;
+  [Feature.QUESTIONNAIRE]: boolean;
 }
 
 const initFromValues: FormInputs = {
   training: false,
   nutrition: false,
-  chat: false,
+  questionnaire: false,
 };
 
 export function OnboardingAppFeatures(): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { features } = useAppSelector((state) => state.onboarding.app);
 
   const formik = useFormik({
     initialValues: initFromValues,
-    validate: handleValidationFormik,
-    onSubmit: handleSubmitFormik,
+    validate: handleValidation,
+    onSubmit: handleSubmit,
   });
 
   useEffect(() => {
     Validator.setErrorMessages({
       training: t('onboarding:error.training'),
     });
-  });
+  }, []);
 
-  function handleSubmitFormik(values: FormInputs) {
-    console.log('handleSubmitFormik', { values });
+  useEffect(() => {
+    features.forEach((feature) => {
+      formik.setFieldValue(feature, true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [features]);
 
+  function handleSubmit(values: FormInputs) {
+    const features = Object.entries(values)
+      .filter(([, isSelected]) => isSelected)
+      .map(([feature]) => feature);
+
+    dispatch(onboardingActions.updateApp({ features }));
     navigate('/trainer/onboarding/app/style');
   }
 
-  function handleValidationFormik(values: FormInputs) {
+  function handleValidation(values: FormInputs) {
     const errors = Object.values(values).every((value) => !value)
       ? { training: 'Please select at least one feature' }
       : {};
 
-    console.log('handleValidationFormik', { values, errors });
+    const isSomeSelected = Object.values(values).some((value) => value);
+    dispatch(onboardingActions.updateProgress({ features: isSomeSelected ? 33 : 0 }));
 
     return errors;
   }
 
   function onCheckedChangeTraining(value: boolean | string) {
-    console.log('onCheckedChangeTraining', { value });
-
     formik.setFieldValue('training', value);
 
     if (value) {
@@ -63,8 +77,6 @@ export function OnboardingAppFeatures(): JSX.Element {
   }
 
   function onCheckedChangeNutrition(value: boolean | string) {
-    console.log('onCheckedChangeNutrition', { value });
-
     formik.setFieldValue('nutrition', value);
 
     if (value) {
@@ -76,7 +88,7 @@ export function OnboardingAppFeatures(): JSX.Element {
 
   return (
     <div className="flex w-full max-w-[390px] flex-col px-6">
-      <h3 className="mb-6 text-xl font-semibold">Features</h3>
+      <h3 className="mb-6 text-xl font-semibold">{t('onboarding:app.features.title')}</h3>
 
       <Form
         className="flex max-w-[390px] flex-col items-start gap-4"
@@ -86,10 +98,13 @@ export function OnboardingAppFeatures(): JSX.Element {
           id="training"
           name="training"
           value="training"
-          message="Create Training Plans for your Clients"
+          message={t('onboarding:app.features.trainingDescription')}
+          checked={formik.values.training}
           onCheckedChange={onCheckedChangeTraining}
         >
-          <span className="font-medium">Training Plan</span>
+          <span className="font-medium">
+            {t('onboarding:app.features.trainingLabel')}
+          </span>
         </TrrCheckbox>
 
         <TrrCheckbox
@@ -97,21 +112,26 @@ export function OnboardingAppFeatures(): JSX.Element {
           name="nutrition"
           value="nutrition"
           message="Create Nutrition Plans for your Clients"
+          checked={formik.values.nutrition}
           onCheckedChange={(event) => onCheckedChangeNutrition(event)}
         >
-          <span className="font-medium">Nutrition Plan</span>
+          <span className="font-medium">
+            {t('onboarding:app.features.nutritionLabel')}
+          </span>
         </TrrCheckbox>
 
         <TrrCheckbox
           id="questionary"
           name="questionary"
           value="questionary"
-          message="Communicate with your Clients"
+          message={t('onboarding:app.features.questionaryDescription')}
           disabled={true}
         >
-          <span className="font-medium">Questionary</span>
+          <span className="font-medium">
+            {t('onboarding:app.features.questionaryLabel')}
+          </span>
           <Badge className="ml-1 font-medium" outline={true} color="success">
-            Coming Soon
+            {t('comingSoon')}
           </Badge>
         </TrrCheckbox>
 
@@ -119,12 +139,12 @@ export function OnboardingAppFeatures(): JSX.Element {
           <div className="flex w-full flex-row gap-2">
             <Link className="grow" to={'/trainer/onboarding/app/info'}>
               {/* type="button" */}
-              <Button className="w-full">Back</Button>
+              <Button className="w-full">{t('onboarding:back')}</Button>
             </Link>
 
             <Form.Trigger className="grow">
               <Button className="w-full" tag="span" color="primary">
-                Next
+                {t('onboarding:next')}
               </Button>
             </Form.Trigger>
           </div>

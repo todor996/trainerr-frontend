@@ -12,10 +12,11 @@ import { useTranslation } from 'react-i18next';
 import { Avatar, Button, Form, Spinner } from 'tamagui';
 import { createProfileAction } from '../../store/onboardingActions.store';
 import { TrrDatePicker } from '@shared/components/TrrDatePicker.component';
-import { useNavigate } from 'react-router-dom';
 import { Gender } from '@shared/enums/Gender.enum';
 import { TrrSelect } from '@shared/components/TrrSelect.component';
-import { updateProfileState } from '../../store/onboardingSlice.store';
+import { onboardingActions } from '../../store/onboardingSlice.store';
+import { useToastController } from '@tamagui/toast';
+import { useNavigate } from 'react-router-dom';
 
 // TODO: Move to shared and set proper default image
 const DEFAULT_AVATAR =
@@ -37,38 +38,64 @@ const GENDER_OPTIONS = Object.values(Gender);
 export default function OnboardingProfilePage(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const toast = useToastController();
 
   const dispatch = useAppDispatch();
-  const { loading, error, success } = useAppSelector((state) => state.onboarding);
+  const { loading, error, success, profile } = useAppSelector(
+    (state) => state.onboarding,
+  );
 
   const [file, setFile] = useState<File | null>(null);
   // TODO: Set proper default image
   const [fileUrl, setFileUrl] = useState<string>(DEFAULT_AVATAR);
 
   const formik = useFormik({
-    initialValues: initFromValues,
+    initialValues: {
+      ...initFromValues,
+      // TODO: Set birthday properly
+      ...profile,
+    },
     onSubmit: handleSubmit,
     validate: handleValidation,
   });
 
   useEffect(() => {
-    // error.payload => AxiosError
-    console.log('onboarding', { loading, error, success });
+    if (error) {
+      toast.show('Error', {
+        status: 'error',
+        message: error.payload,
+      });
+
+      dispatch(onboardingActions.updateOnboarding({ error: null }));
+    }
+
     if (!loading) {
       formik.setSubmitting(false);
+    }
+
+    if (success) {
+      dispatch(
+        onboardingActions.updateOnboarding({
+          loading: false,
+          error: null,
+          success: false,
+        }),
+      );
+      navigate('/trainer/onboarding/app');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, error, success]);
 
   function handleSubmit(values: ProfileInfo) {
-    dispatch(updateProfileState(values));
-    dispatch(createProfileAction(values));
+    values.birthday = new Date(values.birthday).toISOString();
 
-    navigate('/trainer/onboarding/app');
+    dispatch(onboardingActions.updateProfile(values));
+    dispatch(createProfileAction(values));
   }
 
   function handleValidation(values: ProfileInfo) {
+    // TODO: Update state here 🤔
     // TODO: Sync with BE for min and max values
     const errors = Validator.formatErrors({
       firstName: new Validator(values.firstName).required().max(50),
@@ -109,6 +136,12 @@ export default function OnboardingProfilePage(): JSX.Element {
     const imageUrl = URL.createObjectURL(file);
     setFileUrl(imageUrl);
     setFile(file);
+  }
+
+  function shotToaster() {
+    toast.show('Successfully saved!', {
+      message: "Don't worry, we've got your data.",
+    });
   }
 
   return (
@@ -221,6 +254,7 @@ export default function OnboardingProfilePage(): JSX.Element {
             </Button>
           </Form.Trigger>
         </Form>
+        <Button onPress={() => shotToaster()}>Toaster</Button>
       </div>
     </>
   );

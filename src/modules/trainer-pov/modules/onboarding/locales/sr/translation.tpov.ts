@@ -35,15 +35,22 @@ export const srResource: OnboardingLocal = {
     title: 'Konfiguracija',
 
     info: {
-      name: 'Trainerr Marko',
-      description: 'Najbolja aplikacija ikada!',
+      title: 'Info',
+
+      nameLabel: 'Ime aplikacije',
+      namePlaceholder: 'Trainerr Marko',
+
+      descriptionLabel: 'Opis aplikacije',
+      descriptionPlaceholder: 'Najjaca aplikacija!',
     },
     features: {
-      training: 'Trening',
+      title: 'Funkcionalnosti',
+
+      trainingLabel: 'Trening',
       trainingDescription: 'Kreirajte planove treninga za svoje klijente',
-      nutrition: 'Ishrana',
+      nutritionLabel: 'Ishrana',
       nutritionDescription: 'Kreirajte planove ishrane za svoje klijente',
-      questionary: 'Upitnik',
+      questionaryLabel: 'Upitnik',
       questionaryDescription: 'Kreirajte upitnike za svoje klijente',
     },
     style: {

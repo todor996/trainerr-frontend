@@ -33,16 +33,25 @@ export interface OnboardingLocal {
     title: string;
 
     info: {
-      name: string;
-      description: string;
+      title: string;
+
+      nameLabel: string;
+      namePlaceholder: string;
+
+      descriptionLabel: string;
+      descriptionPlaceholder: string;
     };
 
     features: {
-      training: string;
+      title: string;
+
+      trainingLabel: string;
       trainingDescription: string;
-      nutrition: string;
+
+      nutritionLabel: string;
       nutritionDescription: string;
-      questionary: string;
+
+      questionaryLabel: string;
       questionaryDescription: string;
     };
 

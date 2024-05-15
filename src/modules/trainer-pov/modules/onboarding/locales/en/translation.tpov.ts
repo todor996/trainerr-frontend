@@ -35,15 +35,22 @@ export const enResource: OnboardingLocal = {
     title: 'Your App Setup',
 
     info: {
-      name: 'Trainerr James',
-      description: 'The best Trainerr app ever!',
+      title: 'Info',
+
+      nameLabel: 'Name',
+      namePlaceholder: 'Trainerr James',
+
+      descriptionLabel: 'Description',
+      descriptionPlaceholder: 'The best Trainerr app ever!',
     },
     features: {
-      training: 'Training',
+      title: 'Features',
+
+      trainingLabel: 'Training',
       trainingDescription: 'Create Training Plans for your Clients',
-      nutrition: 'Nutrition',
+      nutritionLabel: 'Nutrition',
       nutritionDescription: 'Create Nutrition Plans for your Clients',
-      questionary: 'Questionary',
+      questionaryLabel: 'Questionary',
       questionaryDescription: 'Create Questionnaires for your Clients',
     },
     style: {

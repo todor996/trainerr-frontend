@@ -69,6 +69,7 @@ export const TrrSelect = forwardRef(
                 animation="lazy"
                 enterStyle={{ opacity: 0 }}
                 exitStyle={{ opacity: 0 }}
+                backgroundColor="white"
               />
             </Sheet>
           </Adapt>

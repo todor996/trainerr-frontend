@@ -63,6 +63,7 @@ const enResource: AppResource = {
     other: 'Other',
     not_specified: 'Rather not say',
   },
+  comingSoon: 'Coming Soon',
   // TODO@daisyui: remove this when daisyui is removed
   theme: {
     custom_light: 'custom light',
