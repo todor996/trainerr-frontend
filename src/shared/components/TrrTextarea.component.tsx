@@ -4,7 +4,7 @@ import { Label, SizableText, TextArea, TextAreaProps, YStack } from 'tamagui';
 interface TrrTextareaProps extends TextAreaProps {
   name?: string;
   label?: string;
-  error?: string;
+  error?: string | boolean;
 }
 
 export const TrrTextarea = forwardRef<HTMLTextAreaElement, TrrTextareaProps>(
@@ -35,9 +35,8 @@ export const TrrTextarea = forwardRef<HTMLTextAreaElement, TrrTextareaProps>(
           {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
           <>
             {error && (
-              // TODO@theme: Use error when theme is ready
-              <SizableText color="red" size="$2" marginTop="$1.5">
-                {error}
+              <SizableText color="$error" size="$2" marginTop="$1.5">
+                {typeof error === 'boolean' ? 'Error' : error}
               </SizableText>
             )}
           </>

@@ -5,7 +5,7 @@ import { loginAction } from '@modules/auth/store/authActions.store.ts';
 import { Button } from 'tamagui';
 import { Formik, FormikHelpers } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
 import { useToastController } from '@tamagui/toast';
 import { updateAuthState } from '@modules/auth/store/authSlice.store';

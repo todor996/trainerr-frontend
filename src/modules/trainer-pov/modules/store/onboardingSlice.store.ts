@@ -7,6 +7,7 @@ import {
 } from './onboardingActions.store';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { AxiosError, AxiosResponse } from 'axios';
+import { ColorSystem } from '@shared/services/color.service';
 
 export interface OnboardingState {
   // Profile Page
@@ -26,6 +27,8 @@ export interface OnboardingState {
     themeName: string;
 
     // Style - Colors
+
+    colorSystem: ColorSystem;
 
     colors: {
       base100: string;
@@ -75,6 +78,8 @@ export const initApp: OnboardingState['app'] = {
   features: [],
   logoUrl: '',
   themeName: '',
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  colorSystem: {} as any,
   colors: {
     base100: '',
     primary: [],

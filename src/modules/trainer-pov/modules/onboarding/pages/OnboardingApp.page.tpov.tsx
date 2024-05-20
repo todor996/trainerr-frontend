@@ -33,9 +33,8 @@ export default function OnboardingAppPage(): JSX.Element {
         <div className="my-6 flex w-full max-w-[390px] flex-col items-center px-6">
           <h1 className="text-3xl font-semibold">{t('onboarding:app.title')}</h1>
           <View className="mt-2 flex flex-row items-center">
-            {/* TODO@theme: Set proper colors */}
-            <Progress max={100} value={progress} backgroundColor="$blue5Light">
-              <Progress.Indicator backgroundColor="$blue8Light" />
+            <Progress max={100} value={progress} backgroundColor="$primary-300">
+              <Progress.Indicator backgroundColor="$primary" />
             </Progress>
             <span className="ml-2">{progress}%</span>
           </View>

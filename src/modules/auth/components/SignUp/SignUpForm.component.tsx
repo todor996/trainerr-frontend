@@ -6,7 +6,7 @@ import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { trainerSignupAction } from '@modules/auth/store/authActions.store';
 import { useFormik } from 'formik';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
 import { updateAuthState } from '@modules/auth/store/authSlice.store';
 import { useToastController } from '@tamagui/toast';

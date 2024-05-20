@@ -1,17 +1,18 @@
-import { emailRegex, urlRegex } from '@shared/consts/regex';
-import { isDate } from './isDate.util';
-import { isFalsy } from './isFalsy.util';
+import { emailRegex, hexColorRegex, urlRegex } from '@shared/consts/regex';
+import { isDate } from '../utils/isDate.util';
+import { isFalsy } from '../utils/isFalsy.util';
 
-type ErrorValidator =
-  | ''
-  | 'required'
-  | 'pattern'
-  | 'email'
-  | 'url'
-  | 'min'
-  | 'max'
-  | 'equals'
-  | string;
+interface ErrorMessageDict {
+  required: string;
+  pattern: string;
+  email: string;
+  hexColor: string;
+  date: string;
+  url: string;
+  min: string;
+  max: string;
+  equals: string;
+}
 
 type ValidatorConfig = {
   error?: string;
@@ -19,12 +20,14 @@ type ValidatorConfig = {
 
 // TODO: Think of moving this to some service folder
 export class Validator {
-  public error?: ErrorValidator = '';
+  public error?: string = '';
 
-  static readonly errorMessageDict: Record<string, string> = {
+  static readonly errorMessageDict: ErrorMessageDict = {
     required: 'required',
     pattern: 'pattern',
     email: 'email',
+    hexColor: 'hexColor',
+    date: 'date',
     url: 'url',
     min: 'min',
     max: 'max',
@@ -116,11 +119,19 @@ export class Validator {
     });
   }
 
+  hexColor(config: ValidatorConfig = {}): Validator {
+    return this.validate({
+      value: this.value,
+      test: (value) => isFalsy(value) || hexColorRegex.test(value.toString()),
+      error: config.error || Validator.errorMessageDict.hexColor,
+    });
+  }
+
   date(config: ValidatorConfig = {}): Validator {
     return this.validate({
       value: this.value,
       test: (value) => isFalsy(value) || isDate(value),
-      error: config.error || Validator.errorMessageDict.pattern,
+      error: config.error || Validator.errorMessageDict.date,
     });
   }
 

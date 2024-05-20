@@ -3,7 +3,7 @@ import { TrrTextarea } from '@shared/components/TrrTextarea.component';
 import { Button, Form } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';

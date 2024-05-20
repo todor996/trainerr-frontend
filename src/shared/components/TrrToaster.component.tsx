@@ -3,10 +3,10 @@ import { Toast, useToastState } from '@tamagui/toast';
 import { SizableText, YStack } from 'tamagui';
 
 const statusColorMap: Record<ToastStatus, string> = {
-  error: 'red',
-  success: 'green',
-  warning: 'yellow',
-  info: 'blue',
+  error: '$error',
+  success: '$success',
+  warning: '$warning',
+  info: '$info',
 };
 
 export function TrrToaster(): JSX.Element {
@@ -26,8 +26,8 @@ export function TrrToaster(): JSX.Element {
       opacity={1}
       scale={1}
       viewportName={currentToast.viewportName}
-      // TODO@themes: Set style based on status (error, success, warning, info) and default to primary
-      backgroundColor={statusColorMap[currentToast.status] || 'white'}
+      backgroundColor={statusColorMap[currentToast.status] || '$primary'}
+      {...{ color: `${statusColorMap[currentToast.status]}-contrast` || '$primary' }}
     >
       <YStack>
         <Toast.Title>{currentToast.title}</Toast.Title>

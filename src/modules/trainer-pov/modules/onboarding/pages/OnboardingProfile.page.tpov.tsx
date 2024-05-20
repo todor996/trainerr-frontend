@@ -3,7 +3,7 @@ import { TrrStep } from '@shared/components/TrrStep.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { ChangeEvent, ReactNode, useEffect, useState } from 'react';

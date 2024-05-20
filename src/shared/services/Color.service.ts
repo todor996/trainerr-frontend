@@ -1,14 +1,25 @@
-export interface ColorSystem {
-  base: ColorPalette[];
+export type ColorName =
+  | 'base'
+  | 'primary'
+  | 'secondary'
+  | 'accent'
+  | 'neutral'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error';
 
-  primary: ColorPalette[];
-  secondary: ColorPalette[];
-  accent: ColorPalette[];
-  neutral: ColorPalette[];
-  info: ColorPalette[];
-  success: ColorPalette[];
-  warning: ColorPalette[];
-  error: ColorPalette[];
+export interface ColorSystem {
+  base: ColorPalette;
+
+  primary: ColorPalette;
+  secondary: ColorPalette;
+  accent: ColorPalette;
+  neutral: ColorPalette;
+  info: ColorPalette;
+  success: ColorPalette;
+  warning: ColorPalette;
+  error: ColorPalette;
 }
 
 export interface ColorPalette {
@@ -121,11 +132,11 @@ export class ColorService {
   static generateTokens(colorPalette: ColorPalette): Record<string, string> {
     const tokens = {};
 
-    tokens[colorPalette.name] = colorPalette.color;
-    tokens[`${colorPalette.name}-contrast`] = colorPalette.colorContrast;
+    tokens[`$${colorPalette.name}`] = colorPalette.color;
+    tokens[`$${colorPalette.name}-contrast`] = colorPalette.colorContrast;
 
     colorPalette.variants.forEach((variant, index) => {
-      tokens[`${colorPalette.name}-${(index + 1) * 100}`] = variant;
+      tokens[`$${colorPalette.name}-${(index + 1) * 100}`] = variant;
     });
 
     return tokens;
@@ -166,6 +177,7 @@ export class ColorService {
   }
 }
 
+// TODO@theme: Remove this when init theme setup is done
 /**
  * Ovako neki flow
  *

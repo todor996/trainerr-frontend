@@ -1,23 +1,16 @@
-import {
-  blue,
-  blueDark,
-  gray,
-  grayDark,
-  green,
-  greenDark,
-  orange,
-  orangeDark,
-  pink,
-  pinkDark,
-  purple,
-  purpleDark,
-  red,
-  redDark,
-  yellow,
-  yellowDark,
-} from '@tamagui/colors';
 import type { Variable } from '@tamagui/web';
 import { createTokens } from '@tamagui/web';
+import {
+  accent,
+  base,
+  error,
+  info,
+  neutral,
+  primary,
+  secondary,
+  success,
+  warning,
+} from './colors.data';
 
 // should roughly map to button/input etc height at each level
 // fonts should match that height/lineHeight at each stop
@@ -108,52 +101,33 @@ export const zIndex = {
 
 export const colorTokens = {
   light: {
-    blue: blue,
-    gray: gray,
-    green: green,
-    orange: orange,
-    pink: pink,
-    purple: purple,
-    red: red,
-    yellow: yellow,
+    base: base,
+    primary: primary,
+    secondary: secondary,
+    accent: accent,
+    neutral: neutral,
+    info: info,
+    success: success,
+    warning: warning,
+    error: error,
   },
-  dark: {
-    blue: blueDark,
-    gray: grayDark,
-    green: greenDark,
-    orange: orangeDark,
-    pink: pinkDark,
-    purple: purpleDark,
-    red: redDark,
-    yellow: yellowDark,
-  },
-};
-
-export const darkColors = {
-  ...colorTokens.dark.blue,
-  ...colorTokens.dark.gray,
-  ...colorTokens.dark.green,
-  ...colorTokens.dark.orange,
-  ...colorTokens.dark.pink,
-  ...colorTokens.dark.purple,
-  ...colorTokens.dark.red,
-  ...colorTokens.dark.yellow,
 };
 
 export const lightColors = {
-  ...colorTokens.light.blue,
-  ...colorTokens.light.gray,
-  ...colorTokens.light.green,
-  ...colorTokens.light.orange,
-  ...colorTokens.light.pink,
-  ...colorTokens.light.purple,
-  ...colorTokens.light.red,
-  ...colorTokens.light.yellow,
+  ...colorTokens.light.base,
+  ...colorTokens.light.primary,
+  ...colorTokens.light.secondary,
+  ...colorTokens.light.accent,
+  ...colorTokens.light.neutral,
+  ...colorTokens.light.info,
+  ...colorTokens.light.success,
+  ...colorTokens.light.warning,
+  ...colorTokens.light.error,
 };
 
 export const color = {
-  ...postfixObjKeys(lightColors, 'Light'),
-  ...postfixObjKeys(darkColors, 'Dark'),
+  ...postfixObjKeys(lightColors, ''),
+  // ...postfixObjKeys(darkColors, 'Dark'),
 };
 
 function postfixObjKeys<

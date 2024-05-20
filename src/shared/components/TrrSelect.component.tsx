@@ -155,8 +155,7 @@ export const TrrSelect = forwardRef(
 
         <>
           {error && (
-            // TODO@theme: Use error when theme is ready
-            <SizableText color="red" size="$2" marginTop="$1.5">
+            <SizableText color="$error" size="$2" marginTop="$1.5">
               {error}
             </SizableText>
           )}

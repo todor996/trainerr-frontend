@@ -1,14 +1,15 @@
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Badge } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form } from 'tamagui';
+import { Form, Paragraph } from 'tamagui';
 import { onboardingActions } from '../../store/onboardingSlice.store';
 import { Feature } from '@shared/types/Feature.type';
+import { TrrButton } from '@shared/components/TrrButton.component';
 
 interface FormInputs extends Record<Feature, boolean> {
   [Feature.TRAINING]: boolean;
@@ -139,18 +140,22 @@ export function OnboardingAppFeatures(): JSX.Element {
           <div className="flex w-full flex-row gap-2">
             <Link className="grow" to={'/trainer/onboarding/app/info'}>
               {/* type="button" */}
-              <Button className="w-full">{t('onboarding:back')}</Button>
+              <TrrButton className="w-full" themeColor="secondary">
+                {t('onboarding:back')}
+              </TrrButton>
             </Link>
 
             <Form.Trigger className="grow">
-              <Button className="w-full" tag="span" color="primary">
+              <TrrButton className="w-full" tag="span" themeColor="primary">
                 {t('onboarding:next')}
-              </Button>
+              </TrrButton>
             </Form.Trigger>
           </div>
 
           {(formik.touched.nutrition || formik.touched.training) && (
-            <p className="text-sm text-error">{formik.errors.training}</p>
+            <Paragraph size="$2" color="$error">
+              {formik.errors.training}
+            </Paragraph>
           )}
         </div>
       </Form>
