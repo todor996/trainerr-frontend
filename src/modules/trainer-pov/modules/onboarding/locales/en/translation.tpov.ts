@@ -37,7 +37,7 @@ export const enResource: OnboardingLocal = {
     info: {
       title: 'Info',
 
-      nameLabel: 'Name',
+      nameLabel: 'Application Name',
       namePlaceholder: 'Trainerr James',
 
       descriptionLabel: 'Description',

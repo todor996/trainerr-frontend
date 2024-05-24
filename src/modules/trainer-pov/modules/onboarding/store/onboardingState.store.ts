@@ -1,13 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from '@reduxjs/toolkit';
-import { Feature } from '@shared/types/Feature.type';
-import {
-  createProfileAction,
-  unregisteredOnboardingActions,
-} from './onboardingActions.store';
-import { ProfileInfo } from '@shared/types/ProfileInfo.type';
-import { AxiosError, AxiosResponse } from 'axios';
 import { ColorSystem } from '@shared/services/color.service';
+import { Feature } from '@shared/types/Feature.type';
+import { ProfileInfo } from '@shared/types/ProfileInfo.type';
+import { StoreSlice } from '@store/index.store';
+import { AxiosResponse } from 'axios';
 
 export interface OnboardingState {
   // Profile Page
@@ -55,7 +50,7 @@ export interface OnboardingState {
     style: number;
   };
 
-  // TODO: Think about this and standardize it!
+  // TODO@store: Think about this and standardize it!
   // API Status
   loading: boolean;
   success: boolean;
@@ -94,7 +89,7 @@ export const initApp: OnboardingState['app'] = {
   meta: {},
 };
 
-const initState: OnboardingState = {
+export const onboardingSliceState: StoreSlice<OnboardingState, OnboardingState> = () => ({
   app: initApp,
   profile: initProfile,
 
@@ -109,46 +104,4 @@ const initState: OnboardingState = {
   loading: false,
   success: false,
   error: null,
-};
-
-// #region API State Actions
-
-function updateStateOnSuccess(state: OnboardingState) {
-  state.loading = false;
-  state.error = null;
-  state.success = true;
-}
-
-function updateStateOnLoading(state: OnboardingState) {
-  state.loading = true;
-  state.error = null;
-  state.success = false;
-}
-
-function updateStateOnError(state: OnboardingState, action: unknown) {
-  state.loading = false;
-  state.error = action as AxiosError;
-  state.success = false;
-}
-
-// #endregion API State Actions
-
-const onboardingSlice = createSlice({
-  name: 'onboarding',
-  initialState: initState,
-  reducers: {
-    updateApp: unregisteredOnboardingActions.updateApp,
-    updateProfile: unregisteredOnboardingActions.updateProfile,
-    updateOnboarding: unregisteredOnboardingActions.updateOnboarding,
-    updateProgress: unregisteredOnboardingActions.updateProgress,
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(createProfileAction.pending, updateStateOnLoading)
-      .addCase(createProfileAction.fulfilled, updateStateOnSuccess)
-      .addCase(createProfileAction.rejected, updateStateOnError);
-  },
 });
-
-export const onboardingActions = onboardingSlice.actions;
-export const onboardingReducer = onboardingSlice.reducer;

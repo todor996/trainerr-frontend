@@ -1,3 +1,7 @@
+import { Rgb, converter } from 'culori';
+const culoriToHsl = converter('hsl');
+const culoriToRgb = converter('rgb');
+
 export type ColorName =
   | 'base'
   | 'primary'
@@ -29,102 +33,28 @@ export interface ColorPalette {
   variants: string[];
 }
 
-// #############################################################################
-// #region Helpers
-
-/**
- *
- * Returns array with lighter and darker colors based on the input color
- * Colors go from lightest to darkest
- * Base color is in the middle (baseColorIndex = lightCount)
- *
- */
-export function generateColors({
-  color,
-  lightCount = 5,
-  darkCount = 5,
-}: {
-  color: string;
-  lightCount: number;
-  darkCount: number;
-}): string[] {
-  // Helper function to convert hex color to RGB
-  function hexToRgb(hex: string): [number, number, number] {
-    hex = hex.replace(/^#/, '');
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return [r, g, b];
-  }
-
-  // Helper function to convert RGB color to hex
-  function rgbToHex(r: number, g: number, b: number): string {
-    const hexR = r.toString(16).padStart(2, '0');
-    const hexG = g.toString(16).padStart(2, '0');
-    const hexB = b.toString(16).padStart(2, '0');
-    return `#${hexR}${hexG}${hexB}`;
-  }
-
-  // Function to lighten a color
-  function lighten(r: number, g: number, b: number, factor: number): string {
-    const newR = Math.min(Math.round(r + factor * (255 - r)), 255);
-    const newG = Math.min(Math.round(g + factor * (255 - g)), 255);
-    const newB = Math.min(Math.round(b + factor * (255 - b)), 255);
-    return rgbToHex(newR, newG, newB);
-  }
-
-  // Function to darken a color
-  function darken(r: number, g: number, b: number, factor: number): string {
-    const newR = Math.max(Math.round(r - factor * r), 0);
-    const newG = Math.max(Math.round(g - factor * g), 0);
-    const newB = Math.max(Math.round(b - factor * b), 0);
-    return rgbToHex(newR, newG, newB);
-  }
-
-  // Convert the base color to RGB format
-  const [baseR, baseG, baseB] = hexToRgb(color);
-
-  // Arrays to hold the lighter and darker colors
-  const lighterColors: string[] = [];
-  const darkerColors: string[] = [];
-
-  // Generate lighter colors
-  for (let i = 1; i <= lightCount; i++) {
-    const factor = i / (lightCount + 1);
-    lighterColors.push(lighten(baseR, baseG, baseB, factor));
-  }
-
-  // Generate darker colors
-  for (let i = 1; i <= darkCount; i++) {
-    const factor = i / (darkCount + 1);
-    darkerColors.push(darken(baseR, baseG, baseB, factor));
-  }
-
-  // Combine the arrays: lighter colors, base color, and darker colors
-  const sortedColors = [...lighterColors.reverse(), color, ...darkerColors];
-
-  return sortedColors;
-}
-
-// #endregion Helpers
-// #############################################################################
-
 export class ColorService {
   system: ColorSystem;
   tokens: Record<string, string>;
 
   static generateVariants(color: string, lightCount = 5, darkCount = 5): string[] {
-    return generateColors({ color, lightCount, darkCount });
+    return generateVariants({ color, lightCount, darkCount });
   }
 
+  /**
+   * Generates pallet based on the input color
+   * Base color is in the middle (baseColorIndex = 5) => color-600
+   * @param color
+   * @param name
+   * @returns
+   */
   static generatePalette(color: string, name: string): ColorPalette {
     const variants = ColorService.generateVariants(color);
 
     return {
       name,
       color: variants[5],
-      colorContrast: variants[1], // TODO@ceut: Use Ceut contrast function
+      colorContrast: generateContrastColor(variants[5]),
       variants,
     };
   }
@@ -177,25 +107,101 @@ export class ColorService {
   }
 }
 
-// TODO@theme: Remove this when init theme setup is done
+// #############################################################################
+// #region Helpers
+
 /**
- * Ovako neki flow
  *
- * // Cuvamo colorSystem u store-u
+ * Returns array with lighter and darker colors based on the input color
+ * Colors go from lightest to darkest
+ * Base color is in the middle (baseColorIndex = lightCount)
  *
- * 1. User unese boju, mi sacuvamo paletu boja u colorSystem
- *
- * // Input => color => Output => ColorPalette
- * ```
- *  store.colorSystem[colorName] = ColorService.generatePalette(color, colorName);
- * ```
- *
- * 2. Promenimo color tokene u real-time-u (valjda moze?), user vidi boje u aplikaciji
- *
- * ```
- *  store.tokens = ColorService.generateAllTokens(store.colorSystem);
- *  tamagui.setColorTokens(store.tokens);
- * ```
- *
- * 3. Kad u user udari submit, sacuvamo colorSystem, a moze i tokene u bazu
  */
+function generateVariants({
+  color,
+  lightCount = 5,
+  darkCount = 5,
+}: {
+  color: string;
+  lightCount: number;
+  darkCount: number;
+}): string[] {
+  // Convert the base color to RGB format
+  const rgb = convertToRgb(color);
+
+  // Arrays to hold the lighter and darker colors
+  const lighterColors: string[] = [];
+  const darkerColors: string[] = [];
+
+  // Generate lighter colors
+  for (let i = 1; i <= lightCount; i++) {
+    const factor = i / (lightCount + 1);
+    lighterColors.push(lighten(rgb.r, rgb.g, rgb.b, factor));
+  }
+
+  // Generate darker colors
+  for (let i = 1; i <= darkCount; i++) {
+    const factor = i / (darkCount + 1);
+    darkerColors.push(darken(rgb.r, rgb.g, rgb.b, factor));
+  }
+
+  // Combine the arrays: lighter colors, base color, and darker colors
+  const sortedColors = [...lighterColors.reverse(), color, ...darkerColors];
+
+  return sortedColors;
+}
+
+function generateContrastColor(color: string): string {
+  const rgb = convertToRgb(color);
+
+  const isLight = isLightColor(color);
+
+  const contrastColor = isLight
+    ? darken(rgb.r, rgb.g, rgb.b, 0.9)
+    : lighten(rgb.r, rgb.g, rgb.b, 0.9);
+
+  return contrastColor;
+}
+
+function isLightColor(color: string): boolean {
+  const hsl = culoriToHsl(color);
+
+  return hsl.l > 0.5;
+}
+
+function convertToRgb(color: string): Rgb {
+  const rgb = culoriToRgb(color);
+
+  rgb.r = rgb.r * 255;
+  rgb.g = rgb.g * 255;
+  rgb.b = rgb.b * 255;
+
+  return rgb;
+}
+
+// Function to lighten a color
+function lighten(r: number, g: number, b: number, factor: number): string {
+  const newR = Math.min(Math.round(r + factor * (255 - r)), 255);
+  const newG = Math.min(Math.round(g + factor * (255 - g)), 255);
+  const newB = Math.min(Math.round(b + factor * (255 - b)), 255);
+  return rgbToHex(newR, newG, newB);
+}
+
+// Function to darken a color
+function darken(r: number, g: number, b: number, factor: number): string {
+  const newR = Math.max(Math.round(r - factor * r), 0);
+  const newG = Math.max(Math.round(g - factor * g), 0);
+  const newB = Math.max(Math.round(b - factor * b), 0);
+  return rgbToHex(newR, newG, newB);
+}
+
+// Helper function to convert RGB color to hex
+function rgbToHex(r: number, g: number, b: number): string {
+  const hexR = r.toString(16).padStart(2, '0');
+  const hexG = g.toString(16).padStart(2, '0');
+  const hexB = b.toString(16).padStart(2, '0');
+  return `#${hexR}${hexG}${hexB}`;
+}
+
+// #endregion Helpers
+// #############################################################################

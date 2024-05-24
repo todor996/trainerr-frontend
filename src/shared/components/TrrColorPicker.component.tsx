@@ -28,7 +28,6 @@ const TrrColorPickerUnstyled = forwardRef(
       value,
       className = '',
       label = '',
-      theme,
       placeholder = '#hexvalue',
       ...otherProps
     } = props;
@@ -63,17 +62,19 @@ const TrrColorPickerUnstyled = forwardRef(
     return (
       <label className={twMerge('flex flex-col gap-2', className)}>
         {/* LABEL */}
-        <span>{label}</span>
+        <SizableText>{label}</SizableText>
 
         {/* INPUT */}
         <div className="flex flex-row items-center gap-2">
           <Button
             className={`shadow`}
-            theme={theme}
             height={'44px'}
             width={'44px'}
             padding={'0'}
             backgroundColor={color}
+            hoverStyle={{
+              backgroundColor: `$${name}-400`,
+            }}
             fontSize={'$2'}
             onPress={handleButtonClick}
           ></Button>
@@ -85,6 +86,9 @@ const TrrColorPickerUnstyled = forwardRef(
             type="color"
             value={color}
             placeholder={placeholder}
+            color={`$${name}-contrast`}
+            backgroundColor={`$${name}`}
+            borderColor={`$${name}`}
             {...otherProps}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             onChange={(event) => handleChange(event as any)}

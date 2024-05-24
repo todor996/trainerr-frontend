@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { loginAction } from '@modules/auth/store/authActions.store.ts';
-import { Button } from 'tamagui';
 import { Formik, FormikHelpers } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
 import { useToastController } from '@tamagui/toast';
 import { updateAuthState } from '@modules/auth/store/authSlice.store';
+import { TrrButton } from '@shared/components/TrrButton.component';
 
 export interface FormInputs {
   email: string;
@@ -116,13 +116,14 @@ export function LogInForm(): JSX.Element {
             />
 
             <div className="mt-2 flex flex-col gap-2">
-              <Button
+              <TrrButton
                 {...{ type: 'submit' }}
-                className="btn-primary w-full"
+                className="w-full"
+                themeColor="primary"
                 disabled={isSubmitting}
               >
                 {t('auth:logInButton')}
-              </Button>
+              </TrrButton>
               <span className="label-text">
                 {t('auth:account.accountLabel')}
                 <Link to="/auth/signup" className="cursor-pointer text-primary">

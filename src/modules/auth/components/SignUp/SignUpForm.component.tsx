@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form } from 'tamagui';
+import { Form } from 'tamagui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { useAppDispatch, useAppSelector } from '@store/hooks.store';
@@ -10,6 +10,7 @@ import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
 import { updateAuthState } from '@modules/auth/store/authSlice.store';
 import { useToastController } from '@tamagui/toast';
+import { TrrButton } from '@shared/components/TrrButton.component';
 
 interface FormInputs {
   username: string;
@@ -173,13 +174,14 @@ export function SignUpForm(): JSX.Element {
 
         <div className="mt-2 flex flex-col gap-2">
           <Form.Trigger disabled={formik.isSubmitting}>
-            <Button
+            <TrrButton
               className="btn-primary w-full"
               tag="span"
+              themeColor="primary"
               disabled={formik.isSubmitting}
             >
               {t('auth:signUpButton')}
-            </Button>
+            </TrrButton>
           </Form.Trigger>
 
           <span className="label-text">

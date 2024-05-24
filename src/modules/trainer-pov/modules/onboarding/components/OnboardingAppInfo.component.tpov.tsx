@@ -1,13 +1,13 @@
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
-import { Button, Form } from 'tamagui';
+import { Form } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 import { Validator } from '@shared/services/validator.service';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
-import { onboardingActions } from '../../store/onboardingSlice.store';
+import { TrrButton } from '@shared/components/TrrButton.component';
+import { useOnboardingStore } from '../store/onboarding.store';
 
 interface FormInputs {
   name: string;
@@ -24,8 +24,7 @@ export function OnboardingAppInfo(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
-  const { app } = useAppSelector((state) => state.onboarding);
+  const { app, updateApp, updateProgress } = useOnboardingStore();
 
   const [localProgress, setLocalProgress] = useState(0);
 
@@ -53,12 +52,12 @@ export function OnboardingAppInfo(): JSX.Element {
   }, [app]);
 
   useEffect(() => {
-    dispatch(onboardingActions.updateProgress({ info: localProgress }));
+    updateProgress({ info: localProgress });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localProgress]);
 
   function handleSubmit(values: FormInputs) {
-    dispatch(onboardingActions.updateApp(values));
+    updateApp(values);
     navigate('/trainer/onboarding/app/features');
   }
 
@@ -112,14 +111,14 @@ export function OnboardingAppInfo(): JSX.Element {
         />
 
         <Form.Trigger className="grow" disabled={formik.isSubmitting}>
-          <Button
+          <TrrButton
             className="w-full"
             tag="span"
-            color="primary"
+            themeColor="primary"
             disabled={formik.isSubmitting}
           >
             {t('onboarding:next')}
-          </Button>
+          </TrrButton>
         </Form.Trigger>
       </Form>
     </div>

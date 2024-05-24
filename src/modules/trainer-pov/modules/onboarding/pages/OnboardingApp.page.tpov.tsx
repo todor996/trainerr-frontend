@@ -6,12 +6,12 @@ import { OnboardingAppStyle } from '../components/OnboardingAppStyle.component.t
 import { TrrStep } from '@shared/components/TrrStep.component';
 import { useTranslation } from 'react-i18next';
 import { Progress, View } from 'tamagui';
-import { useAppSelector } from '@store/hooks.store';
+import { useOnboardingStore } from '../store/onboarding.store';
 
 export default function OnboardingAppPage(): JSX.Element {
   const { t } = useTranslation();
 
-  const { progress } = useAppSelector((state) => state.onboarding);
+  const { progress } = useOnboardingStore();
 
   return (
     <>

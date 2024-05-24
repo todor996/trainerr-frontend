@@ -6,17 +6,16 @@ import { TrrUpload } from '@shared/components/TrrUpload.component';
 import { DEFAULT_THEMES } from '@shared/consts/daisyui.const';
 import { ColorService } from '@shared/services/color.service';
 import { Validator } from '@shared/services/validator.service';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { PhoneMockup } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import { Avatar, Button, Form, ThemeName, getTokens } from 'tamagui';
-import { onboardingActions } from '../../store/onboardingSlice.store';
 import { TrrButton } from '@shared/components/TrrButton.component';
 import { formatHex } from 'culori';
 import { useTranslation } from 'react-i18next';
+import { useOnboardingStore } from '../store/onboarding.store';
 
 interface FormInputs {
   logoUrl?: string;
@@ -51,9 +50,9 @@ const DEFAULT_AVATAR = 'https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe';
 export function OnboardingAppStyle(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const { colorSystem } = useAppSelector((state) => state.onboarding.app);
+  const { updateApp } = useOnboardingStore((state) => state);
+  const { colorSystem } = useOnboardingStore((state) => state.app);
 
   const formik = useFormik({
     initialValues: initFromValues,
@@ -82,6 +81,7 @@ export function OnboardingAppStyle(): JSX.Element {
         error: formatHex(error?.color) || initFromValues.error,
       });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -124,7 +124,8 @@ export function OnboardingAppStyle(): JSX.Element {
       return;
     }
 
-    // TODO: Generate and setup all tokens and colors before change
+    // TODO@theme: Generate and setup all tokens and colors before change
+    // TODO@init: 1. Auth Tokens 2. Color System
 
     // Generate palette and tokens
     const palette = ColorService.generatePalette(color, name);
@@ -138,15 +139,12 @@ export function OnboardingAppStyle(): JSX.Element {
       root.style.setProperty(`--${tamaguiTokenDict[key].name}`, val);
     });
 
-    // Sve changes to store
-    dispatch(
-      onboardingActions.updateApp({
-        colorSystem: {
-          ...colorSystem,
-          [name]: palette,
-        },
-      }),
-    );
+    updateApp({
+      colorSystem: {
+        ...colorSystem,
+        [name]: palette,
+      },
+    });
   }
 
   const [currentTheme, setCurrentTheme] = useState<ThemeName>(getThemeDom());
@@ -398,12 +396,7 @@ export function OnboardingAppStyle(): JSX.Element {
 
       <div className="my-12 flex w-full max-w-[390px] flex-row gap-2">
         <Link className="grow" to={'/trainer/onboarding/app/features'}>
-          <TrrButton
-            className="w-full"
-            {...{ type: 'button' }}
-            tag="span"
-            themeColor="secondary"
-          >
+          <TrrButton className="w-full" tag="span" themeColor="secondary">
             {t('onboarding:back')}
           </TrrButton>
         </Link>

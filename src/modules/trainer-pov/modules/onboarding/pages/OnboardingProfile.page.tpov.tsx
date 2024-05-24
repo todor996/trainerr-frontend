@@ -4,19 +4,18 @@ import { TrrTextarea } from '@shared/components/TrrTextarea.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { Validator } from '@shared/services/validator.service';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { ChangeEvent, ReactNode, useEffect, useState } from 'react';
 import { Steps } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Button, Form, Spinner } from 'tamagui';
-import { createProfileAction } from '../../store/onboardingActions.store';
+import { Avatar, Form, Spinner } from 'tamagui';
 import { TrrDatePicker } from '@shared/components/TrrDatePicker.component';
 import { Gender } from '@shared/enums/Gender.enum';
 import { TrrSelect } from '@shared/components/TrrSelect.component';
-import { onboardingActions } from '../../store/onboardingSlice.store';
 import { useToastController } from '@tamagui/toast';
 import { useNavigate } from 'react-router-dom';
+import { useOnboardingStore } from '../store/onboarding.store';
+import { TrrButton } from '@shared/components/TrrButton.component';
 
 // TODO: Move to shared and set proper default image
 const DEFAULT_AVATAR =
@@ -40,10 +39,15 @@ export default function OnboardingProfilePage(): JSX.Element {
   const navigate = useNavigate();
   const toast = useToastController();
 
-  const dispatch = useAppDispatch();
-  const { loading, error, success, profile } = useAppSelector(
-    (state) => state.onboarding,
-  );
+  const {
+    createProfileAsync,
+    updateOnboarding,
+    updateProfile,
+    loading,
+    error,
+    success,
+    profile,
+  } = useOnboardingStore();
 
   const [file, setFile] = useState<File | null>(null);
   // TODO: Set proper default image
@@ -66,7 +70,7 @@ export default function OnboardingProfilePage(): JSX.Element {
         message: error.payload,
       });
 
-      dispatch(onboardingActions.updateOnboarding({ error: null }));
+      updateOnboarding({ error: null });
     }
 
     if (!loading) {
@@ -74,24 +78,26 @@ export default function OnboardingProfilePage(): JSX.Element {
     }
 
     if (success) {
-      dispatch(
-        onboardingActions.updateOnboarding({
-          loading: false,
-          error: null,
-          success: false,
-        }),
-      );
-      navigate('/trainer/onboarding/app');
+      updateOnboarding({
+        loading: false,
+        error: null,
+        success: false,
+      }),
+        navigate('/trainer/onboarding/app');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, error, success]);
 
-  function handleSubmit(values: ProfileInfo) {
+  async function handleSubmit(values: ProfileInfo) {
     values.birthday = new Date(values.birthday).toISOString();
 
-    dispatch(onboardingActions.updateProfile(values));
-    dispatch(createProfileAction(values));
+    updateProfile(values);
+
+    const user = await createProfileAsync(values);
+
+    // TODO@store: Save user in auth store
+    console.log({ user });
   }
 
   function handleValidation(values: ProfileInfo) {
@@ -136,12 +142,6 @@ export default function OnboardingProfilePage(): JSX.Element {
     const imageUrl = URL.createObjectURL(file);
     setFileUrl(imageUrl);
     setFile(file);
-  }
-
-  function shotToaster() {
-    toast.show('Successfully saved!', {
-      message: "Don't worry, we've got your data.",
-    });
   }
 
   return (
@@ -243,18 +243,16 @@ export default function OnboardingProfilePage(): JSX.Element {
           />
 
           <Form.Trigger asChild disabled={formik.isSubmitting}>
-            <Button
+            <TrrButton
               className="w-full"
-              color="$blue9Light"
-              borderColor={formik.isSubmitting ? 'transparent' : '$blue9'}
+              themeColor="primary"
               disabled={formik.isSubmitting}
               icon={formik.isSubmitting ? () => <Spinner /> : undefined}
             >
               {t('onboarding:next')}
-            </Button>
+            </TrrButton>
           </Form.Trigger>
         </Form>
-        <Button onPress={() => shotToaster()}>Toaster</Button>
       </div>
     </>
   );

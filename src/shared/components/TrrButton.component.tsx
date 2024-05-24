@@ -16,8 +16,8 @@ export const TrrButton = forwardRef(
         color={`$${themeColor}-contrast`}
         backgroundColor={`$${themeColor}`}
         hoverStyle={{
-          backgroundColor: `$${themeColor}-900`,
-          borderColor: `$${themeColor}-1100`,
+          backgroundColor: `$${themeColor}-400`,
+          borderColor: `$${themeColor}-contrast`,
         }}
         {...otherProps}
       >

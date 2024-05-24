@@ -1,15 +1,14 @@
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
 import { Validator } from '@shared/services/validator.service';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Badge } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Paragraph } from 'tamagui';
-import { onboardingActions } from '../../store/onboardingSlice.store';
 import { Feature } from '@shared/types/Feature.type';
 import { TrrButton } from '@shared/components/TrrButton.component';
+import { useOnboardingStore } from '../store/onboarding.store';
 
 interface FormInputs extends Record<Feature, boolean> {
   [Feature.TRAINING]: boolean;
@@ -25,8 +24,9 @@ const initFromValues: FormInputs = {
 
 export function OnboardingAppFeatures(): JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { features } = useAppSelector((state) => state.onboarding.app);
+
+  const store = useOnboardingStore();
+  const { features } = store.app;
 
   const formik = useFormik({
     initialValues: initFromValues,
@@ -50,9 +50,9 @@ export function OnboardingAppFeatures(): JSX.Element {
   function handleSubmit(values: FormInputs) {
     const features = Object.entries(values)
       .filter(([, isSelected]) => isSelected)
-      .map(([feature]) => feature);
+      .map(([feature]) => feature as Feature);
 
-    dispatch(onboardingActions.updateApp({ features }));
+    store.updateApp({ features });
     navigate('/trainer/onboarding/app/style');
   }
 
@@ -62,7 +62,7 @@ export function OnboardingAppFeatures(): JSX.Element {
       : {};
 
     const isSomeSelected = Object.values(values).some((value) => value);
-    dispatch(onboardingActions.updateProgress({ features: isSomeSelected ? 33 : 0 }));
+    store.updateProgress({ features: isSomeSelected ? 33 : 0 });
 
     return errors;
   }
@@ -140,6 +140,7 @@ export function OnboardingAppFeatures(): JSX.Element {
           <div className="flex w-full flex-row gap-2">
             <Link className="grow" to={'/trainer/onboarding/app/info'}>
               {/* type="button" */}
+              {/* TODO: Maybe handle submit on back?  */}
               <TrrButton className="w-full" themeColor="secondary">
                 {t('onboarding:back')}
               </TrrButton>
