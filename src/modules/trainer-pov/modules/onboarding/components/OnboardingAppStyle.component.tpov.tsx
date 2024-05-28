@@ -11,11 +11,12 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { PhoneMockup } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
-import { Avatar, Button, Form, ThemeName, getTokens } from 'tamagui';
+import { Avatar, Button, Form, ThemeName, XStack, YStack, getTokens } from 'tamagui';
 import { TrrButton } from '@shared/components/TrrButton.component';
 import { formatHex } from 'culori';
 import { useTranslation } from 'react-i18next';
 import { useOnboardingStore } from '../store/onboarding.store';
+import { AppMetaCreationData } from '@shared/types/AppMetaCreationData.type';
 
 interface FormInputs {
   logoUrl?: string;
@@ -51,7 +52,7 @@ export function OnboardingAppStyle(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const { updateApp } = useOnboardingStore((state) => state);
+  const store = useOnboardingStore((state) => state);
   const { colorSystem } = useOnboardingStore((state) => state.app);
 
   const formik = useFormik({
@@ -62,6 +63,8 @@ export function OnboardingAppStyle(): JSX.Element {
 
   const [file, setFile] = useState<File | null>(null);
   const [fileUrl, setFileUrl] = useState<string>(DEFAULT_AVATAR);
+
+  // TODO@theme: Set text color automatically based on background color
 
   useEffect(() => {
     if (colorSystem) {
@@ -88,8 +91,29 @@ export function OnboardingAppStyle(): JSX.Element {
   function handleSubmit(values: FormInputs) {
     console.log('handleSubmit', { values });
 
-    // TODO: Change this
-    navigate('/trainer/onboarding/profile');
+    const colorsForApi: Partial<AppMetaCreationData> = {};
+    let colorKey = '';
+    Object.entries(values).forEach(([color, value]) => {
+      colorKey = color === 'base' ? 'base100Color' : `${color}Color`;
+      colorsForApi[colorKey] = value;
+    });
+
+    // TODO: Tell to BE to enable user to create profile without email verification
+    store.createAppMetaAsync({
+      ...colorsForApi,
+      appName: store.app.name,
+      description: store.app.description,
+
+      logoUrl: fileUrl,
+      // TODO@theme: Set proper theme name
+      themeName: `${store.app.description}Theme`,
+      meta: {
+        tokens: ColorService.generateAllTokens(colorSystem),
+        colorSystem: colorSystem,
+      },
+    } as AppMetaCreationData);
+
+    navigate('/trainer/training');
   }
 
   function handleValidation(values: FormInputs) {
@@ -126,6 +150,7 @@ export function OnboardingAppStyle(): JSX.Element {
 
     // TODO@theme: Generate and setup all tokens and colors before change
     // TODO@init: 1. Auth Tokens 2. Color System
+    // TODO@theme: Set text color automatically based on background color
 
     // Generate palette and tokens
     const palette = ColorService.generatePalette(color, name);
@@ -139,7 +164,7 @@ export function OnboardingAppStyle(): JSX.Element {
       root.style.setProperty(`--${tamaguiTokenDict[key].name}`, val);
     });
 
-    updateApp({
+    store.updateApp({
       colorSystem: {
         ...colorSystem,
         [name]: palette,
@@ -193,8 +218,20 @@ export function OnboardingAppStyle(): JSX.Element {
     setFile(file);
   }
 
+  // function generateTokens() {
+  //   const allTokens = ColorService.generateAllTokens(colorSystem);
+  //   console.log(allTokens);
+  //   Object.entries(allTokens).forEach(([key, value]) => {
+  //     console.log(key, JSON.stringify(value, null, 2));
+  //   });
+  // }
+
   return (
-    <div className="flex w-full flex-col items-center">
+    <YStack
+      className="flex w-full flex-col items-center"
+      backgroundColor="$base"
+      alignItems="center"
+    >
       {/* BODY */}
       <div className="flex w-full flex-row">
         {/* LEFT SIDE - CONFIGURATION */}
@@ -387,29 +424,46 @@ export function OnboardingAppStyle(): JSX.Element {
         </div>
 
         {/* RIGHT SIDE - PREVIEW */}
-        <div className="flex w-full flex-col items-start justify-center bg-base-200 py-6 text-base-content">
+        <YStack
+          className="flex w-full flex-col items-start justify-center bg-base-200 py-6 text-base-content"
+          backgroundColor="$neutral"
+          flexShrink={1}
+        >
           <PhoneMockup className="-my-16 scale-75">
-            <Title />
+            <YStack
+              backgroundColor="$base"
+              alignItems="center"
+              justifyContent="center"
+              flexGrow={1}
+              width="100%"
+            >
+              <Title />
+            </YStack>
           </PhoneMockup>
-        </div>
+        </YStack>
       </div>
 
-      <div className="my-12 flex w-full max-w-[390px] flex-row gap-2">
+      <XStack
+        className="my-12 flex w-full max-w-[390px] flex-row gap-2"
+        alignItems="center"
+      >
         <Link className="grow" to={'/trainer/onboarding/app/features'}>
-          <TrrButton className="w-full" tag="span" themeColor="secondary">
+          <TrrButton className="w-full" tag="span" themeColor="$secondary">
             {t('onboarding:back')}
           </TrrButton>
         </Link>
 
+        {/* <TrrButton onPress={() => generateTokens()}>Tokens</TrrButton> */}
+
         <TrrButton
           className="grow"
           tag="span"
-          themeColor="primary"
+          themeColor="$primary"
           onPress={() => formik.handleSubmit()}
         >
           {t('onboarding:next')}
         </TrrButton>
-      </div>
-    </div>
+      </XStack>
+    </YStack>
   );
 }

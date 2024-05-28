@@ -141,13 +141,13 @@ export function OnboardingAppFeatures(): JSX.Element {
             <Link className="grow" to={'/trainer/onboarding/app/info'}>
               {/* type="button" */}
               {/* TODO: Maybe handle submit on back?  */}
-              <TrrButton className="w-full" themeColor="secondary">
+              <TrrButton className="w-full" themeColor="$secondary">
                 {t('onboarding:back')}
               </TrrButton>
             </Link>
 
             <Form.Trigger className="grow">
-              <TrrButton className="w-full" tag="span" themeColor="primary">
+              <TrrButton className="w-full" tag="span" themeColor="$primary">
                 {t('onboarding:next')}
               </TrrButton>
             </Form.Trigger>

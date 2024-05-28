@@ -1,16 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form } from 'tamagui';
+import { Form, Paragraph, SizableText } from 'tamagui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
-import { trainerSignupAction } from '@modules/auth/store/authActions.store';
+import { useAppDispatch } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
-import { updateAuthState } from '@modules/auth/store/authSlice.store';
 import { useToastController } from '@tamagui/toast';
 import { TrrButton } from '@shared/components/TrrButton.component';
+import { useAuthStore } from '@modules/auth/store/auth.store';
 
 interface FormInputs {
   username: string;
@@ -32,9 +31,10 @@ export function SignUpForm(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const toast = useToastController();
+  const store = useAuthStore();
+  const { loading, error, success } = store;
 
   const dispatch = useAppDispatch();
-  const { loading, error, success } = useAppSelector((state) => state.auth);
 
   const formik = useFormik({
     initialValues: initFromValues,
@@ -58,11 +58,11 @@ export function SignUpForm(): JSX.Element {
     if (error) {
       toast.show('Error', { status: 'error', message: JSON.stringify(error) });
 
-      dispatch(updateAuthState({ error: null }));
+      store.updateAuth({ error: null });
     }
 
     if (success) {
-      dispatch(updateAuthState({ success: false }));
+      store.updateAuth({ success: false });
       navigate('/trainer/onboarding');
     }
 
@@ -74,7 +74,7 @@ export function SignUpForm(): JSX.Element {
   }, [loading, error, success, dispatch]);
 
   function handleSubmitFormik(values: FormInputs) {
-    dispatch(trainerSignupAction(values));
+    store.trainerSignupAsync(values);
   }
 
   function handleValidationFormik(values: FormInputs) {
@@ -161,23 +161,29 @@ export function SignUpForm(): JSX.Element {
           onCheckedChange={(event) => onCheckboxChange(event)}
           onBlur={formik.handleBlur}
         >
-          {t('auth:checkbox.checkboxLabel')}{' '}
-          <Link to="#" className="cursor-pointer text-primary">
-            {t('auth:checkbox.checkboxPrivacy')}
-          </Link>{' '}
-          {t('auth:checkbox.checkboxAnd')}{' '}
-          <Link to="#" className="cursor-pointer text-primary">
-            {t('auth:checkbox.checkboxTerms')}
-          </Link>
-          .
+          <Paragraph size="$3">
+            {t('auth:checkbox.checkboxLabel')}{' '}
+            <Link to="#" className="cursor-pointer">
+              <SizableText color="$accent" fontWeight={400}>
+                {t('auth:checkbox.checkboxPrivacy')}
+              </SizableText>
+            </Link>{' '}
+            {t('auth:checkbox.checkboxAnd')}{' '}
+            <Link to="#" className="cursor-pointer">
+              <SizableText color="$accent" fontWeight={400}>
+                {t('auth:checkbox.checkboxTerms')}
+              </SizableText>
+            </Link>
+            .
+          </Paragraph>
         </TrrCheckbox>
 
         <div className="mt-2 flex flex-col gap-2">
           <Form.Trigger disabled={formik.isSubmitting}>
             <TrrButton
-              className="btn-primary w-full"
+              className="w-full"
               tag="span"
-              themeColor="primary"
+              themeColor="$primary"
               disabled={formik.isSubmitting}
             >
               {t('auth:signUpButton')}
@@ -186,8 +192,10 @@ export function SignUpForm(): JSX.Element {
 
           <span className="label-text">
             {t('auth:signup.loginLabel')}{' '}
-            <Link to="/auth/login" className="cursor-pointer text-primary">
-              {t('auth:signup.loginLink')}
+            <Link to="/auth/login" className="cursor-pointer">
+              <SizableText color="$accent" fontWeight={500}>
+                {t('auth:signup.loginLink')}
+              </SizableText>
             </Link>
           </span>
         </div>

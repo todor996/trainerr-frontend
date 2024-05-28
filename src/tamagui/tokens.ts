@@ -100,35 +100,36 @@ export const zIndex = {
 };
 
 export const colorTokens = {
-  light: {
-    base: base,
-    primary: primary,
-    secondary: secondary,
-    accent: accent,
-    neutral: neutral,
-    info: info,
-    success: success,
-    warning: warning,
-    error: error,
-  },
+  base: base,
+  primary: primary,
+  secondary: secondary,
+  accent: accent,
+  neutral: neutral,
+  info: info,
+  success: success,
+  warning: warning,
+  error: error,
 };
 
-export const lightColors = {
-  ...colorTokens.light.base,
-  ...colorTokens.light.primary,
-  ...colorTokens.light.secondary,
-  ...colorTokens.light.accent,
-  ...colorTokens.light.neutral,
-  ...colorTokens.light.info,
-  ...colorTokens.light.success,
-  ...colorTokens.light.warning,
-  ...colorTokens.light.error,
+export const themeColors = {
+  ...colorTokens.base,
+  ...colorTokens.primary,
+  ...colorTokens.secondary,
+  ...colorTokens.accent,
+  ...colorTokens.neutral,
+  ...colorTokens.info,
+  ...colorTokens.success,
+  ...colorTokens.warning,
+  ...colorTokens.error,
 };
 
 export const color = {
-  ...postfixObjKeys(lightColors, ''),
+  ...postfixObjKeys(themeColors, ''),
+  background: themeColors.base, // TODO: Ask Ceut why is this not working
   // ...postfixObjKeys(darkColors, 'Dark'),
 };
+
+console.log({ color });
 
 function postfixObjKeys<
   A extends { [key: string]: Variable<string> | string },
@@ -169,3 +170,5 @@ export const tokens = createTokens({
   space,
   size,
 });
+
+console.log({ tokens });

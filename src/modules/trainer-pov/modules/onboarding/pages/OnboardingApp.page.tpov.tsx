@@ -5,7 +5,7 @@ import { OnboardingAppFeatures } from '../components/OnboardingAppFeatures.compo
 import { OnboardingAppStyle } from '../components/OnboardingAppStyle.component.tpov';
 import { TrrStep } from '@shared/components/TrrStep.component';
 import { useTranslation } from 'react-i18next';
-import { Progress, View } from 'tamagui';
+import { Progress, View, YStack } from 'tamagui';
 import { useOnboardingStore } from '../store/onboarding.store';
 
 export default function OnboardingAppPage(): JSX.Element {
@@ -14,7 +14,7 @@ export default function OnboardingAppPage(): JSX.Element {
   const { progress } = useOnboardingStore();
 
   return (
-    <>
+    <YStack backgroundColor="$base" alignItems="center">
       <div className="mx-6 my-6 flex w-full max-w-[560px] justify-center">
         <Steps className="w-full max-w-[560px]">
           <TrrStep color="primary" state="completed">
@@ -48,6 +48,6 @@ export default function OnboardingAppPage(): JSX.Element {
           <Route path="*" element={<Navigate to="info" />} />
         </Routes>
       </div>
-    </>
+    </YStack>
   );
 }

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Checkbox, CheckboxProps } from 'tamagui';
+import { Checkbox, CheckboxProps, SizableText } from 'tamagui';
 import { Check } from '@tamagui/lucide-icons';
 import { ColorName } from '@shared/services/color.service';
 
@@ -23,7 +23,7 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
     message = '',
     error = '',
     children,
-    themeColor = 'primary',
+    themeColor = '$primary',
     ...otherProps
   } = props;
 
@@ -39,11 +39,11 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
           size="$4"
           {...{ type: 'checkbox' }}
           {...otherProps}
-          backgroundColor={props.checked ? `$${themeColor}-100` : ``}
-          hoverStyle={{ borderColor: `$${themeColor}` }}
-          borderColor={props.checked ? `$${themeColor}` : ''}
+          backgroundColor={props.checked ? `${themeColor}-100` : ``}
+          hoverStyle={{ borderColor: `${themeColor}` }}
+          borderColor={props.checked ? `${themeColor}` : ''}
         >
-          <Checkbox.Indicator backgroundColor={`$${themeColor}-100`}>
+          <Checkbox.Indicator backgroundColor={`${themeColor}-100`}>
             <Check color={themeColor} />
           </Checkbox.Indicator>
         </Checkbox>
@@ -51,8 +51,16 @@ export function TrrCheckbox(props: TrrCheckboxProps): JSX.Element {
           {label} {children}
         </span>
       </label>
-      {message && <p className="mt-1 text-xs">{message}</p>}
-      {error && <p className="mt-1 text-xs text-error">{error}</p>}
+      {message && (
+        <SizableText marginTop="$1.5" size="$2">
+          {message}
+        </SizableText>
+      )}
+      {error && (
+        <SizableText marginTop="$1.5" color="$error" size="$2">
+          {error}
+        </SizableText>
+      )}
     </div>
   );
 }

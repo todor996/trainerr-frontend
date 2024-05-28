@@ -146,7 +146,7 @@ export default function OnboardingProfilePage(): JSX.Element {
 
   return (
     <>
-      <div className="mx-6 my-6 flex w-full max-w-[560px] justify-center">
+      <div className="mx-6 my-6 flex w-full max-w-[560px]">
         <Steps className="w-full max-w-[560px]">
           <TrrStep color="primary" state="completed">
             {t('onboarding:stepper.singUp')}
@@ -245,7 +245,7 @@ export default function OnboardingProfilePage(): JSX.Element {
           <Form.Trigger asChild disabled={formik.isSubmitting}>
             <TrrButton
               className="w-full"
-              themeColor="primary"
+              themeColor="$primary"
               disabled={formik.isSubmitting}
               icon={formik.isSubmitting ? () => <Spinner /> : undefined}
             >

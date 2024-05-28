@@ -1,8 +1,11 @@
-import { createProfile } from '../api/onboarding.api';
+import { createAppMeta, createProfile } from '../api/onboarding.api';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { User } from '@shared/types/User.type';
 import { StoreSlice, asyncFn } from '@store/index.store';
 import { OnboardingState } from './onboardingState.store';
+import { TrrError } from '@shared/types/TrrError.type';
+import { AppMeta } from '@shared/types/AppMeta.type';
+import { AppMetaCreationData } from '@shared/types/AppMetaCreationData.type';
 
 export interface OnboardingActions {
   // Actions
@@ -12,7 +15,8 @@ export interface OnboardingActions {
   updateProfile: (payload: Partial<OnboardingState['profile']>) => void;
 
   // Async Actions
-  createProfileAsync: (payload: ProfileInfo) => Promise<User>;
+  createProfileAsync: (payload: ProfileInfo) => Promise<User | TrrError>;
+  createAppMetaAsync: (payload: AppMetaCreationData) => Promise<AppMeta | TrrError>;
 }
 
 // TODO@store: Make snippet for store, slice, and actions
@@ -58,8 +62,18 @@ export const onboardingSliceActions: StoreSlice<OnboardingState, OnboardingActio
   // #region Async Actions
 
   async createProfileAsync(payload) {
-    const response = await asyncFn(set, () => createProfile(payload));
-    return response.data;
+    const res = await asyncFn(set, () => createProfile(payload));
+    return res.data;
+  },
+
+  async createAppMetaAsync(payload) {
+    console.log({ payload });
+
+    const res = await asyncFn(set, () => createAppMeta(payload));
+
+    console.log({ res });
+
+    return res.data;
   },
 
   // #endregion Async Actions

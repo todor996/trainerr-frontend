@@ -26,6 +26,12 @@ const enResource: AppResource = {
   action: {
     logout: 'Log Out',
   },
+  toast: {
+    error: 'Error',
+    success: 'Success',
+    warning: 'Warning',
+    info: 'Info',
+  },
   page: {
     training: {
       training: 'Training',

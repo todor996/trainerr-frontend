@@ -114,7 +114,7 @@ export function OnboardingAppInfo(): JSX.Element {
           <TrrButton
             className="w-full"
             tag="span"
-            themeColor="primary"
+            themeColor="$primary"
             disabled={formik.isSubmitting}
           >
             {t('onboarding:next')}

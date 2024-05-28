@@ -58,6 +58,11 @@ const enResource: AuthLocal = {
     loginLabel: 'You already have an account?',
     loginLink: 'Log In',
   },
+
+  login: {
+    actionSuccess: 'You have successfully logged in!',
+    actionError: 'Login failed. Please try again.',
+  },
 };
 
 export default enResource;

@@ -18,6 +18,12 @@ export interface AppResource {
   action: {
     logout: string;
   };
+  toast: {
+    error: string;
+    success: string;
+    warning: string;
+    info: string;
+  };
   page: {
     training: {
       training: string;

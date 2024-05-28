@@ -20,6 +20,12 @@ const srResource: AppResource = {
   action: {
     logout: 'Odjavi se',
   },
+  toast: {
+    error: 'Greška',
+    success: 'Uspešno',
+    warning: 'Upozorenje',
+    info: 'Informacija',
+  },
   page: {
     training: {
       training: 'Trening',

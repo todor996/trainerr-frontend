@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { RootState } from '@store/index.store.ts';
+import { useAuthStore } from '@modules/auth/store/auth.store';
 
 export function useTrainerGuard() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { token, isTrainer } = useSelector((state: RootState) => state.auth);
+  const { token, isTrainer } = useAuthStore();
 
   useEffect(() => {
     // TODO: Implement this properly

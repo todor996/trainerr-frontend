@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { homeReducer } from '@modules/home/store/homeSlice.store';
-import { authReducer } from '@modules/auth/store/authSlice.store';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import {
   persistReducer,
@@ -17,6 +16,7 @@ import { DevtoolsOptions, PersistOptions, devtools, persist } from 'zustand/midd
 import { immer } from 'zustand/middleware/immer';
 import { StateCreator } from 'zustand';
 import { AxiosError, AxiosResponse } from 'axios';
+import { TrrError } from '@shared/types/TrrError.type';
 
 // TODO@store: Replace redux with Zustand
 
@@ -28,7 +28,6 @@ const persistConfig = {
 
 // Persisted Reducers
 const persistedHomeReducer = persistReducer(persistConfig, homeReducer);
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 // TODO: Create TrainerPOV store
 const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
 
@@ -36,7 +35,6 @@ const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
 export const store = configureStore({
   reducer: {
     home: persistedHomeReducer,
-    auth: persistedAuthReducer,
     // TODO: Create TrainerPOV store
     training: persistedTrainingReducer,
   },
@@ -104,16 +102,15 @@ export function middlewares<T>({
 /**
  * Handles async functions and
  * sets the state (loading, error & success) accordingly
+ *
+ * eg.
+ * `const response = await asyncFn(set, () => createProfile(payload));`
  */
-export async function asyncFn<T>(
-  set: (state: {
-    loading?: boolean;
-    error?: AxiosResponse['data'];
-    success?: boolean;
-  }) => void,
-  func: () => Promise<AxiosResponse<T>>,
-): Promise<AxiosResponse<T>> {
-  let res: AxiosResponse<T> = null;
+export async function asyncFn<ResType>(
+  set: (state: { loading?: boolean; error?: AxiosResponse; success?: boolean }) => void,
+  func: () => Promise<AxiosResponse<ResType>>,
+): Promise<AxiosResponse<ResType | TrrError>> {
+  let res: AxiosResponse<ResType> = null;
 
   try {
     set({ loading: true, error: null, success: false });
@@ -122,10 +119,29 @@ export async function asyncFn<T>(
 
     set({ success: true, loading: false });
   } catch (error) {
-    set({ error: (error as AxiosError)?.response?.data, success: false, loading: false });
+    const errorRes = wrapInErrorObj((error as AxiosError<string>)?.response);
+
+    set({ error: errorRes, success: false, loading: false });
+
+    return errorRes;
   }
 
   return res;
+}
+
+/**
+ * Wraps the error in an object...
+ * TODO: Remove this function when BE is updated
+ */
+function wrapInErrorObj(error: AxiosResponse<string>): AxiosResponse<TrrError> {
+  const trrError: TrrError = {
+    message: error.data,
+  };
+
+  return {
+    ...error,
+    data: trrError,
+  };
 }
 
 // #endregion ZUSTAND

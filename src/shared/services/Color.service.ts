@@ -3,15 +3,15 @@ const culoriToHsl = converter('hsl');
 const culoriToRgb = converter('rgb');
 
 export type ColorName =
-  | 'base'
-  | 'primary'
-  | 'secondary'
-  | 'accent'
-  | 'neutral'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'error';
+  | '$base'
+  | '$primary'
+  | '$secondary'
+  | '$accent'
+  | '$neutral'
+  | '$info'
+  | '$success'
+  | '$warning'
+  | '$error';
 
 export interface ColorSystem {
   base: ColorPalette;
@@ -51,6 +51,8 @@ export class ColorService {
   static generatePalette(color: string, name: string): ColorPalette {
     const variants = ColorService.generateVariants(color);
 
+    console.log({ variants });
+
     return {
       name,
       color: variants[5],
@@ -62,11 +64,11 @@ export class ColorService {
   static generateTokens(colorPalette: ColorPalette): Record<string, string> {
     const tokens = {};
 
-    tokens[`$${colorPalette.name}`] = colorPalette.color;
-    tokens[`$${colorPalette.name}-contrast`] = colorPalette.colorContrast;
+    tokens[`${colorPalette.name}`] = colorPalette.color;
+    tokens[`${colorPalette.name}-contrast`] = colorPalette.colorContrast;
 
     colorPalette.variants.forEach((variant, index) => {
-      tokens[`$${colorPalette.name}-${(index + 1) * 100}`] = variant;
+      tokens[`${colorPalette.name}-${(index + 1) * 100}`] = variant;
     });
 
     return tokens;
@@ -94,12 +96,11 @@ export class ColorService {
    *
    *
    */
-  generateAllTokens(system: ColorSystem): Record<string, string> {
+  static generateAllTokens(system: ColorSystem): Record<string, string> {
     const tokens = {};
 
     Object.entries(system).forEach(([key, colorPalette]) => {
       const colorPaletteTokens = ColorService.generateTokens(colorPalette);
-
       tokens[key] = colorPaletteTokens;
     });
 

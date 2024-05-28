@@ -13,11 +13,15 @@ export const TrrButton = forwardRef(
     return (
       <Button
         ref={ref}
-        color={`$${themeColor}-contrast`}
-        backgroundColor={`$${themeColor}`}
+        color={`${themeColor}-contrast`}
+        backgroundColor={`${themeColor}`}
         hoverStyle={{
-          backgroundColor: `$${themeColor}-400`,
-          borderColor: `$${themeColor}-contrast`,
+          backgroundColor: `${themeColor}-400`,
+          borderColor: `${themeColor}-contrast`,
+        }}
+        disabledStyle={{
+          backgroundColor: `${themeColor}-100`,
+          borderColor: `${themeColor}-400`,
         }}
         {...otherProps}
       >

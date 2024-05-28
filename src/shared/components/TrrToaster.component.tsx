@@ -27,14 +27,15 @@ export function TrrToaster(): JSX.Element {
       scale={1}
       viewportName={currentToast.viewportName}
       backgroundColor={statusColorMap[currentToast.status] || '$primary'}
+      minWidth="$16"
       {...{ color: `${statusColorMap[currentToast.status]}-contrast` || '$primary' }}
     >
       <YStack>
-        <Toast.Title>{currentToast.title}</Toast.Title>
+        <Toast.Title fontWeight={500}>{currentToast.title}</Toast.Title>
 
         {!!currentToast.message && (
           <Toast.Description>
-            <SizableText size="$2">{currentToast.message}</SizableText>
+            <SizableText size="$3">{currentToast.message}</SizableText>
           </Toast.Description>
         )}
       </YStack>

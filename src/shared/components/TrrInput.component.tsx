@@ -46,7 +46,7 @@ const TrrInputUnstyled = forwardRef((props: TrrInputProps, ref: LegacyRef<TextIn
       {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
       <>
         {error && (
-          <SizableText color="$error" size="$2" marginTop="$1.5">
+          <SizableText color="$error" size="$2" marginTop="$1.5" fontWeight="500">
             {typeof error === 'boolean' ? 'Error' : error}
           </SizableText>
         )}
