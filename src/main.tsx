@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client';
 
 import { App } from './App';
 
+import '@tamagui/core/reset.css';
 import './styles/index.style.css';
 import './localization/i18next.local';
 

@@ -1,17 +1,11 @@
-import { ThemeItem } from '@shared/components/ThemeItem.component';
-import { Title } from '@shared/components/Title.component';
 import { TrrColorPicker } from '@shared/components/TrrColorPicker.component';
-import { TrrDropdown, TrrDropdownItem } from '@shared/components/TrrDropdown.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
-import { DEFAULT_THEMES } from '@shared/consts/daisyui.const';
 import { ColorService } from '@shared/services/color.service';
 import { Validator } from '@shared/services/validator.service';
 import { useFormik } from 'formik';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { PhoneMockup } from 'react-daisyui';
 import { Link, useNavigate } from 'react-router-dom';
-import { twMerge } from 'tailwind-merge';
-import { Avatar, Button, Form, ThemeName, XStack, YStack, getTokens } from 'tamagui';
+import { Avatar, Form, ThemeName, XStack, YStack, getTokens } from 'tamagui';
 import { TrrButton } from '@shared/components/TrrButton.component';
 import { formatHex } from 'culori';
 import { useTranslation } from 'react-i18next';
@@ -148,8 +142,6 @@ export function OnboardingAppStyle(): JSX.Element {
       return;
     }
 
-    // TODO@theme: Generate and setup all tokens and colors before change
-    // TODO@init: 1. Auth Tokens 2. Color System
     // TODO@theme: Set text color automatically based on background color
 
     // Generate palette and tokens
@@ -162,6 +154,16 @@ export function OnboardingAppStyle(): JSX.Element {
     Object.entries(tokens).forEach(([key, val]) => {
       tamaguiTokenDict[key].val = val;
       root.style.setProperty(`--${tamaguiTokenDict[key].name}`, val);
+
+      if (key === 'base-contrast') {
+        console.log('base-contrast', val);
+
+        root.style.setProperty(`--color`, val);
+      }
+      if (key === 'base') {
+        console.log('base', val);
+        root.style.setProperty(`--background`, val);
+      }
     });
 
     store.updateApp({
@@ -172,7 +174,7 @@ export function OnboardingAppStyle(): JSX.Element {
     });
   }
 
-  const [currentTheme, setCurrentTheme] = useState<ThemeName>(getThemeDom());
+  // const [currentTheme, setCurrentTheme] = useState<ThemeName>(getThemeDom());
 
   // Set porperly theme on load
 
@@ -180,20 +182,19 @@ export function OnboardingAppStyle(): JSX.Element {
     setThemeDom(getThemeDom());
   }, []);
 
-  // TODO: Move theme fn to service and store + update Header component
-
+  // TODO@theme: Implement after MVP
   /**
    * Format items for ThemeDropdown
    */
-  function getThemeItems(): Array<TrrDropdownItem> {
-    // TODO: Show DEFAULT_THEMES + Trainer's custom themes as options
+  // function getThemeItems(): Array<TrrDropdownItem> {
+  //   // TODO: Show DEFAULT_THEMES + Trainer's custom themes as options
 
-    return DEFAULT_THEMES.map((theme) => ({
-      isActive: theme === currentTheme,
-      content: theme,
-      value: theme,
-    }));
-  }
+  //   return DEFAULT_THEMES.map((theme) => ({
+  //     isActive: theme === currentTheme,
+  //     content: theme,
+  //     value: theme,
+  //   }));
+  // }
 
   function getThemeDom(): ThemeName {
     return (localStorage.getItem('theme') || 'cupcake') as ThemeName;
@@ -231,11 +232,12 @@ export function OnboardingAppStyle(): JSX.Element {
       className="flex w-full flex-col items-center"
       backgroundColor="$base"
       alignItems="center"
+      paddingHorizontal="12px"
     >
       {/* BODY */}
-      <div className="flex w-full flex-row">
+      <XStack width="100%">
         {/* LEFT SIDE - CONFIGURATION */}
-        <div className="mr-6 flex w-full flex-col items-center">
+        <div className="flex w-full flex-col items-center">
           {/* TITLE */}
           <div className="flex w-full max-w-[390px] flex-row justify-start">
             <h3 className="mb-6 text-xl font-semibold">
@@ -259,7 +261,8 @@ export function OnboardingAppStyle(): JSX.Element {
                 </div>
               </TrrUpload>
 
-              <TrrDropdown
+              {/* TODO: Implement after MVP */}
+              {/* <TrrDropdown
                 closeOnSelect={false}
                 toggleContent={
                   <ThemeItem className="bg-transparent" dataTheme={currentTheme} />
@@ -284,7 +287,7 @@ export function OnboardingAppStyle(): JSX.Element {
                   setThemeDom(theme as string);
                   setCurrentTheme(theme as ThemeName);
                 }}
-              />
+              /> */}
             </div>
 
             <div className="flex w-full flex-row gap-2">
@@ -294,10 +297,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="base"
                 width="100%"
                 borderColor="$base"
-                key={currentTheme + 'base'}
+                key={'base'}
                 label={t('onboarding:app.style.colors.base')}
                 value={formik.values.base}
-                theme={currentTheme}
                 error={formik.touched.base && formik.errors.base}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -311,10 +313,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="primary"
                 width="100%"
                 borderColor="$primary"
-                key={currentTheme + 'primary'}
+                key={'primary'}
                 label={t('onboarding:app.style.colors.primary')}
                 value={formik.values.primary}
-                theme={currentTheme}
                 error={formik.touched.primary && formik.errors.primary}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -324,10 +325,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="secondary"
                 width="100%"
                 borderColor="$secondary"
-                key={currentTheme + 'secondary'}
+                key={'secondary'}
                 label={t('onboarding:app.style.colors.secondary')}
                 value={formik.values.secondary}
-                theme={currentTheme}
                 error={formik.touched.secondary && formik.errors.secondary}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -340,10 +340,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="accent"
                 width="100%"
                 borderColor="$accent"
-                key={currentTheme + 'accent'}
+                key={'accent'}
                 label={t('onboarding:app.style.colors.accent')}
                 value={formik.values.accent}
-                theme={currentTheme}
                 error={formik.touched.accent && formik.errors.accent}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -353,10 +352,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="neutral"
                 width="100%"
                 borderColor="$neutral"
-                key={currentTheme + 'neutral'}
+                key={'neutral'}
                 label={t('onboarding:app.style.colors.neutral')}
                 value={formik.values.neutral}
-                theme={currentTheme}
                 error={formik.touched.neutral && formik.errors.neutral}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -369,10 +367,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="info"
                 width="100%"
                 borderColor="$info"
-                key={currentTheme + 'info'}
+                key={'info'}
                 label={t('onboarding:app.style.colors.info')}
                 value={formik.values.info}
-                theme={currentTheme}
                 error={formik.touched.info && formik.errors.info}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -382,10 +379,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="success"
                 width="100%"
                 borderColor="$success"
-                key={currentTheme + 'success'}
+                key={'success'}
                 label={t('onboarding:app.style.colors.success')}
                 value={formik.values.success}
-                theme={currentTheme}
                 error={formik.touched.success && formik.errors.success}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -398,10 +394,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="warning"
                 width="100%"
                 borderColor="$warning"
-                key={currentTheme + 'warning'}
+                key={'warning'}
                 label={t('onboarding:app.style.colors.warning')}
                 value={formik.values.warning}
-                theme={currentTheme}
                 error={formik.touched.warning && formik.errors.warning}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -411,10 +406,9 @@ export function OnboardingAppStyle(): JSX.Element {
                 name="error"
                 width="100%"
                 borderColor="$error"
-                key={currentTheme + 'error'}
+                key={'error'}
                 label={t('onboarding:app.style.colors.error')}
                 value={formik.values.error}
-                theme={currentTheme}
                 error={formik.touched.error && formik.errors.error}
                 onChange={(event) => handleOnChange(event)}
                 onBlur={formik.handleBlur}
@@ -424,10 +418,11 @@ export function OnboardingAppStyle(): JSX.Element {
         </div>
 
         {/* RIGHT SIDE - PREVIEW */}
-        <YStack
+        {/* TODO: Implement properly after MVP */}
+        {/* <YStack
           className="flex w-full flex-col items-start justify-center bg-base-200 py-6 text-base-content"
           backgroundColor="$neutral"
-          flexShrink={1}
+          // flexShrink={1}
         >
           <PhoneMockup className="-my-16 scale-75">
             <YStack
@@ -440,8 +435,8 @@ export function OnboardingAppStyle(): JSX.Element {
               <Title />
             </YStack>
           </PhoneMockup>
-        </YStack>
-      </div>
+        </YStack> */}
+      </XStack>
 
       <XStack
         className="my-12 flex w-full max-w-[390px] flex-row gap-2"

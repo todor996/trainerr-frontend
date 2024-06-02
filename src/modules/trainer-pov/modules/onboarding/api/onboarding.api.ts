@@ -13,7 +13,9 @@ import { AxiosResponse } from 'axios';
 // #region API - Profile
 
 export function createProfile(profile: ProfileInfo): Promise<AxiosResponse<User>> {
-  return api.post('/profile/trainer', profile);
+  return api.post('/profile/trainer', profile, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 }
 
 export function updateProfile(

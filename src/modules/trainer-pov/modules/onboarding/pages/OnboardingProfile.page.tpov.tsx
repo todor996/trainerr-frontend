@@ -1,12 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TrrInput } from '@shared/components/TrrInput.component';
-import { TrrStep } from '@shared/components/TrrStep.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { Validator } from '@shared/services/validator.service';
 import { useFormik } from 'formik';
 import { ChangeEvent, ReactNode, useEffect, useState } from 'react';
-import { Steps } from 'react-daisyui';
 import { useTranslation } from 'react-i18next';
 import { Avatar, Form, Spinner } from 'tamagui';
 import { TrrDatePicker } from '@shared/components/TrrDatePicker.component';
@@ -16,6 +15,7 @@ import { useToastController } from '@tamagui/toast';
 import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '../store/onboarding.store';
 import { TrrButton } from '@shared/components/TrrButton.component';
+import { TrrStepper } from '@shared/components/TrrStepper.component';
 
 // TODO: Move to shared and set proper default image
 const DEFAULT_AVATAR =
@@ -91,7 +91,8 @@ export default function OnboardingProfilePage(): JSX.Element {
 
   async function handleSubmit(values: ProfileInfo) {
     values.birthday = new Date(values.birthday).toISOString();
-
+    values.files = [file];
+    // TODO: Sync with BE on sending files
     updateProfile(values);
 
     const user = await createProfileAsync(values);
@@ -110,6 +111,7 @@ export default function OnboardingProfilePage(): JSX.Element {
       // gender: new Validator(values.gender),
       description: new Validator(values.description).max(320),
       tagline: new Validator(values.tagline).max(120),
+      profileImage: new Validator(file).required(),
     });
 
     return errors;
@@ -131,31 +133,42 @@ export default function OnboardingProfilePage(): JSX.Element {
   }
 
   function handleFile(event: ChangeEvent<HTMLInputElement>) {
-    // TODO: Handle this properly
-
     if (!event.target.files?.length) {
-      console.log('No files selected');
+      toast.show('Info', { status: 'info', message: 'No file selected' });
       return;
     }
 
     const file = event.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    setFileUrl(imageUrl);
-    setFile(file);
+    const newFile = new File([file], 'profileImage', {
+      type: file.type,
+    });
+    const fileUrl = URL.createObjectURL(newFile);
+
+    setFileUrl(fileUrl);
+    setFile(newFile);
   }
 
   return (
     <>
-      <div className="mx-6 my-6 flex w-full max-w-[560px]">
-        <Steps className="w-full max-w-[560px]">
-          <TrrStep color="primary" state="completed">
-            {t('onboarding:stepper.singUp')}
-          </TrrStep>
-          <TrrStep color="primary" state="active">
-            {t('onboarding:stepper.profile')}
-          </TrrStep>
-          <TrrStep>{t('onboarding:stepper.app')}</TrrStep>
-        </Steps>
+      <div className="my-6 flex w-full max-w-[390px] px-6">
+        <TrrStepper
+          // TODO: Talk with team about color (primary or accent)
+          color="$primary"
+          toConnect={true}
+          steps={[
+            {
+              label: t('onboarding:stepper.singUp'),
+              state: 'completed',
+            },
+            {
+              label: t('onboarding:stepper.profile'),
+              state: 'active',
+            },
+            {
+              label: t('onboarding:stepper.app'),
+            },
+          ]}
+        />
       </div>
 
       <div className="flex w-full max-w-[390px] flex-col px-6 pb-8">

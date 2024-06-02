@@ -1,4 +1,3 @@
-import type { Variable } from '@tamagui/web';
 import { createTokens } from '@tamagui/web';
 import {
   accent,
@@ -11,6 +10,27 @@ import {
   success,
   warning,
 } from './colors.data';
+
+// ########################################################################
+// #region Helpers
+
+// function postfixObjKeys<
+//   A extends { [key: string]: Variable<string> | string },
+//   B extends string,
+// >(
+//   obj: A,
+//   postfix: B,
+// ): {
+//   [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable<string> | string;
+// } {
+//   return Object.fromEntries(
+//     Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v]),
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   ) as any;
+// }
+
+// #endregion
+// ########################################################################
 
 // should roughly map to button/input etc height at each level
 // fonts should match that height/lineHeight at each stop
@@ -124,27 +144,14 @@ export const themeColors = {
 };
 
 export const color = {
-  ...postfixObjKeys(themeColors, ''),
+  ...themeColors,
+  // Left here as example of how to postfix object keys form tamagui example
+  // ...postfixObjKeys(themeColors, ''),
   background: themeColors.base, // TODO: Ask Ceut why is this not working
-  // ...postfixObjKeys(darkColors, 'Dark'),
+  color: themeColors['base-contrast'],
 };
 
 console.log({ color });
-
-function postfixObjKeys<
-  A extends { [key: string]: Variable<string> | string },
-  B extends string,
->(
-  obj: A,
-  postfix: B,
-): {
-  [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable<string> | string;
-} {
-  return Object.fromEntries(
-    Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v]),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as any;
-}
 
 export const radius = {
   0: 0,
@@ -170,5 +177,3 @@ export const tokens = createTokens({
   space,
   size,
 });
-
-console.log({ tokens });

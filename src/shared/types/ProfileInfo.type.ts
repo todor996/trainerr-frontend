@@ -8,4 +8,5 @@ export interface ProfileInfo {
   gender: Gender;
   description?: string;
   tagline?: string;
+  files?: File[];
 }

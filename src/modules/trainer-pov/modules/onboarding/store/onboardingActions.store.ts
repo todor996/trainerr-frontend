@@ -62,6 +62,10 @@ export const onboardingSliceActions: StoreSlice<OnboardingState, OnboardingActio
   // #region Async Actions
 
   async createProfileAsync(payload) {
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
     const res = await asyncFn(set, () => createProfile(payload));
     return res.data;
   },
