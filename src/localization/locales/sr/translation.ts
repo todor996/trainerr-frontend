@@ -20,6 +20,12 @@ const srResource: AppResource = {
   action: {
     logout: 'Odjavi se',
   },
+  toast: {
+    error: 'Greška',
+    success: 'Uspešno',
+    warning: 'Upozorenje',
+    info: 'Informacija',
+  },
   page: {
     training: {
       training: 'Trening',
@@ -51,12 +57,20 @@ const srResource: AppResource = {
       feedback: 'Feedback',
     },
   },
+  gender: {
+    male: 'Muško',
+    female: 'Žensko',
+    other: 'Drugo',
+    not_specified: 'Ne bih da kažem',
+  },
+  // TODO@daisyui: remove this when daisyui is removed
   error: {
     required: 'Polje je obavezno',
     email: 'Email adresa nije validna',
     max: 'Polje ima previše karaktera',
     min: 'Polje ima premalo karaktera',
   },
+  comingSoon: 'Uskoro',
   theme: {
     custom_light: 'moja svetla',
     custom_dark: 'moja tamna',

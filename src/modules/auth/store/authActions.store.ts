@@ -1,48 +1,73 @@
-import { PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { signup, login } from '../api/auth.api';
-import { AuthState, TrainerSignup, Login } from '../types';
+import { StoreSlice, asyncFn } from '@store/index.store';
+import { AuthState } from './authState.store';
+import { login, signup } from '../api/auth.api';
+import { Login, TrainerSignup } from '../types';
+import { AxiosResponse } from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { TrrError } from '@shared/types/TrrError.type';
 
-export interface AuthStateOptions extends Partial<AuthState> {}
+export interface AuthActions {
+  // Actions
+  updateAuth: (payload: Partial<AuthState>) => void;
 
-export function updateAuthStateAction(
-  state: AuthState,
-  action: PayloadAction<AuthStateOptions>,
-) {
-  return {
-    ...state,
-    ...action.payload,
-  };
+  // Async Actions
+  trainerSignupAsync: (payload: TrainerSignup) => Promise<void>;
+  trainerLoginAsync: (payload: Login) => Promise<void>;
 }
 
-// #######################################################
-// #region Async Actions
+export const authSliceActions: StoreSlice<AuthState, AuthActions> = (set) => ({
+  // #######################################################
+  // #region Actions
 
-// Define an async action creator for signup
-export const trainerSignupAction = createAsyncThunk<string, TrainerSignup>(
-  'auth/trainerSignup',
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await signup(data);
-      return response.data;
-      //eslint-disable-next-line
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data);
-    }
+  updateAuth(payload) {
+    set((state) => {
+      return { ...state, ...payload };
+    });
   },
-);
+  // #endregion Actions
+  // #######################################################
 
-export const loginAction = createAsyncThunk<string, Login>(
-  'auth/login',
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await login(data);
-      return response.data;
-      //eslint-disable-next-line
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data);
-    }
+  // #######################################################
+  // #region Async Actions
+
+  // Use `asyncFn` function in async actions
+
+  async trainerSignupAsync(payload) {
+    await asyncFn(set, async () => {
+      const res = await signup(payload);
+      authUser(res, set);
+      return res;
+    });
   },
-);
 
-// #endregion Async Actions
-// #######################################################
+  async trainerLoginAsync(payload) {
+    set({ email: payload.email });
+
+    await asyncFn(set, async () => {
+      const res = await login(payload);
+      authUser(res, set);
+      return res;
+    });
+
+    set({ loading: false, error: null, success: false });
+  },
+
+  // #endregion Async Actions
+  // #######################################################
+});
+
+/**
+ * Decodes the token and sets the state
+ */
+function authUser(res: AxiosResponse<string | TrrError, unknown>, set) {
+  if (res.status > 400) {
+    set({ token: null, isTrainer: false, userUid: null });
+    return;
+  }
+
+  const token = res.data as string;
+  const decoded = jwtDecode<{ isTrainer: boolean; userUid: string }>(token);
+
+  set({ token: token, isTrainer: decoded.isTrainer, userUid: decoded.userUid });
+  localStorage.setItem('token', token);
+}

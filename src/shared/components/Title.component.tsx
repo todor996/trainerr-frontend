@@ -1,3 +1,15 @@
+import { H1 } from 'tamagui';
+
 export function Title(): JSX.Element {
-  return <h1 className="flex justify-center p-8 text-2xl font-bold">trainerr</h1>;
+  return (
+    <H1
+      className="flex justify-center p-8 text-2xl font-bold"
+      size="$4"
+      textAlign="center"
+      textTransform="uppercase"
+      fontWeight={600}
+    >
+      trainerr
+    </H1>
+  );
 }

@@ -1,10 +1,9 @@
-import { getHexColor } from '@shared/utils/getColor.util';
+import { callLast } from '@shared/utils/callLast.util';
 import { formatHex } from 'culori';
-import { Theme } from 'daisyui';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, LegacyRef, forwardRef, useRef, useState } from 'react';
+import { TextInput } from 'react-native';
 import { twMerge } from 'tailwind-merge';
-import { generateColors } from './generateColors.util';
-import { Input, InputProps } from 'tamagui';
+import { Button, Input, InputProps, SizableText, ThemeName, styled } from 'tamagui';
 
 interface TrrColorPickerProps extends InputProps {
   type?: string;
@@ -13,177 +12,114 @@ interface TrrColorPickerProps extends InputProps {
   className?: string;
   // TODO: Fix this
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  theme?: Theme | any;
+  theme?: ThemeName;
   label?: string;
   placeholder?: string;
+  error?: string | boolean;
+  onChangeColor?: (value: string) => void;
 }
 
-export function TrrColorPicker(props: TrrColorPickerProps): JSX.Element {
-  const {
-    value,
-    className = '',
-    label = '',
-    theme,
-    placeholder = '#hexvalue',
-    ...otherProps
-  } = props;
-  const inputColorRef = useRef<HTMLInputElement>(null);
+const TrrColorPickerUnstyled = forwardRef(
+  (props: TrrColorPickerProps, ref: LegacyRef<TextInput>) => {
+    const {
+      id,
+      name,
+      error,
+      value,
+      className = '',
+      label = '',
+      placeholder = '#hexvalue',
+      ...otherProps
+    } = props;
+    const inputColorRef = useRef<HTMLInputElement>(null);
 
-  const [color, setColor] = useState(getHexColor({ color: value, theme }));
-  const [bgColor, setBgColor] = useState<string>();
+    const [color, setColor] = useState(formatHex(value));
 
-  const sideCount = useRef(5);
+    // TODO: Remove culori package if you are not using it!
 
-  // const [colorListHsl, setColorHslList] = useState<string[]>([]);
-  const [colorListRgb, setColorRgbList] = useState<string[]>([]);
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
+      setColor(event.target.value);
+      event.target.name = name;
 
-  useEffect(() => {
-    if (!color) {
-      return;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.onChange(event as any);
     }
 
-    // const hslColors = generateColorsHsl(color);
-    const rgbColors = generateColors({
-      color: color,
-      lightCount: sideCount.current,
-      darkCount: sideCount.current,
-    });
+    const handleOnChangeHidden = callLast(_handleOnChangeHidden, 300);
 
-    // setColorHslList(hslColors);
-    setColorRgbList(rgbColors);
-    setBgColor(rgbColors[0]);
-  }, [color]);
+    function _handleOnChangeHidden(event: ChangeEvent<HTMLInputElement>, value: string) {
+      setColor(value);
+      event.target.value = value;
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setColor(event.target.value);
-  }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.onChange(event as any);
+    }
 
-  function handleButtonClick() {
-    inputColorRef.current?.click();
-  }
-
-  // TODO: Think of more elegant solution for color picker
-  function ColorBox({
-    color,
-    bgColor,
-    theme,
-    isPrimary,
-  }: {
-    color: string;
-    bgColor?: string;
-    theme?: Theme;
-    isPrimary?: boolean;
-  }): JSX.Element {
-    const btnRef = useRef<HTMLButtonElement>(null);
-
-    // E0E7FF
-    // e2e0fb
-    const formattedColor = getHexColor({ color, theme });
-
-    const isHex = formattedColor?.charAt(0) === '#';
-
-    const calcHexColor = isHex ? formattedColor : '';
-    const calcBgColor = !isHex ? `bg-${formattedColor}` : '';
-
-    setTimeout(() => {
-      if (!calcBgColor) {
-        return;
-      }
-
-      if (!btnRef.current) {
-        return;
-      }
-
-      const style = window.getComputedStyle(btnRef.current as Element);
-      const styleColor = formatHex(style.backgroundColor);
-
-      inputColorRef.current!.value = styleColor!;
-      btnRef.current.style.backgroundColor = styleColor!;
-    });
+    function handleButtonClick() {
+      inputColorRef.current?.click();
+    }
 
     return (
-      <div
-        className={
-          'flex flex-col content-start items-center' + (isPrimary ? ' -mt-9' : '')
-        }
-      >
-        {isPrimary && (
-          <span
-            className="mb-1 flex items-center justify-center text-center"
-            style={{
-              backgroundColor: bgColor,
-              color: color,
-              border: `1px solid ${color}`,
-              borderRadius: '50px',
-              width: '100%',
-              height: '100%',
-              fontWeight: '500',
+      <label className={twMerge('flex flex-col gap-2', className)}>
+        {/* LABEL */}
+        <SizableText>{label}</SizableText>
+
+        {/* INPUT */}
+        <div className="flex flex-row items-center gap-2">
+          <Button
+            className={`shadow`}
+            height={'44px'}
+            width={'44px'}
+            padding={'0'}
+            backgroundColor={color}
+            hoverStyle={{
+              backgroundColor: `$${name}-400`,
             }}
-          >
-            P
-          </span>
-        )}
-        <button
-          className={`btn h-8 min-h-0 w-8 shadow ${calcBgColor}`}
-          ref={btnRef}
-          type="button"
-          style={{
-            backgroundColor: isHex ? calcHexColor : '',
-          }}
-          onClick={handleButtonClick}
-        ></button>
-      </div>
-    );
-  }
+            fontSize={'$2'}
+            onPress={handleButtonClick}
+          ></Button>
 
-  return (
-    <label className={twMerge('flex flex-col gap-2', className)}>
-      {/* LABEL */}
-      <span>{label}</span>
-
-      {/* INPUT */}
-      <div className="flex flex-row items-center gap-2">
-        <ColorBox color={color} theme={theme} />
-
-        <Input
-          className="w-full"
-          value={color}
-          size="sm"
-          placeholder={placeholder}
-          {...otherProps}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onChange={handleChange as any}
-        />
-      </div>
-
-      <div>
-        RGB
-        <div className="flex flex-row flex-wrap justify-start gap-1">
-          {colorListRgb.length &&
-            colorListRgb.map(
-              (col, i) =>
-                col && (
-                  <ColorBox
-                    key={i}
-                    color={col}
-                    bgColor={bgColor}
-                    theme={theme}
-                    isPrimary={i === sideCount.current}
-                  />
-                ),
-            )}
+          <Input
+            className="shadow"
+            ref={ref}
+            id={id}
+            type="color"
+            value={color}
+            placeholder={placeholder}
+            color={`$${name}-contrast`}
+            backgroundColor={`$${name}`}
+            borderColor={`$${name}`}
+            {...otherProps}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onChange={(event) => handleChange(event as any)}
+          />
         </div>
-      </div>
 
-      {/* HIDDEN INPUT - But exists because of functionality */}
-      <input
-        className="h-0 w-0 bg-transparent opacity-0"
-        ref={inputColorRef}
-        placeholder={placeholder}
-        type="color"
-        value={getHexColor({ color, theme })}
-        onChange={handleChange}
-      />
-    </label>
-  );
-}
+        <>
+          {error && (
+            <SizableText color="$error" size="$2" marginTop="$1.5">
+              {typeof error === 'boolean' ? 'Error' : error}
+            </SizableText>
+          )}
+        </>
+
+        {/* HIDDEN INPUT - But exists because of functionality */}
+        <input
+          className="h-0 w-0 bg-transparent opacity-0"
+          ref={inputColorRef}
+          name={name}
+          placeholder={placeholder}
+          type="color"
+          value={color}
+          onChange={(event) => {
+            handleOnChangeHidden(event, event.target.value);
+          }}
+        />
+      </label>
+    );
+  },
+);
+
+export const TrrColorPicker = styled(TrrColorPickerUnstyled, {
+  width: '100%',
+});

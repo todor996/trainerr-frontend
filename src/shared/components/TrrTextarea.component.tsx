@@ -1,30 +1,47 @@
 import { forwardRef } from 'react';
-import { TextArea, TextAreaProps } from 'tamagui';
+import { Label, SizableText, TextArea, TextAreaProps, YStack } from 'tamagui';
 
 interface TrrTextareaProps extends TextAreaProps {
   name?: string;
   label?: string;
-  error?: string;
+  error?: string | boolean;
 }
 
 export const TrrTextarea = forwardRef<HTMLTextAreaElement, TrrTextareaProps>(
   (props, ref) => {
-    const { placeholder, autoComplete, label, error, ...otherProps } = props;
+    const { placeholder, autoComplete, label, size, error, ...otherProps } = props;
+
+    const customSize = size || '$4';
 
     return (
-      <label className="form-control w-full">
-        {label && <span className={`label-text mb-1`}>{label}</span>}
-        <TextArea
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ref={ref as any}
-          className={`${error && 'border-error'}`}
-          autoComplete={autoComplete}
-          placeholder={placeholder}
-          {...otherProps}
-        />
-        {/* TODO: handle messages that are not errors */}
-        {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
-      </label>
+      <Label>
+        <YStack flex={1}>
+          {label && (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            <SizableText marginBottom="$1.5" size={customSize as any}>
+              {label}
+            </SizableText>
+          )}
+
+          <TextArea
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ref={ref as any}
+            className={`${error && 'border-error'}`}
+            autoComplete={autoComplete}
+            placeholder={placeholder}
+            {...otherProps}
+          />
+
+          {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
+          <>
+            {error && (
+              <SizableText color="$error" size="$2" marginTop="$1.5">
+                {typeof error === 'boolean' ? 'Error' : error}
+              </SizableText>
+            )}
+          </>
+        </YStack>
+      </Label>
     );
   },
 );

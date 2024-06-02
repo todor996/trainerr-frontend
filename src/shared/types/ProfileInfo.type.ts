@@ -4,8 +4,9 @@ export interface ProfileInfo {
   profileUrl: string;
   firstName: string;
   lastName: string;
-  birthday: Date;
+  birthday: Date | string;
   gender: Gender;
   description?: string;
-  tagname?: string;
+  tagline?: string;
+  files?: File[];
 }

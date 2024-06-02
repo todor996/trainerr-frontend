@@ -1,15 +1,16 @@
-import React from 'react';
-import { Input, InputProps, Label, SizableText, YStack, styled } from 'tamagui';
+import { LegacyRef, ReactNode, forwardRef } from 'react';
+import { TextInput } from 'react-native';
+import { Input, InputProps, Label, SizableText, styled } from 'tamagui';
 
-interface TrrInputProps extends InputProps {
+export interface TrrInputProps extends InputProps {
   type?: string;
   name?: string;
   label?: string;
-  error?: string;
-  // onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string | boolean;
+  children?: ReactNode;
 }
 
-export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
+const TrrInputUnstyled = forwardRef((props: TrrInputProps, ref: LegacyRef<TextInput>) => {
   const {
     label,
     error,
@@ -22,44 +23,37 @@ export const TrrInputPrivate = React.forwardRef((props: TrrInputProps, ref) => {
   const customSize = size || '$4';
 
   return (
-    <Label>
-      <YStack flex={1}>
-        {label && (
-          <span className="mb-1 text-sm">
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <SizableText size={customSize as any}>{label}</SizableText>
-          </span>
+    <div className="w-full">
+      {label && (
+        <Label>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          <SizableText marginBottom="$1.5" size={customSize as any}>
+            {label}
+          </SizableText>
+        </Label>
+      )}
+
+      <Input
+        ref={ref}
+        flex={1}
+        width="100%"
+        size={customSize}
+        // bordered={true}
+        placeholder={placeholder}
+        {...otherProps}
+      />
+
+      {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
+      <>
+        {error && (
+          <SizableText color="$error" size="$2" marginTop="$1.5" fontWeight="500">
+            {typeof error === 'boolean' ? 'Error' : error}
+          </SizableText>
         )}
-        {/* Using `<></>` so we can avoid React Native - "Unexpected text node: . A text node cannot be a child of a <View>" error */}
-        <>
-          <Input
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            ref={ref as any}
-            size={customSize}
-            // bordered={true}
-            placeholder={placeholder}
-            {...otherProps}
-          />
-          {error && <span className={`label-text-alt mt-1 text-error`}>{error}</span>}
-        </>
-      </YStack>
-    </Label>
+      </>
+    </div>
   );
 });
 
 // TODO: Test if this works properly
-export const TrrInput = styled(TrrInputPrivate, {
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   // Set the width to 100%
-  //   width: '100%',
-  // },
-  // innerElement: {
-  //   // Set the width to 100%
-  //   width: '100%',
-  //   height: 50, // Set your desired height
-  //   backgroundColor: 'blue',
-  // },
-});
+export const TrrInput = styled(TrrInputUnstyled, {});

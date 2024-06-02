@@ -57,4 +57,9 @@ export interface AuthLocal {
     loginLabel: string;
     loginLink: string;
   };
+
+  login: {
+    actionSuccess: string;
+    actionError: string;
+  };
 }

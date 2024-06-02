@@ -1,12 +1,11 @@
+import { TrrError } from '@shared/types/TrrError.type';
 import { TrainerSignup, Login } from '../types';
 import { api } from '@api/index.api';
 
-const BASE_URL = 'auth';
-
-export function signup(data: TrainerSignup): Promise<{ data: string }> {
-  return api.post(`/${BASE_URL}/trainer/signup`, data);
+export function signup(data: TrainerSignup) {
+  return api.post<string | TrrError>(`/auth/trainer/signup`, data);
 }
 
-export function login(data: Login): Promise<{ data: string }> {
-  return api.post(`/${BASE_URL}/login`, data);
+export function login(data: Login) {
+  return api.post<string | TrrError>(`/auth/login`, data);
 }

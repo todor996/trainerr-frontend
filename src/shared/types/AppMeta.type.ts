@@ -4,10 +4,12 @@ import { TrainerProfile } from './TrainerProfile.type';
 export interface AppMeta {
   uid: string;
   trainerProfileUid: string;
+
   appName: string;
   description: string;
   themeName: string;
   logoUrl: string;
+
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;

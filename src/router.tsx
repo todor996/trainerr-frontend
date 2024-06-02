@@ -1,11 +1,11 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import { homeRouter } from './modules/home/Home.router';
 import { settingsRouter } from './modules/settings/Settings.router';
-import { WrappedOutlet } from '@shared/components/WrappedOutlet.component';
 import { authRouter } from '@modules/auth/Auth.router';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router.tsx';
 import { clientRouter } from '@modules/client-pov/client.router';
 import { env } from '@shared/consts/env.consts';
+import { WrappedOutlet } from '@core/components/WrappedOutlet.component';
 
 export const router = createBrowserRouter(
   [

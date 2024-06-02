@@ -26,6 +26,12 @@ const enResource: AppResource = {
   action: {
     logout: 'Log Out',
   },
+  toast: {
+    error: 'Error',
+    success: 'Success',
+    warning: 'Warning',
+    info: 'Info',
+  },
   page: {
     training: {
       training: 'Training',
@@ -57,6 +63,14 @@ const enResource: AppResource = {
       feedback: 'Feedback',
     },
   },
+  gender: {
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
+    not_specified: 'Rather not say',
+  },
+  comingSoon: 'Coming Soon',
+  // TODO@daisyui: remove this when daisyui is removed
   theme: {
     custom_light: 'custom light',
     custom_dark: 'custom dark',

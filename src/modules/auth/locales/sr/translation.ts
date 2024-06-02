@@ -58,6 +58,11 @@ const srResource: AuthLocal = {
     loginLabel: 'Već imate nalog?',
     loginLink: 'Prijavite se',
   },
+
+  login: {
+    actionSuccess: 'Uspešno ste se prijavili!',
+    actionError: 'Prijavljivanje nije uspelo. Molimo pokušajte ponovo.',
+  },
 };
 
 export default srResource;

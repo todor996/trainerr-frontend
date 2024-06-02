@@ -1,23 +1,36 @@
-import {
-  blue,
-  blueDark,
-  gray,
-  grayDark,
-  green,
-  greenDark,
-  orange,
-  orangeDark,
-  pink,
-  pinkDark,
-  purple,
-  purpleDark,
-  red,
-  redDark,
-  yellow,
-  yellowDark,
-} from '@tamagui/colors';
-import type { Variable } from '@tamagui/web';
 import { createTokens } from '@tamagui/web';
+import {
+  accent,
+  base,
+  error,
+  info,
+  neutral,
+  primary,
+  secondary,
+  success,
+  warning,
+} from './colors.data';
+
+// ########################################################################
+// #region Helpers
+
+// function postfixObjKeys<
+//   A extends { [key: string]: Variable<string> | string },
+//   B extends string,
+// >(
+//   obj: A,
+//   postfix: B,
+// ): {
+//   [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable<string> | string;
+// } {
+//   return Object.fromEntries(
+//     Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v]),
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   ) as any;
+// }
+
+// #endregion
+// ########################################################################
 
 // should roughly map to button/input etc height at each level
 // fonts should match that height/lineHeight at each stop
@@ -107,69 +120,38 @@ export const zIndex = {
 };
 
 export const colorTokens = {
-  light: {
-    blue: blue,
-    gray: gray,
-    green: green,
-    orange: orange,
-    pink: pink,
-    purple: purple,
-    red: red,
-    yellow: yellow,
-  },
-  dark: {
-    blue: blueDark,
-    gray: grayDark,
-    green: greenDark,
-    orange: orangeDark,
-    pink: pinkDark,
-    purple: purpleDark,
-    red: redDark,
-    yellow: yellowDark,
-  },
+  base: base,
+  primary: primary,
+  secondary: secondary,
+  accent: accent,
+  neutral: neutral,
+  info: info,
+  success: success,
+  warning: warning,
+  error: error,
 };
 
-export const darkColors = {
-  ...colorTokens.dark.blue,
-  ...colorTokens.dark.gray,
-  ...colorTokens.dark.green,
-  ...colorTokens.dark.orange,
-  ...colorTokens.dark.pink,
-  ...colorTokens.dark.purple,
-  ...colorTokens.dark.red,
-  ...colorTokens.dark.yellow,
-};
-
-export const lightColors = {
-  ...colorTokens.light.blue,
-  ...colorTokens.light.gray,
-  ...colorTokens.light.green,
-  ...colorTokens.light.orange,
-  ...colorTokens.light.pink,
-  ...colorTokens.light.purple,
-  ...colorTokens.light.red,
-  ...colorTokens.light.yellow,
+export const themeColors = {
+  ...colorTokens.base,
+  ...colorTokens.primary,
+  ...colorTokens.secondary,
+  ...colorTokens.accent,
+  ...colorTokens.neutral,
+  ...colorTokens.info,
+  ...colorTokens.success,
+  ...colorTokens.warning,
+  ...colorTokens.error,
 };
 
 export const color = {
-  ...postfixObjKeys(lightColors, 'Light'),
-  ...postfixObjKeys(darkColors, 'Dark'),
+  ...themeColors,
+  // Left here as example of how to postfix object keys form tamagui example
+  // ...postfixObjKeys(themeColors, ''),
+  background: themeColors.base, // TODO: Ask Ceut why is this not working
+  color: themeColors['base-contrast'],
 };
 
-function postfixObjKeys<
-  A extends { [key: string]: Variable<string> | string },
-  B extends string,
->(
-  obj: A,
-  postfix: B,
-): {
-  [Key in `${keyof A extends string ? keyof A : never}${B}`]: Variable<string> | string;
-} {
-  return Object.fromEntries(
-    Object.entries(obj).map(([k, v]) => [`${k}${postfix}`, v]),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as any;
-}
+console.log({ color });
 
 export const radius = {
   0: 0,
@@ -187,8 +169,6 @@ export const radius = {
   11: 42,
   12: 50,
 };
-
-console.log({ color });
 
 export const tokens = createTokens({
   color,

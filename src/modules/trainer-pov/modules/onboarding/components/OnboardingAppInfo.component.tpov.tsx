@@ -1,11 +1,13 @@
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
-import { Button, Form } from 'tamagui';
+import { Form } from 'tamagui';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { Validator } from '@shared/utils/validator.util';
-import { useEffect } from 'react';
+import { Validator } from '@shared/services/validator.service';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TrrButton } from '@shared/components/TrrButton.component';
+import { useOnboardingStore } from '../store/onboarding.store';
 
 interface FormInputs {
   name: string;
@@ -20,46 +22,69 @@ const initFromValues: FormInputs = {
 
 export function OnboardingAppInfo(): JSX.Element {
   const { t } = useTranslation();
-
   const navigate = useNavigate();
+
+  const { app, updateApp, updateProgress } = useOnboardingStore();
+
+  const [localProgress, setLocalProgress] = useState(0);
 
   const formik = useFormik({
     initialValues: initFromValues,
-    onSubmit: handleSubmitFormik,
-    validate: handleValidationFormik,
+    onSubmit: handleSubmit,
+    validate: handleValidation,
   });
 
   useEffect(() => {
     Validator.setErrorMessages({
-      // required: t('error.required'),
       min: t('error.min'),
       max: t('error.max'),
     });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  function handleSubmitFormik(values: FormInputs) {
-    console.log('handleSubmitFormik', { values });
-    // TODO: dispatch action
+  useEffect(() => {
+    formik.setValues({
+      ...initFromValues,
+      name: app.name,
+      description: app.description,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [app]);
 
+  useEffect(() => {
+    updateProgress({ info: localProgress });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localProgress]);
+
+  function handleSubmit(values: FormInputs) {
+    updateApp(values);
     navigate('/trainer/onboarding/app/features');
   }
 
-  function handleValidationFormik(values: FormInputs) {
-    console.log('handleValidationFormik', { values });
-
+  function handleValidation(values: FormInputs) {
     const errors: Partial<FormInputs> = Validator.formatErrors({
-      name: new Validator(values.name).required().max(120),
-      description: new Validator(values.description).max(255),
+      name: new Validator(values.name).max(70),
+      description: new Validator(values.description).max(320),
     });
 
-    console.log({ errors });
+    // TODO: Make service for Progress & move that logic in store
+
+    const isNameValid = values.name && !errors.name;
+    const isDescriptionValid = values.description && !errors.description;
+
+    const nameProgress = isNameValid ? 33 / 2 : 0;
+    const descriptionProgress = isDescriptionValid ? 33 / 2 : 0;
+
+    const tempProgress = nameProgress + descriptionProgress;
+
+    setLocalProgress(tempProgress);
 
     return errors;
   }
 
   return (
     <div className="flex w-full max-w-[390px] flex-col px-3">
-      <h3 className="mb-6 text-xl font-semibold">Info</h3>
+      <h3 className="mb-6 text-xl font-semibold">{t('onboarding:app.info.title')}</h3>
 
       <Form className="flex max-w-[390px] flex-col gap-4" onSubmit={formik.handleSubmit}>
         <TrrInput
@@ -67,32 +92,33 @@ export function OnboardingAppInfo(): JSX.Element {
           name="name"
           type="text"
           value={formik.values.name}
-          label={t('uncommon.guest')}
-          placeholder="Your App"
-          error={formik.touched.description ? formik.errors.name : ''}
+          label={t('onboarding:app.info.nameLabel')}
+          placeholder={t('onboarding:app.info.namePlaceholder')}
+          error={formik.touched.name ? formik.errors.name : ''}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
+
         <TrrTextarea
           id="description"
           name="description"
           value={formik.values.description}
-          label="Description"
-          placeholder="Something about your app"
+          label={t('onboarding:app.info.descriptionLabel')}
+          placeholder={t('onboarding:app.info.descriptionPlaceholder')}
           error={formik.touched.description ? formik.errors.description : ''}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
 
         <Form.Trigger className="grow" disabled={formik.isSubmitting}>
-          <Button
+          <TrrButton
             className="w-full"
             tag="span"
-            color="primary"
+            themeColor="$primary"
             disabled={formik.isSubmitting}
           >
             {t('onboarding:next')}
-          </Button>
+          </TrrButton>
         </Form.Trigger>
       </Form>
     </div>

@@ -1575,6 +1575,15 @@
   dependencies:
     "@floating-ui/core" "^1.6.0"
 
+"@floating-ui/react@^0.26.2":
+  version "0.26.13"
+  resolved "https://registry.yarnpkg.com/@floating-ui/react/-/react-0.26.13.tgz#81dc03b08ec8db40c48bf2e1f2a2e1a5e9a1997a"
+  integrity sha512-kBa9wntpugzrZ8t/4yWelvSmEKZdeTXTJzrxqyrLmcU/n1SM4nvse8yQh2e1b37rJGvtu0EplV9+IkBrCJ1vkw==
+  dependencies:
+    "@floating-ui/react-dom" "^2.0.0"
+    "@floating-ui/utils" "^0.2.0"
+    tabbable "^6.0.0"
+
 "@floating-ui/react@^0.26.6":
   version "0.26.11"
   resolved "https://registry.yarnpkg.com/@floating-ui/react/-/react-0.26.11.tgz#226d3fec890de439443b62f3138ef7de052b0998"
@@ -3270,6 +3279,25 @@
   resolved "https://registry.yarnpkg.com/@tamagui/timer/-/timer-1.94.4.tgz#06ad3610f005eaa4e750acc4810b499aff870890"
   integrity sha512-r0WBao1o1ZZfCmV5eeMnAb9vZXv8wJblc54xmOv34TrB4vjbs2xhcjpACaJGBpk3WXDWUk/E0y1pu97NFFOzZw==
 
+"@tamagui/toast@1.94.4":
+  version "1.94.4"
+  resolved "https://registry.yarnpkg.com/@tamagui/toast/-/toast-1.94.4.tgz#010b9c6d20fc48a1e016837df453a6bc1c54eea1"
+  integrity sha512-pAcYXidVV1tFbIM83Ddm2or+ZJKkR6bN3JGvV+KioTdD5m4fmrOgRW/TZeXhxMnRExaeXNdDB/3LuffJoubyVw==
+  dependencies:
+    "@tamagui/animate-presence" "1.94.4"
+    "@tamagui/compose-refs" "1.94.4"
+    "@tamagui/constants" "1.94.4"
+    "@tamagui/core" "1.94.4"
+    "@tamagui/create-context" "1.94.4"
+    "@tamagui/dismissable" "1.94.4"
+    "@tamagui/helpers" "1.94.4"
+    "@tamagui/polyfill-dev" "1.94.4"
+    "@tamagui/portal" "1.94.4"
+    "@tamagui/stacks" "1.94.4"
+    "@tamagui/text" "1.94.4"
+    "@tamagui/use-controllable-state" "1.94.4"
+    "@tamagui/visually-hidden" "1.94.4"
+
 "@tamagui/toggle-group@1.94.4":
   version "1.94.4"
   resolved "https://registry.yarnpkg.com/@tamagui/toggle-group/-/toggle-group-1.94.4.tgz#1ee9ce0cf42c086c94caca27cafe4ac0183d72d5"
@@ -3614,6 +3642,15 @@
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.7.tgz#50ae4353eaaddc04044279812f52c8c65857dbcb"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
+
+"@types/react-datepicker@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-datepicker/-/react-datepicker-6.2.0.tgz#1c93c10d12d1d683eacf46a82e35b953cd0da117"
+  integrity sha512-+JtO4Fm97WLkJTH8j8/v3Ldh7JCNRwjMYjRaKh4KHH0M3jJoXtwiD3JBCsdlg3tsFIw9eQSqyAPeVDN2H2oM9Q==
+  dependencies:
+    "@floating-ui/react" "^0.26.2"
+    "@types/react" "*"
+    date-fns "^3.3.1"
 
 "@types/react-dom@^18.2.18":
   version "18.2.24"
@@ -4557,6 +4594,14 @@ bundle-name@^4.1.0:
   dependencies:
     run-applescript "^7.0.0"
 
+burnt@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/burnt/-/burnt-0.12.2.tgz#827dfb8fe2b5844d52060d9aa61dd9a683902d52"
+  integrity sha512-bbZjGN4Om7dykr8ZcLb0tTO5L2becMR+HIez1ySUGgG/rvK+ePgBEuBA6lMOZqOTsUXhIKFUBH0sCXQ25fq5SA==
+  dependencies:
+    sf-symbols-typescript "^1.0.0"
+    sonner "^0.3.5"
+
 bytes@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.0.0.tgz#d32815404d689699f85a4ea4fa8755dd13a96048"
@@ -4772,6 +4817,11 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha512-JQHZ2QMW6l3aH/j6xCqQThY/9OH4D/9ls34cgkUBiEeocRTU04tHfKPBsUK1PqZCUQM7GiA0IIXJSuXHI64Kbg==
+
+clsx@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
+  integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -5100,6 +5150,11 @@ data-view-byte-offset@^1.0.0:
     call-bind "^1.0.6"
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
+
+date-fns@^3.3.1:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
+  integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
 
 dayjs@^1.8.15:
   version "1.11.11"
@@ -6885,6 +6940,11 @@ immediate@~3.0.5:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
+
+immer@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-10.1.1.tgz#206f344ea372d8ea176891545ee53ccc062db7bc"
+  integrity sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==
 
 immer@^9.0.21:
   version "9.0.21"
@@ -8937,7 +8997,7 @@ prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -9021,6 +9081,17 @@ react-daisyui@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-daisyui/-/react-daisyui-5.0.0.tgz#9ce2fe8dd540f6b12650fc0d2e7953c1026789b3"
   integrity sha512-j1cugAxALmIbihycGBh7P9H3UXrfsvqu84qM6O55l7nOKST43IjUkZjmNav/7s0ZaUpa9Y+52mFchUb2zvon1A==
+
+react-datepicker@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-6.9.0.tgz#0ad234dad81d567ae64cad79697bbad69c95490b"
+  integrity sha512-QTxuzeem7BUfVFWv+g5WuvzT0c5BPo+XTCNbMTZKSZQLU+cMMwSUHwspaxuIcDlwNcOH0tiJ+bh1fJ2yxOGYWA==
+  dependencies:
+    "@floating-ui/react" "^0.26.2"
+    clsx "^2.1.0"
+    date-fns "^3.3.1"
+    prop-types "^15.7.2"
+    react-onclickoutside "^6.13.0"
 
 react-devtools-core@^5.0.0:
   version "5.1.0"
@@ -9159,6 +9230,11 @@ react-native@^0.74.0:
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
     yargs "^17.6.2"
+
+react-onclickoutside@^6.13.0:
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.13.1.tgz#1f5e0241c08784b6e65745d91aca0d700c548a89"
+  integrity sha512-LdrrxK/Yh9zbBQdFbMTXPp3dTSN9B+9YJQucdDu3JNKRrbdU+H+/TVONJoWtOwy4II8Sqf1y/DTI6w/vGPYW0w==
 
 react-redux@^8.1.3:
   version "8.1.3"
@@ -9796,6 +9872,11 @@ setprototypeof@1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
+sf-symbols-typescript@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sf-symbols-typescript/-/sf-symbols-typescript-1.0.0.tgz#94e9210bf27e7583f9749a0d07bd4f4937ea488f"
+  integrity sha512-DkS7q3nN68dEMb4E18HFPDAvyrjDZK9YAQQF2QxeFu9gp2xRDXFMF8qLJ1EmQ/qeEGQmop4lmMM1WtYJTIcCMw==
+
 shallow-clone@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/shallow-clone/-/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
@@ -9914,6 +9995,11 @@ sockjs@^0.3.24:
     faye-websocket "^0.11.3"
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
+
+sonner@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/sonner/-/sonner-0.3.5.tgz#5ef175732cb7b637c6460620ab01a0fba0e6a36b"
+  integrity sha512-yIwaQ4dftMvFApuruto2t7wGyyaPRpj5qYBWYJIz4Z7uGcVn0IfqI/hWN0JyJN4izNbZFuCYZISf3fOGnvSlNQ==
 
 sort-by@^0.0.2:
   version "0.0.2"
@@ -11510,7 +11596,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zustand@^4.3.8:
+zustand@^4.3.8, zustand@^4.5.2:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.2.tgz#fddbe7cac1e71d45413b3682cdb47b48034c3848"
   integrity sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==

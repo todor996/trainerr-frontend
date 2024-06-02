@@ -2,7 +2,7 @@ import { TrrInput } from '@shared/components/TrrInput.component';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'tamagui';
 import { Formik, FormikHelpers } from 'formik';
-import { Validator } from '@shared/utils/validator.util';
+import { Validator } from '@shared/services/validator.service';
 import { useRef } from 'react';
 
 export interface FormInputs {
