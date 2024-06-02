@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Checkbox, CheckboxProps, SizableText } from 'tamagui';
 import { Check } from '@tamagui/lucide-icons';
-import { ColorName } from '@shared/services/color.service';
+import { ColorName } from '@shared/services/Color.service';
 
 interface TrrCheckboxProps extends CheckboxProps {
   className?: string;

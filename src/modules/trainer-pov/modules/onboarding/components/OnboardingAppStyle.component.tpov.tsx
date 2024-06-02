@@ -1,6 +1,6 @@
 import { TrrColorPicker } from '@shared/components/TrrColorPicker.component';
 import { TrrUpload } from '@shared/components/TrrUpload.component';
-import { ColorService } from '@shared/services/color.service';
+import { ColorService } from '@shared/services/Color.service';
 import { Validator } from '@shared/services/validator.service';
 import { useFormik } from 'formik';
 import { ChangeEvent, useEffect, useState } from 'react';

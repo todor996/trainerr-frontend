@@ -1,4 +1,4 @@
-import { ColorName } from '@shared/services/color.service';
+import { ColorName } from '@shared/services/Color.service';
 import { LegacyRef, forwardRef } from 'react';
 import { Button, ButtonProps, TamaguiElement } from 'tamagui';
 

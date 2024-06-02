@@ -1,4 +1,4 @@
-import { ColorSystem } from '@shared/services/color.service';
+import { ColorSystem } from '@shared/services/Color.service';
 import { Feature } from '@shared/types/Feature.type';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { StoreSlice } from '@store/index.store';
