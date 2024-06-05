@@ -12,17 +12,17 @@ import { TrrDatePicker } from '@shared/components/TrrDatePicker.component';
 import { Gender } from '@shared/enums/Gender.enum';
 import { TrrSelect } from '@shared/components/TrrSelect.component';
 import { useToastController } from '@tamagui/toast';
-import { useNavigate } from 'react-router-dom';
 import { useOnboardingStore } from '../store/onboarding.store';
 import { TrrButton } from '@shared/components/TrrButton.component';
 import { TrrStepper } from '@shared/components/TrrStepper.component';
+import { useNavigate } from 'react-router-dom';
 
 // TODO: Move to shared and set proper default image
 const DEFAULT_AVATAR =
   'https://images.unsplash.com/photo-1548142813-c348350df52b?&w=100&h=100&dpr=2&q=80';
 
 const initFromValues: ProfileInfo = {
-  profileUrl: '',
+  profileImage: '',
   firstName: '',
   lastName: '',
   birthday: null,
@@ -82,8 +82,9 @@ export default function OnboardingProfilePage(): JSX.Element {
         loading: false,
         error: null,
         success: false,
-      }),
-        navigate('/trainer/onboarding/app');
+      });
+
+      navigate('/trainer/onboarding/app');
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,8 +92,7 @@ export default function OnboardingProfilePage(): JSX.Element {
 
   async function handleSubmit(values: ProfileInfo) {
     values.birthday = new Date(values.birthday).toISOString();
-    values.files = [file];
-    // TODO: Sync with BE on sending files
+    values.profileImage = file;
     updateProfile(values);
 
     const user = await createProfileAsync(values);
@@ -178,7 +178,10 @@ export default function OnboardingProfilePage(): JSX.Element {
 
         <Form className="flex grow flex-col gap-4" onSubmit={formik.handleSubmit}>
           {/* TODO: Handle upload logic with BE */}
-          <TrrUpload onChange={handleFile}>
+          <TrrUpload
+            error={formik.touched.profileImage && formik.errors.profileImage}
+            onChange={handleFile}
+          >
             <Avatar circular size="$6">
               <Avatar.Image accessibilityLabel={file?.name} src={fileUrl} />
               <Avatar.Fallback delayMs={600} backgroundColor="$blue10" />

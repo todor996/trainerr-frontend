@@ -1,6 +1,8 @@
 import { ToastStatus } from '@shared/enums/ToastStatus.enum';
 import { Toast, useToastState } from '@tamagui/toast';
-import { SizableText, YStack } from 'tamagui';
+import { SizableText, XStack, YStack } from 'tamagui';
+import { TrrIcon } from './TrrIcon.component';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const statusColorMap: Record<ToastStatus, string> = {
   error: '$error',
@@ -31,7 +33,12 @@ export function TrrToaster(): JSX.Element {
       {...{ color: `${statusColorMap[currentToast.status]}-contrast` || '$primary' }}
     >
       <YStack>
-        <Toast.Title fontWeight={500}>{currentToast.title}</Toast.Title>
+        <XStack alignItems="center" justifyContent="space-between">
+          <Toast.Title fontWeight={500}>{currentToast.title}</Toast.Title>
+          <Toast.Close>
+            <TrrIcon size={16} icon={faXmark} />
+          </Toast.Close>
+        </XStack>
 
         {!!currentToast.message && (
           <Toast.Description>

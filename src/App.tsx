@@ -41,7 +41,7 @@ export function App(): JSX.Element {
   return (
     <TamaguiProvider config={config} defaultTheme="light">
       <ToastProvider duration={5000}>
-        <ToastViewport flexDirection="column" left={0} right={0} />
+        <ToastViewport flexDirection="column" left={0} right={0} multipleToasts={true} />
         <TrrToaster />
         <Provider store={store}>
           <PersistGate loading={<LoadingPage />} persistor={persistor}>

@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { homeReducer } from '@modules/home/store/homeSlice.store';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import {
   persistReducer,
@@ -27,14 +26,12 @@ const persistConfig = {
 };
 
 // Persisted Reducers
-const persistedHomeReducer = persistReducer(persistConfig, homeReducer);
 // TODO: Create TrainerPOV store
 const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
 
 // Configure Store
 export const store = configureStore({
   reducer: {
-    home: persistedHomeReducer,
     // TODO: Create TrainerPOV store
     training: persistedTrainingReducer,
   },

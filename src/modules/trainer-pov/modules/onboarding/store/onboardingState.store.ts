@@ -58,7 +58,7 @@ export interface OnboardingState {
 }
 
 export const initProfile: OnboardingState['profile'] = {
-  profileUrl: '',
+  profileImage: '',
   firstName: '',
   lastName: '',
   birthday: null,

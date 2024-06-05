@@ -1,6 +1,4 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import { homeRouter } from './modules/home/Home.router';
-import { settingsRouter } from './modules/settings/Settings.router';
 import { authRouter } from '@modules/auth/Auth.router';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router.tsx';
 import { clientRouter } from '@modules/client-pov/client.router';
@@ -16,9 +14,6 @@ export const router = createBrowserRouter(
         authRouter,
         trainerRouter,
         clientRouter,
-        // TODO: delete this when modules are removed
-        homeRouter,
-        settingsRouter,
         {
           path: '',
           element: <Navigate to="auth/login" />,

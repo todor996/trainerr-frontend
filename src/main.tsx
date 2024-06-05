@@ -8,7 +8,7 @@ import './localization/i18next.local';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-// Store thunk is not working properly with mockServer
+// Store axios is not working properly with mockServer
 // if (env.DEV) {
 //   createMockServer();
 // }

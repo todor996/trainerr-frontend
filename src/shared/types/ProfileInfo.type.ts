@@ -1,7 +1,7 @@
 import { Gender } from '@shared/enums/Gender.enum';
 
 export interface ProfileInfo {
-  profileUrl: string;
+  profileImage: string | File;
   firstName: string;
   lastName: string;
   birthday: Date | string;
