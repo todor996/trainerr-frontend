@@ -4,7 +4,7 @@ import { MouseEventHandler } from 'react';
 import { Card } from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
 
-interface TrainingPlanCardProps {
+interface PlanCardProps {
   title: string;
   icon?: IconDefinition;
   iconClassName?: string;
@@ -15,7 +15,7 @@ interface TrainingPlanCardProps {
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export function TrainingPlanCard({
+export function PlanCard({
   className,
   title,
   icon,
@@ -24,7 +24,7 @@ export function TrainingPlanCard({
   TitleIcon,
   Action,
   onClick,
-}: TrainingPlanCardProps): JSX.Element {
+}: PlanCardProps): JSX.Element {
   return (
     <Card
       className={twMerge(

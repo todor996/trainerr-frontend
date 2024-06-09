@@ -1,5 +1,5 @@
 import { StoreSlice, asyncFn } from '@store/index.store';
-import { AuthState } from './authState.store';
+import { AuthState } from './state.store';
 import { login, signup } from '../api/auth.api';
 import { Login, TrainerSignup } from '../types';
 import { AxiosResponse } from 'axios';

@@ -68,5 +68,5 @@ export function getActiveAppMetaForTrainer(
   return api.get(`/app-meta/active-app-meta/${trainerUid}`);
 }
 
-// #region API - App
+// #endregion API - App
 // ############################################################################

@@ -34,7 +34,7 @@ const initFromValues: ProfileInfo = {
 // TODO: Move to shared
 const GENDER_OPTIONS = Object.values(Gender);
 
-export default function OnboardingProfilePage(): JSX.Element {
+export default function ProfilePage(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const toast = useToastController();
@@ -64,7 +64,10 @@ export default function OnboardingProfilePage(): JSX.Element {
   });
 
   useEffect(() => {
+    // TODO: Handle error properly
     if (error) {
+      console.log({ error });
+
       toast.show('Error', {
         status: 'error',
         message: error.payload,
@@ -108,7 +111,7 @@ export default function OnboardingProfilePage(): JSX.Element {
       firstName: new Validator(values.firstName).required().max(50),
       lastName: new Validator(values.lastName).required().max(50),
       birthday: new Validator(values.birthday).required().date(),
-      // gender: new Validator(values.gender),
+      gender: new Validator(values.gender).required(),
       description: new Validator(values.description).max(320),
       tagline: new Validator(values.tagline).max(120),
       profileImage: new Validator(file).required(),
@@ -127,8 +130,6 @@ export default function OnboardingProfilePage(): JSX.Element {
   }
 
   function setGender(option) {
-    console.log({ option });
-
     formik.setFieldValue('gender', option);
   }
 

@@ -1,13 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { OnboardingAppInfo } from '../components/OnboardingAppInfo.component.tpov';
-import { OnboardingAppFeatures } from '../components/OnboardingAppFeatures.component.tpov';
-import { OnboardingAppStyle } from '../components/OnboardingAppStyle.component.tpov';
+import { AppInfo } from '../components/AppInfo.component.tpov';
+import { AppFeatures } from '../components/AppFeatures.component.tpov';
+import { AppStyle } from '../components/AppStyle.component.tpov';
 import { useTranslation } from 'react-i18next';
 import { Progress, View, YStack } from 'tamagui';
 import { useOnboardingStore } from '../store/onboarding.store';
 import { TrrStepper } from '@shared/components/TrrStepper.component';
 
-export default function OnboardingAppPage(): JSX.Element {
+export default function AppPage(): JSX.Element {
   const { t } = useTranslation();
 
   const { progress } = useOnboardingStore();
@@ -55,9 +55,9 @@ export default function OnboardingAppPage(): JSX.Element {
 
         <Routes>
           <Route path="" element={<Navigate to="info" />} />
-          <Route path="info" element={<OnboardingAppInfo />} />
-          <Route path="features" element={<OnboardingAppFeatures />} />
-          <Route path="style" element={<OnboardingAppStyle />} />
+          <Route path="info" element={<AppInfo />} />
+          <Route path="features" element={<AppFeatures />} />
+          <Route path="style" element={<AppStyle />} />
           <Route path="*" element={<Navigate to="info" />} />
         </Routes>
       </YStack>

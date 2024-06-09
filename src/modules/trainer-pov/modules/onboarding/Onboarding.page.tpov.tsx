@@ -1,11 +1,11 @@
 import { Title } from '@shared/components/Title.component';
 import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import OnboardingProfilePage from './pages/OnboardingProfile.page.tpov';
-import OnboardingAppPage from './pages/OnboardingApp.page.tpov';
+import ProfilePage from './pages/Profile.page.tpov';
+import AppPage from './pages/App.page.tpov';
 import { YStack } from 'tamagui';
 
-export default function OnboardingPage(): JSX.Element {
+export default function Page(): JSX.Element {
   useLazyLoadResourceHook({
     folderName: 'trainer-pov/modules/onboarding',
     namespace: 'onboarding',
@@ -39,8 +39,8 @@ export default function OnboardingPage(): JSX.Element {
           alignItems="center"
         >
           <Routes>
-            <Route path="profile/*" element={<OnboardingProfilePage />} />
-            <Route path="app/*" element={<OnboardingAppPage />} />
+            <Route path="profile/*" element={<ProfilePage />} />
+            <Route path="app/*" element={<AppPage />} />
             <Route path="/*" element={<Navigate to="profile" />} />
           </Routes>
         </YStack>

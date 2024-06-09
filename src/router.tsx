@@ -1,9 +1,9 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import { authRouter } from '@modules/auth/Auth.router';
+import { WrappedOutlet } from '@core/components/WrappedOutlet.component';
+import { authRouter } from '@modules/auth/authRouter';
 import { trainerRouter } from '@modules/trainer-pov/trainer.router.tsx';
 import { clientRouter } from '@modules/client-pov/client.router';
 import { env } from '@shared/consts/env.consts';
-import { WrappedOutlet } from '@core/components/WrappedOutlet.component';
 
 export const router = createBrowserRouter(
   [

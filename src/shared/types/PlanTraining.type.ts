@@ -9,6 +9,6 @@ export interface PlanTraining {
   trainingUid: string;
   // TODO@Everyone: Check what is this order?
   // order?: number;
-  plan: Plan;
   training: Training;
+  plan?: Plan; // Is this a parent?
 }

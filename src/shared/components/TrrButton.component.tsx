@@ -5,10 +5,18 @@ import { Button, ButtonProps, TamaguiElement } from 'tamagui';
 interface TrrButtonProps extends ButtonProps {
   themeColor?: ColorName;
 }
-
+/**
+ * TODO: Handle outline and ghost variants
+ */
 export const TrrButton = forwardRef(
   (props: TrrButtonProps, ref: LegacyRef<TamaguiElement>): JSX.Element => {
     const { themeColor, ...otherProps } = props;
+
+    // const variantStyles = {
+    //   "" : {
+
+    //   }
+    // }
 
     return (
       <Button

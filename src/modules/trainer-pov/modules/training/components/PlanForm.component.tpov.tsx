@@ -2,27 +2,30 @@ import { faCircleInfo, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrTextarea } from '@shared/components/TrrTextarea.component';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
 import { Badge, Button } from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
-import { Training, updateTrainingState } from '../store/trainingSlice.store';
 import { useState } from 'react';
-import { TrainingExerciseCard } from './TrainingExerciseCard.component.tpov';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useTrainingStore } from '../store/training.store';
+import { Plan } from '@shared/types/Plan.type';
+import { Training } from '@shared/types/Training.type';
 
-interface TrainingPlanFormProps {
+interface PlanFormProps {
   className?: string;
 }
 
-interface FormInputs {
+interface FormInputs extends Partial<Plan> {
   name: string;
   description: string;
 }
 
-export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const plan = useAppSelector((state) => state.training.plan);
+export function PlanForm({ className }: PlanFormProps): JSX.Element {
+  const store = useTrainingStore();
+  const { plan } = store;
+
+  // Training
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [selectedTraining, setSelectedTraining] = useState<Training | undefined>(
     plan.trainings?.[0],
   );
@@ -33,19 +36,17 @@ export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Elem
   } = useForm<FormInputs>();
 
   function isSelected(training: Training) {
-    return selectedTraining?.id === training.id;
+    return selectedTraining?.uid === training.uid;
   }
 
   function onSubmit(data: FormInputs) {
-    dispatch(
-      updateTrainingState({
-        plan: {
-          ...plan,
-          name: data.name,
-          description: data.description,
-        },
-      }),
-    );
+    store.updateTraining({
+      plan: {
+        ...plan,
+        name: data.name,
+        description: data.description,
+      },
+    });
   }
 
   return (
@@ -104,7 +105,7 @@ export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Elem
           )}
         </div>
 
-        {selectedTraining?.exercise.map((exercise) => (
+        {/* {(selectedTraining?.workouts || []).map((exercise) => (
           <TrainingExerciseCard
             className="mt-4 w-full"
             title={exercise.name}
@@ -113,7 +114,7 @@ export function TrainingPlanForm({ className }: TrainingPlanFormProps): JSX.Elem
             }
             units={exercise.units}
           ></TrainingExerciseCard>
-        ))}
+        ))} */}
       </div>
     </form>
   );

@@ -2,7 +2,7 @@ import {
   Exercise,
   Training,
   TrainingPlan,
-} from '@modules/trainer-pov/modules/training/store/trainingSlice.store';
+} from '@modules/trainer-pov/modules/training/store/slice.store';
 
 //#region Mock Data Utils
 
