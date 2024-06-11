@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { PlanDetails } from '../components/PlanDetails.component.tpov';
 import { useSearchParams } from 'react-router-dom';
 import { useTrainingStore } from '../store/training.store';
+import { XStack, YStack } from 'tamagui';
 
 export default function PlansPage(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -60,7 +61,7 @@ export default function PlansPage(): JSX.Element {
   }
 
   return (
-    <div className="flex flex-col px-6">
+    <YStack paddingHorizontal="24px">
       {/* HEADER */}
       <PlansHeader className="py-3" />
 
@@ -74,7 +75,13 @@ export default function PlansPage(): JSX.Element {
       />
 
       {/* BODY */}
-      <div className="flex w-full flex-row flex-wrap gap-4 bg-base-100 py-6">
+      <XStack
+        width="100%"
+        flexWrap="wrap"
+        gap="16px"
+        backgroundColor="$base"
+        paddingVertical="24px"
+      >
         {(plans || []).map((plan) => (
           <PlanCard
             key={plan.id}
@@ -91,7 +98,7 @@ export default function PlansPage(): JSX.Element {
             )}
           />
         ))}
-      </div>
-    </div>
+      </XStack>
+    </YStack>
   );
 }

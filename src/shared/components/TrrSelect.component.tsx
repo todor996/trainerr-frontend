@@ -4,11 +4,16 @@ import type { SelectProps, TamaguiElement } from 'tamagui';
 import { Adapt, Label, Select, Sheet, SizableText, YStack } from 'tamagui';
 import { LinearGradient } from 'tamagui/linear-gradient';
 
+export interface TrrSelectItem {
+  value: string;
+  content: ReactNode;
+}
+
 interface TrrSelectProps extends SelectProps {
   label?: string;
   placeholder?: string;
   error?: string;
-  items: { value: string; content: ReactNode }[];
+  items: TrrSelectItem[];
   width?: string;
 
   onChange: (value: string) => void;
@@ -18,9 +23,9 @@ interface TrrSelectProps extends SelectProps {
 // const TrrSelectUnstyled = forwardRef(
 export const TrrSelect = forwardRef(
   (props: TrrSelectProps, ref: LegacyRef<TamaguiElement>): JSX.Element => {
-    const { error, label, placeholder, items } = props;
+    const { error, label, placeholder, items, value } = props;
 
-    const [val, setVal] = useState('apple');
+    const [val, setVal] = useState(value);
 
     function handleOnValueChange(value: string) {
       setVal(value);
@@ -164,5 +169,3 @@ export const TrrSelect = forwardRef(
     );
   },
 );
-
-// export const TrrSelect = styled(TrrSelectUnstyled, {});

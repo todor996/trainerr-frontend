@@ -3,29 +3,31 @@ import { TrrButton } from '@shared/components/TrrButton.component';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { Link } from 'react-router-dom';
-import { twMerge } from 'tailwind-merge';
-import { Group } from 'tamagui';
+import { Group, XStack } from 'tamagui';
 
 interface PlansHeaderProps {
   className?: string;
 }
 
-export function PlansHeader({ className }: PlansHeaderProps): JSX.Element {
+export function PlansHeader(props: PlansHeaderProps): JSX.Element {
+  const { ...otherProps } = props;
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log('Submitted');
   }
 
   return (
-    <div
-      className={twMerge(
-        'flex flex-row items-center justify-between bg-base-100',
-        className,
-      )}
+    <XStack
+      alignItems="center"
+      justifyContent="space-between"
+      backgroundColor="$base"
+      {...otherProps}
     >
       {/* LEFT */}
       {/* TODO: Handle this form */}
       {/* TODO: Maybe remove Search Form for MVP */}
+      {/* TODO@localization: Do localization */}
       <form className="w-full" onSubmit={handleSubmit}>
         <Group className="w-full lg:max-w-[376px]" orientation="horizontal">
           <Group.Item>
@@ -39,12 +41,11 @@ export function PlansHeader({ className }: PlansHeaderProps): JSX.Element {
           </Group.Item>
           <Group.Item>
             <TrrButton
-              className="join-item border-l-0 border-base-content border-opacity-20"
-              size="$3"
-              variant="outlined"
-              color="ghost"
+              themeVariant="outline"
+              themeColor="$primary"
               borderLeftWidth={0}
               borderWidth={1}
+              size="$3"
             >
               <TrrIcon icon={faMagnifyingGlass} size={16} />
             </TrrButton>
@@ -63,6 +64,6 @@ export function PlansHeader({ className }: PlansHeaderProps): JSX.Element {
           Add Plan
         </TrrButton>
       </Link>
-    </div>
+    </XStack>
   );
 }

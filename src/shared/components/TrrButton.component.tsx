@@ -20,10 +20,10 @@ export const TrrButton = forwardRef(
       solid: {
         color: `${themeColor}-contrast`,
         backgroundColor: `${themeColor}`,
-        borderColor: `${themeColor}-contrast`,
+        borderColor: `${themeColor}`,
         hoverStyle: {
           backgroundColor: `${themeColor}-500`,
-          borderColor: `${themeColor}-contrast`,
+          borderColor: `${themeColor}`,
         },
         disabledStyle: {
           backgroundColor: `${themeColor}-400`,
