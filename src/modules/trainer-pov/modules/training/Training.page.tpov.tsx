@@ -1,9 +1,10 @@
 import { lazy } from 'react';
 import { Header } from '@modules/trainer-pov/components/Header.component.tpov';
-import { Sidenav } from '@shared/components/Sidenav.component';
+import { TrrSidenav } from '@shared/components/TrrSidenav.component';
 import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import TrainingFormPage from './pages/TrainingForm.page.tpov';
+import { Main } from 'tamagui';
 
 const PlansPage = lazy(() => import('./pages/Plans.page.tpov'));
 const ExercisesPage = lazy(() => import('./pages/Exercises.page.tpov'));
@@ -18,8 +19,8 @@ export default function TrainingPage(): JSX.Element {
 
   return (
     <div className="flex">
-      <Sidenav />
-      <main className="flex w-full flex-col">
+      <TrrSidenav />
+      <Main display="flex" flexDirection="column" flexShrink={1} width="100%">
         <Header />
 
         <Routes>
@@ -29,7 +30,7 @@ export default function TrainingPage(): JSX.Element {
           <Route path="exercises/*" element={<ExercisesPage />} />
           <Route path="*" element={<Navigate to="plans" />} />
         </Routes>
-      </main>
+      </Main>
     </div>
   );
 }

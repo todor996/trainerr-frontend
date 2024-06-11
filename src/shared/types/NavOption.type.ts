@@ -6,6 +6,7 @@ export interface NavOption {
   icon?: IconDefinition | null;
   to: string;
   isActive?: boolean;
+  isParent?: boolean;
   isChild?: boolean;
   navChildren?: Array<NavOption>;
   children?: JSX.Element;

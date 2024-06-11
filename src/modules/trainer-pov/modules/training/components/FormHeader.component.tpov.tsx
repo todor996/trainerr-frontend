@@ -26,14 +26,14 @@ const FormHeaderUnstyled = forwardRef(
         width="100%"
         alignItems="center"
         justifyContent="space-between"
-        backgroundColor="$base-100"
+        backgroundColor="$base"
         paddingHorizontal="24px"
         paddingVertical="12px"
         {...otherProps}
       >
         {/* LEFT */}
         <XStack marginLeft="-2px" alignItems="center">
-          <TrrButton size="$3" onPress={goBack}>
+          <TrrButton size="$3" themeVariant="ghost" onPress={goBack}>
             <TrrIcon icon={faChevronLeft} size={16} />
           </TrrButton>
           <SizableText fontSize="20px" fontWeight="500">
