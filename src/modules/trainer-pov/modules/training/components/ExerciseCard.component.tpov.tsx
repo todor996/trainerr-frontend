@@ -1,9 +1,9 @@
 import { MouseEventHandler } from 'react';
 import { Badge, Card } from 'react-daisyui';
 import { twMerge } from 'tailwind-merge';
-import { Unit } from '../store/trainingSlice.store';
+import { Unit } from '../store/slice.store';
 
-interface TrainingExerciseCardProps {
+interface ExerciseCardProps {
   className?: string;
   title: string;
   imgSrc: string;
@@ -14,7 +14,7 @@ interface TrainingExerciseCardProps {
   onClick?: MouseEventHandler<HTMLDivElement> | undefined;
 }
 
-export function TrainingExerciseCard({
+export function ExerciseCard({
   className,
   title,
   description,
@@ -22,7 +22,7 @@ export function TrainingExerciseCard({
   imgSrc,
   Action,
   onClick,
-}: TrainingExerciseCardProps): JSX.Element {
+}: ExerciseCardProps): JSX.Element {
   return (
     <Card
       className={twMerge(
@@ -56,7 +56,7 @@ export function TrainingExerciseCard({
         <div className=" flex w-full flex-row items-center gap-1 overflow-x-scroll">
           {units.map((unit, index) => (
             <Badge className="shrink-0 text-xs font-medium" key={index} size="md">
-              {unit.type}
+              {unit.unit}
             </Badge>
           ))}
         </div>

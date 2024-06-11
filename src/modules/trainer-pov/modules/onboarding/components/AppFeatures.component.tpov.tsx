@@ -22,7 +22,7 @@ const initFromValues: FormInputs = {
   questionnaire: false,
 };
 
-export function OnboardingAppFeatures(): JSX.Element {
+export function AppFeatures(): JSX.Element {
   const navigate = useNavigate();
 
   const store = useOnboardingStore();
@@ -115,10 +115,15 @@ export function OnboardingAppFeatures(): JSX.Element {
           message="Create Nutrition Plans for your Clients"
           checked={formik.values.nutrition}
           onCheckedChange={(event) => onCheckedChangeNutrition(event)}
+          disabled={true}
         >
           <span className="font-medium">
             {t('onboarding:app.features.nutritionLabel')}
           </span>
+          {/* TODO: Create custom Badge and don't use DaisyUI */}
+          <Badge className="ml-1 font-medium" outline={true} color="success">
+            {t('comingSoon')}
+          </Badge>
         </TrrCheckbox>
 
         <TrrCheckbox

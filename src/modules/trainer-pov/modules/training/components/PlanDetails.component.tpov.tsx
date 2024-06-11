@@ -2,20 +2,17 @@ import { faXmark, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { HeaderSmall } from '@modules/trainer-pov/components/HeaderSmall.component.tpov';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
 import { Button, Badge } from 'react-daisyui';
-import { TrainingExerciseCard } from './TrainingExerciseCard.component.tpov';
-import { Training, TrainingPlan } from '../store/trainingSlice.store';
+import { ExerciseCard } from './ExerciseCard.component.tpov';
+import { Training, TrainingPlan } from '../store/slice.store';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface TrainingPlanDetailsProps {
+interface PlanDetailsProps {
   plan: TrainingPlan;
   toggleVisible: () => void;
 }
 
-export function TrainingPlanDetails({
-  plan,
-  toggleVisible,
-}: TrainingPlanDetailsProps): JSX.Element {
+export function PlanDetails({ plan, toggleVisible }: PlanDetailsProps): JSX.Element {
   const [selectedTraining, setSelectedTraining] = useState<Training | null>(
     plan.trainings[0],
   );
@@ -88,12 +85,14 @@ export function TrainingPlanDetails({
       </div>
 
       {/* CARDS */}
+      {/* TODO: Fix this */}
       {selectedTraining?.exercise.map((exercise) => (
-        <TrainingExerciseCard
+        <ExerciseCard
           key={exercise.id}
           title={exercise.name}
           description={exercise.description}
-          units={exercise.units}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          units={exercise.units as any}
           imgSrc={
             exercise.media[0]?.src ||
             'https://cdn.muscleandstrength.com/sites/default/files/images/articles/articles/bench-press-5.jpg'

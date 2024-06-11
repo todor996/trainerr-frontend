@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
+// TODO: Rename to auth.router.tsx
 export const authRouter: RouteObject = {
   path: 'auth',
   children: [

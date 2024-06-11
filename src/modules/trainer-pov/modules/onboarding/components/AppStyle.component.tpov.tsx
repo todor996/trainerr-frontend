@@ -42,7 +42,7 @@ const initFromValues: FormInputs = {
 
 const DEFAULT_AVATAR = 'https://api.dicebear.com/7.x/lorelei/svg?seed=Chloe';
 
-export function OnboardingAppStyle(): JSX.Element {
+export function AppStyle(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
 

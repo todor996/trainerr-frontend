@@ -1,12 +1,7 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'tamagui';
-
 import { localKeys } from '@shared/consts/localization.const';
-import { TrrDropdown, TrrDropdownItem } from '@shared/components/TrrDropdown.component';
-import { ThemeItem } from '@shared/components/ThemeItem.component';
-import { DEFAULT_THEMES } from '@shared/consts/daisyui.const';
-import { twMerge } from 'tailwind-merge';
+import { TrrSelect, TrrSelectItem } from '@shared/components/TrrSelect.component';
+import { Avatar, SizableText, XStack } from 'tamagui';
 
 // TODO: Get info from store
 // TODO: Localize everything
@@ -14,27 +9,11 @@ import { twMerge } from 'tailwind-merge';
 export function Header(): JSX.Element {
   const { t, i18n } = useTranslation();
 
-  const [currentTheme, setCurrentTheme] = useState(getThemeDom());
-
-  /**
-   * Format items for ThemeDropdown
-   */
-  function getThemeItems(): Array<TrrDropdownItem> {
-    // TODO: Show DEFAULT_THEMES + Trainer's custom themes as options
-
-    return DEFAULT_THEMES.map((theme) => ({
-      isActive: theme === currentTheme,
-      content: theme,
-      value: theme,
-    }));
-  }
-
   /**
    * Format items for LocalizationDropdown
    */
-  function getLocalItems(): Array<TrrDropdownItem> {
+  function getLocalItems(): TrrSelectItem[] {
     return localKeys.map((key) => ({
-      isActive: key === i18n.language,
       content: t(`${key}.full`),
       value: key,
     }));
@@ -44,28 +23,35 @@ export function Header(): JSX.Element {
     i18n.changeLanguage(key);
   }
 
-  function getThemeDom(): string {
-    return document.querySelector('html')?.dataset.theme as string;
-  }
-
-  function setThemeDom(theme: string): void {
-    document.querySelector('html')!.dataset.theme = theme;
-  }
-
   return (
-    <div className="flex items-center justify-between bg-base-100 px-6 pb-3 pt-6">
-      <div className="flex gap-2">
-        <img
-          className="size-8 rounded-full"
-          src="https://api.dicebear.com/7.x/notionists/svg?seed=Coco&backgroundColor=c0aede&scale=150"
-          alt="avatar"
-        />
+    <XStack
+      alignItems="center"
+      justifyContent="space-between"
+      backgroundColor="$base"
+      paddingHorizontal="24px"
+      paddingBottom="12px"
+      paddingTop="24px"
+    >
+      <XStack gap="8px">
+        <Avatar circular size="$2.5">
+          {/* TODO: Get and show proper data */}
+          <Avatar.Image
+            accessibilityLabel={'Fit In A Bit V2'}
+            src={
+              'https://api.dicebear.com/7.x/notionists/svg?seed=Coco&backgroundColor=c0aede&scale=150'
+            }
+          />
+          <Avatar.Fallback delayMs={600} backgroundColor="$base" borderColor="$primary" />
+        </Avatar>
+        {/* // TODO Set 24px font size */}
+        <SizableText fontSize="24px" fontWeight={500}>
+          Fit In A Bit
+        </SizableText>
+      </XStack>
 
-        <h4 className="text-2xl font-semibold">Fit In A Bit</h4>
-      </div>
-
-      <div className="flex items-center gap-2">
-        <TrrDropdown
+      <XStack alignItems="center" gap="8px">
+        {/* TODO: Add after MVP */}
+        {/* <TrrDropdown
           closeOnSelect={false}
           toggleContent={
             <ThemeItem className="bg-transparent" dataTheme={currentTheme} />
@@ -97,15 +83,15 @@ export function Header(): JSX.Element {
             setThemeDom(theme as string);
             setCurrentTheme(theme as string);
           }}
-        />
+        /> */}
 
-        <TrrDropdown
-          toggleContent={t(`${i18n.language}.full`)}
-          toggleClassName="w-24"
+        <TrrSelect
+          size="$3"
+          value={i18n.language}
           items={getLocalItems()}
-          onSelect={(key) => setLanguage(key as string)}
+          onChange={(key) => setLanguage(key as string)}
         />
-      </div>
-    </div>
+      </XStack>
+    </XStack>
   );
 }

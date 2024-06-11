@@ -1,11 +1,7 @@
 import './App.css';
 import { TamaguiProvider, getTokens } from 'tamagui';
 import { RouterProvider } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '@store/index.store';
 import { router } from './router';
-import { LoadingPage } from '@core/components/LoadingPage.component';
 import { ToastProvider, ToastViewport } from '@tamagui/toast';
 
 import config from 'tamagui.config';
@@ -43,11 +39,7 @@ export function App(): JSX.Element {
       <ToastProvider duration={5000}>
         <ToastViewport flexDirection="column" left={0} right={0} multipleToasts={true} />
         <TrrToaster />
-        <Provider store={store}>
-          <PersistGate loading={<LoadingPage />} persistor={persistor}>
-            <RouterProvider router={router} />
-          </PersistGate>
-        </Provider>
+        <RouterProvider router={router} />
       </ToastProvider>
     </TamaguiProvider>
   );

@@ -1,8 +1,9 @@
 import { Header } from '@modules/trainer-pov/components/Header.component.tpov';
-import { Sidenav } from '@shared/components/Sidenav.component';
+import { TrrSidenav } from '@shared/components/TrrSidenav.component';
 import { useLazyLoadResourceHook } from '@shared/hooks/lazyLoadResource.hook';
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
+import { Main } from 'tamagui';
 
 export default function Clients(): JSX.Element {
   useLazyLoadResourceHook({
@@ -15,12 +16,12 @@ export default function Clients(): JSX.Element {
 
   return (
     <div className="flex">
-      <Sidenav />
-      <main className="w-full">
+      <TrrSidenav />
+      <Main display="flex" flexDirection="column" flexShrink={1} width="100%">
         <Header />
         <div>Hello from ClientsComponent & {t('clients:title')}!</div>
         <Outlet />
-      </main>
+      </Main>
     </div>
   );
 }

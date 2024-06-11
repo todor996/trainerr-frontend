@@ -1,7 +1,7 @@
 import { middlewares } from '@store/index.store';
 import { create } from 'zustand';
-import { OnboardingActions, onboardingSliceActions } from './onboardingActions.store';
-import { OnboardingState, onboardingSliceState } from './onboardingState.store';
+import { OnboardingActions, onboardingSliceActions } from './actions.store';
+import { OnboardingState, onboardingSliceState } from './state.store';
 
 // TODO@store: Write snippet for this
 export const useOnboardingStore = create<OnboardingState & OnboardingActions>()(

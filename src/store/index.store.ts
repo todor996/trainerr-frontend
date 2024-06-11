@@ -1,54 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
-import {
-  persistReducer,
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
-import { trainingReducer } from '@modules/trainer-pov/modules/training/store/trainingSlice.store';
 import { DevtoolsOptions, PersistOptions, devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { StateCreator } from 'zustand';
 import { AxiosError, AxiosResponse } from 'axios';
 import { TrrError } from '@shared/types/TrrError.type';
-
-// TODO@store: Replace redux with Zustand
-
-// Persist Config
-const persistConfig = {
-  key: 'root',
-  storage,
-};
-
-// Persisted Reducers
-// TODO: Create TrainerPOV store
-const persistedTrainingReducer = persistReducer(persistConfig, trainingReducer);
-
-// Configure Store
-export const store = configureStore({
-  reducer: {
-    // TODO: Create TrainerPOV store
-    training: persistedTrainingReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-});
-
-// Create Persistor
-export const persistor = persistStore(store);
-
-// Types
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 // ############################################################################
 // #region ZUSTAND

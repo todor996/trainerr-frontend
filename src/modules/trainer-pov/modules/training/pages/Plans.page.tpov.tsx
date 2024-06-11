@@ -1,33 +1,29 @@
 import { faDumbbell, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { TrrIcon } from '@shared/components/TrrIcon.component';
 import { Button, Drawer } from 'react-daisyui';
-import { TrainingPlanCard } from '../components/TrainingPlanCard.component.tpov';
-import { TrainingPlansHeader } from '../components/TrainingPlansHeader.component.tpov';
+import { PlanCard } from '../components/PlanCard.component.tpov';
+import { PlansHeader } from '../components/PlansHeader.component.tpov';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@store/hooks.store';
-import {
-  getTrainingPlanAction,
-  getTrainingPlansAction,
-} from '../store/trainingActions.store';
-import { TrainingPlanDetails } from '../components/TrainingPlanDetails.component.tpov';
-import { setInitStatePlan } from '../store/trainingSlice.store';
+import { PlanDetails } from '../components/PlanDetails.component.tpov';
 import { useSearchParams } from 'react-router-dom';
+import { useTrainingStore } from '../store/training.store';
+import { XStack, YStack } from 'tamagui';
 
-export default function TrainingPlansPage(): JSX.Element {
-  const dispatch = useAppDispatch();
+export default function PlansPage(): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
-  const plans = useAppSelector((state) => state.training.plans);
-  const plan = useAppSelector((state) => state.training.plan);
   const [visible, setVisible] = useState(false);
+  const store = useTrainingStore();
+  const { plans, plan } = store;
   // TODO: Handle loading and error states
 
   useEffect(() => {
     if (searchParams.get('id')) {
-      dispatch(getTrainingPlanAction(Number(searchParams.get('id'))));
+      store.getTrainingPlan(Number(searchParams.get('id')));
     }
 
-    dispatch(getTrainingPlansAction());
-  }, [dispatch, searchParams]);
+    store.getTrainingPlans();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   useEffect(() => {
     // TODO: Check this with BE team
@@ -46,11 +42,12 @@ export default function TrainingPlansPage(): JSX.Element {
     if (visible) {
       searchParams.delete('id');
       setSearchParams(searchParams);
-      dispatch(setInitStatePlan());
+      store.setInitPlan();
     }
 
     setVisible((visible) => !visible);
-  }, [dispatch, visible, searchParams, setSearchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, searchParams, setSearchParams]);
 
   function openDetails(id: number) {
     // get all current params
@@ -60,13 +57,13 @@ export default function TrainingPlansPage(): JSX.Element {
     // set all params
     setSearchParams(url.searchParams);
 
-    dispatch(getTrainingPlanAction(id));
+    store.getTrainingPlan(id);
   }
 
   return (
-    <div className="flex flex-col px-6">
+    <YStack paddingHorizontal="24px">
       {/* HEADER */}
-      <TrainingPlansHeader className="py-3" />
+      <PlansHeader className="py-3" />
 
       {/* DRAWER */}
       <Drawer
@@ -74,13 +71,19 @@ export default function TrainingPlansPage(): JSX.Element {
         open={visible}
         onClickOverlay={toggleVisible}
         end={true}
-        side={plan && <TrainingPlanDetails plan={plan} toggleVisible={toggleVisible} />}
+        side={plan && <PlanDetails plan={plan} toggleVisible={toggleVisible} />}
       />
 
       {/* BODY */}
-      <div className="flex w-full flex-row flex-wrap gap-4 bg-base-100 py-6">
+      <XStack
+        width="100%"
+        flexWrap="wrap"
+        gap="16px"
+        backgroundColor="$base"
+        paddingVertical="24px"
+      >
         {(plans || []).map((plan) => (
-          <TrainingPlanCard
+          <PlanCard
             key={plan.id}
             className="cursor-pointer"
             title={plan.name}
@@ -95,7 +98,7 @@ export default function TrainingPlansPage(): JSX.Element {
             )}
           />
         ))}
-      </div>
-    </div>
+      </XStack>
+    </YStack>
   );
 }

@@ -1,9 +1,9 @@
-import { Sidenav } from '@shared/components/Sidenav.component';
+import { TrrSidenav } from '@shared/components/TrrSidenav.component';
 
 export default function TrainingExercisesPage(): JSX.Element {
   return (
     <div className="flex">
-      <Sidenav />
+      <TrrSidenav />
       <div>Hello from TrainingExercisesPage!</div>
     </div>
   );

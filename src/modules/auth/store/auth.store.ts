@@ -1,7 +1,7 @@
 import { middlewares } from '@store/index.store';
 import { create } from 'zustand';
-import { AuthActions, authSliceActions } from './authActions.store';
-import { AuthState, authSliceState } from './authState.store';
+import { AuthActions, authSliceActions } from './actions.store';
+import { AuthState, authSliceState } from './state.store';
 
 export const useAuthStore = create<AuthState & AuthActions>()(
   middlewares<AuthState & AuthActions>({

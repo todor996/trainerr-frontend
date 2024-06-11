@@ -20,7 +20,7 @@ const initFromValues: FormInputs = {
   description: '',
 };
 
-export function OnboardingAppInfo(): JSX.Element {
+export function AppInfo(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
 

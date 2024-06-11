@@ -2,7 +2,7 @@ import { createAppMeta, createProfile } from '../api/onboarding.api';
 import { ProfileInfo } from '@shared/types/ProfileInfo.type';
 import { User } from '@shared/types/User.type';
 import { StoreSlice, asyncFn } from '@store/index.store';
-import { OnboardingState } from './onboardingState.store';
+import { OnboardingState } from './state.store';
 import { TrrError } from '@shared/types/TrrError.type';
 import { AppMeta } from '@shared/types/AppMeta.type';
 import { AppMetaCreationData } from '@shared/types/AppMetaCreationData.type';
@@ -71,12 +71,7 @@ export const onboardingSliceActions: StoreSlice<OnboardingState, OnboardingActio
   },
 
   async createAppMetaAsync(payload) {
-    console.log({ payload });
-
     const res = await asyncFn(set, () => createAppMeta(payload));
-
-    console.log({ res });
-
     return res.data;
   },
 

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Form, Paragraph, SizableText } from 'tamagui';
 import { TrrInput } from '@shared/components/TrrInput.component';
 import { TrrCheckbox } from '@shared/components/TrrCheckbox.component';
-import { useAppDispatch } from '@store/hooks.store';
 import { useFormik } from 'formik';
 import { Validator } from '@shared/services/validator.service';
 import { useEffect } from 'react';
@@ -33,8 +32,6 @@ export function SignUpForm(): JSX.Element {
   const toast = useToastController();
   const store = useAuthStore();
   const { loading, error, success } = store;
-
-  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: initFromValues,
@@ -71,7 +68,7 @@ export function SignUpForm(): JSX.Element {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, error, success, dispatch]);
+  }, [loading, error, success]);
 
   function handleSubmitFormik(values: FormInputs) {
     store.trainerSignupAsync(values);
